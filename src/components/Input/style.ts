@@ -11,10 +11,11 @@ interface FieldProps {
     border: 1px solid #3F3F3F;
     font-family: 'Righteous', sans-serif;
     padding-left: .5rem;
+  
   `;
 
 export const Label = styled.label<{fontSize: string}>`
     font-family: 'Righteous', sans-serif;
-    padding-bottom: .5rem;
+ 
     font-size: ${props => props.fontSize};
 `

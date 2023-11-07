@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Section = styled.section`
     margin-top: 30px;
     width: 100%;
-    height: 100vh;
+    height: 30vh;
     display: flex;
     
     
@@ -62,15 +62,57 @@ export const FormText = styled.div`
      
 `;
 
-export const InputsContainer = styled.div<{flexDirection: string, width: string}>`
+export const InputsContainer = styled.div<{flexDirection: string, width: string, height: string}>`
     display: flex;
     flex-direction: ${props => props.flexDirection};
     width:  ${props => props.width};
     margin-top: .2rem;
     margin-bottom: .2rem;
-    
+    height: ${props => props.height};
     
 `;
+
+
+export const RadioInputContainer = styled.div`
+    display: flex;
+    height: 70%;
+    flex-direction: column;
+    margin-top: 20px;
+
+`;
+
+export const Options = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+    height: 35px;
+   
+`;
+
+export const RadioLabel = styled.label`
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 0px;
+    margin-right: 4rem;
+    font-size: 16px;
+    user-select: none;
+`;
+
+export const QuestionsInput = styled.div`
+    width: 70%;
+    display: flex;
+    font-size: 16px;
+    flex-direction: column;
+    height: 25%;
+
+   
+  ;
+   
+`;
+
+export const RadioInputChecked = styled.input``;
 
 export const FormInputs = styled.div`
     display: flex;
@@ -142,3 +184,22 @@ export const ButtonContact = styled.button`
      
 `;
 
+export const SpaceButton = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    height: 85px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const BackButton = styled.button`
+    color: #0065E0;
+    background-color: transparent;
+    border: 1px solid #0065E0;
+    margin: 1rem;
+    padding: .5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+`;
