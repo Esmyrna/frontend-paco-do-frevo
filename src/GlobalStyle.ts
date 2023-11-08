@@ -8,5 +8,6 @@ export const GloblaStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-style:'Righteous', sans-serif;
+        height: 100vh;
     }
 `

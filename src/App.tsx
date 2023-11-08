@@ -4,6 +4,7 @@ import { FormContextProvider } from './context';
 import { GeneralData } from './pages/Form/General Data';
 import { Dashboard } from './pages/Dashboard';
 import { LegalData } from './pages/Form/Legal Data';
+import { Components } from './pages/Form/Component';
 
 
 function AppRoute() {
@@ -19,6 +20,11 @@ function AppRoute() {
         <Route path='/cadastrar-agremiacao/dados-juridicos' element={
           <FormContextProvider>
             <LegalData/>
+          </FormContextProvider>
+        } />
+         <Route path='/cadastrar-agremiacao/componentes' element={
+          <FormContextProvider>
+            <Components/>
           </FormContextProvider>
         } />
         <Route path='/dashboard' element={<Dashboard />} />

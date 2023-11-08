@@ -82,11 +82,13 @@ export const RadioInputContainer = styled.div`
 `;
 
 export const Options = styled.div`
-    width: 100%;
+    width: 70%;
     display: flex;
     align-items: center;
     margin-left: 100px;
     height: 35px;
+    
+   
    
 `;
 
@@ -98,6 +100,8 @@ export const RadioLabel = styled.label`
     margin-right: 4rem;
     font-size: 16px;
     user-select: none;
+    font-family: sans-serif;
+    font-size: 15px;
 `;
 
 export const QuestionsInput = styled.div`
@@ -106,6 +110,7 @@ export const QuestionsInput = styled.div`
     font-size: 16px;
     flex-direction: column;
     height: 25%;
+    
 
    
   ;
@@ -133,10 +138,10 @@ export const Fields = styled.div`
 
 `;
 
-export const SaveInfos = styled.div`
-    height: 100%;
+export const SaveInfos = styled.div<{justifyContent: string}>`
+    height: 90%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: ${props => props.justifyContent};
     align-items: center;
     padding-right: 3rem;
 `;

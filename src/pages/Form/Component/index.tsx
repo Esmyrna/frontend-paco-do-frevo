@@ -4,14 +4,14 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
-import { SaveInfos } from "../Legal Data/style"
-import { ButtonAdd,  ButtonOptions, Contact, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer,  Section, Select, TextForm } from "./style"
+import { Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
+import { ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextForm } from "./style"
 
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
-export const GeneralData = (): JSX.Element => {
+export const Components = (): JSX.Element => {
     return (
         <>
             <Nav />
@@ -45,62 +45,38 @@ export const GeneralData = (): JSX.Element => {
                     </FormText>
                     <FormInputs>
                         <Fields>
-                            <Label fontSize={'16px'}> Nome da agremiação:</Label>
+                            <Label fontSize={'16px'}>Nome do componente:</Label>
                             <Input type={'text'} width={'95%'} placeholder="Bloco do Bacalhau do Batata" />
 
                             <InputsContainer width={'100%'} flexDirection="row">
-
                                 <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Tipo da agremiação:</Label>
+                                    <Label fontSize={'16px'} >Função na agremiação:</Label>
                                     <Select width={"90%"} />
                                 </InputsContainer>
 
                                 <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Em caso de outro, especifique:</Label>
+                                    <Label fontSize={'16px'}>Tempo de atuação em meses:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Digite o tipo da agremiação" />
                                 </InputsContainer>
-
                             </InputsContainer>
-
-                            <InputsContainer width={'100%'} flexDirection="column">
-                                <Label fontSize={'16px'} >Cores:</Label>
-                                <Input type={'text'} width={'95%'} placeholder="Ex: Amarelo e azul" />
-                            </InputsContainer>
-
-                            <InputsContainer width={'100%'} flexDirection="row">
-
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Data de fundação:</Label>
-                                    <Input type={'date'} width={'88%'} placeholder="Ex: Amarelo e azul" />
-                                </InputsContainer>
-
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Integrantes ativos:</Label>
-                                    <Input type={'number'} width={'90%'} placeholder="Ex: 25" />
-                                </InputsContainer>
-                            </InputsContainer>
-                            <InputsContainer width={'100%'} flexDirection="column">
-                                <Label fontSize={'16px'} >Presidente:</Label>
-                                <Input type={'number'} width={'95%'} placeholder="Ex: José Gomes da Silva" />
-                            </InputsContainer>
-
-                            <Contact>
-                            <InputsContainer width={'30%'} flexDirection="column">
-                                <Label fontSize={'24px'}>Contatos</Label>
-                                <Select width={"90%"} />
-                            </InputsContainer>
-                            <InputsContainer width={'40%'} flexDirection="column">
-                                <Input type={'number'} width={'100%'} placeholder="Ex: José Gomes da Silva" />
-                            </InputsContainer>
-                            <ButtonAdd>Adicionar</ButtonAdd>
+                            <RadioInputContainer>   
+                            <QuestionsInput>
+                                    <Label fontSize={'16px'}>Vive do frevo?</Label>
+                                    <Options>
+                                        <RadioInputChecked type="radio" id="option1" />
+                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
+                                        <RadioInputChecked type="radio" id="option2" />
+                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
+                                    </Options>
+                                    </QuestionsInput>
+                            </RadioInputContainer>
                             
-                        </Contact>
-                        <SaveInfos justifyContent={'flex-end'}>
+                            <SaveInfos justifyContent={'flex-end'}>
                                 <Button>Próxima Etapa</Button>
                             </SaveInfos>
                         </Fields>
 
-                        
+
                     </FormInputs>
                 </FormContainer>
             </Section>

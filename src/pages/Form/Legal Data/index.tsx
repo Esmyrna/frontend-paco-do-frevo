@@ -3,8 +3,8 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
-import { SaveInfos } from "../General Data/style"
-import { BackButton, ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, Section, SpaceButton, TextForm } from "./style"
+ 
+import { BackButton, ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos, Section, SpaceButton, TextForm } from "./style"
 
 
 
@@ -136,7 +136,7 @@ export const LegalData = (): JSX.Element => {
                                         <RadioLabel htmlFor="option2">Não</RadioLabel>
                                     </Options>
                                     </QuestionsInput>
-                                    <SaveInfos>
+                                    <SaveInfos justifyContent={'space-between'}>
                                  <BackButton>Voltar</BackButton>
                                 <Button>Próxima Etapa</Button>
                             </SaveInfos>
