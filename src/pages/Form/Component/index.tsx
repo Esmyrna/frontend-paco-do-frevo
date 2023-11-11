@@ -1,17 +1,25 @@
 
 
+import { useNavigate } from "react-router-dom"
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
-import { Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
+import { BackButton, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
 import { ButtonOptions, DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
 
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
-export const Components = (): JSX.Element => {
+
+export const Components: React.FC = () => {
+    const navigate = useNavigate();
+
+    const backPageClick = () => {
+        navigate('/cadastrar-agremiacao/dados-juridicos');
+    }
+    
     return (
         <>
             <Nav />
@@ -74,12 +82,11 @@ export const Components = (): JSX.Element => {
                             <Label fontSize={'16px'}>Fale  um pouco sobre a história da agremiação (fundação, prêmios, membros notórios, etc.):</Label>
                                 <FieldTextArea></FieldTextArea>
                             </TextArea>
-                            <SaveInfos height={'5%'} justifyContent={'flex-end'}>
+                            <SaveInfos height={'5%'} justifyContent={'space-between'}>
+                            <BackButton onClick={backPageClick} >Voltar</BackButton>
                                 <Button backgroundColor={'#27962D'}>Salvar agremiação</Button>
                             </SaveInfos>
                         </Fields>
-
-
                     </FormInputs>
                 </FormContainer>
             </Section>

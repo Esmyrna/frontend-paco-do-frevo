@@ -20,7 +20,9 @@ export const LegalData = (): JSX.Element => {
     const handleClick = () => {
       navigate('/cadastrar-agremiacao/componentes');
     };
-  
+    const backPageClick = () => {
+        navigate('/cadastrar-agremiacao/dados-gerais');
+    }
     return (
         <>
             <Nav />
@@ -145,7 +147,7 @@ export const LegalData = (): JSX.Element => {
                                     </Options>
                                     </QuestionsInput>
                                     <SaveInfos height={'90%'} justifyContent={'space-between'}>
-                                 <BackButton>Voltar</BackButton>
+                                 <BackButton onClick={backPageClick} >Voltar</BackButton>
                                 <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                             </SaveInfos>
                             </RadioInputContainer>
