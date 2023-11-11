@@ -7,18 +7,35 @@ import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
 import { BackButton, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
 import { ButtonOptions, DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
-
+import ConfettiExplosion from 'react-confetti-explosion';
+import { useEffect, useState } from "react"
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
 
 export const Components: React.FC = () => {
+    const [isExploding, setIsExploding] = useState(false);
+
     const navigate = useNavigate();
 
     const backPageClick = () => {
         navigate('/cadastrar-agremiacao/dados-juridicos');
     }
+    
+    const saveFormClick = () => {
+        setIsExploding(true)
+        
+    }
+
+    useEffect(() => {
+        if (isExploding) {
+            const timeoutId = setTimeout(() => {
+                setIsExploding(false);
+            }, 3000);
+            return () => clearTimeout(timeoutId);
+        }
+    }, [isExploding]);
     
     return (
         <>
@@ -51,11 +68,19 @@ export const Components: React.FC = () => {
                             mantém o Frevo vivo o ano todo!
                         </TextForm>
                     </FormText>
-                    <FormInputs>
+                    <FormInputs>   {isExploding && (
+                                        <ConfettiExplosion
+                                        force={0.8}
+                                        duration={3000}
+                                        particleCount={250}
+                                        width={1600}
+                                        />
+                                    )}
                         <Fields>
+                     
                             <Label fontSize={'16px'}>Nome do componente:</Label>
                             <Input type={'text'} width={'95%'} placeholder="Bloco do Bacalhau do Batata" />
-
+                          
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Função na agremiação:</Label>
@@ -68,7 +93,7 @@ export const Components: React.FC = () => {
                                 </InputsContainer>
                             </InputsContainer>
                             <RadioInputContainer height={'30%'}>   
-                            <QuestionsInput>
+                            <QuestionsInput >  
                                     <Label fontSize={'16px'}>Vive do frevo?</Label>
                                     <Options>
                                         <RadioInputChecked type="radio" id="option1" />
@@ -84,7 +109,9 @@ export const Components: React.FC = () => {
                             </TextArea>
                             <SaveInfos height={'5%'} justifyContent={'space-between'}>
                             <BackButton onClick={backPageClick} >Voltar</BackButton>
-                                <Button backgroundColor={'#27962D'}>Salvar agremiação</Button>
+                                <Button onClick={saveFormClick} backgroundColor={'#27962D'}>
+                                    Salvar agremiação 
+                                    </Button>
                             </SaveInfos>
                         </Fields>
                     </FormInputs>

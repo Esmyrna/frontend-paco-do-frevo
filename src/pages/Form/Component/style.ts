@@ -19,7 +19,7 @@ export const DataInfos = styled.div`
 export const Infos = styled.div`
     background-color: #E9E9E9;
     width: 250px;
-    height: 230px;
+    height: 200px;
     margin-top: 10%;
     border-radius: 12px;
     display: flex;
