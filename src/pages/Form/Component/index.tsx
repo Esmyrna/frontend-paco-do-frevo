@@ -6,9 +6,11 @@ import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
 import { BackButton, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
-import { ButtonOptions, DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
+import { DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useEffect, useState } from "react"
+import { ButtonOptions } from "../General Data/style"
+import Footer from "../../../components/Footer"
 /**
  * Página de cadastro de uma agremiação
  * @returns 
@@ -43,10 +45,9 @@ export const Components: React.FC = () => {
             <Section>
                 <DataInfos>
                     <Infos>
-                        <ButtonOptions>Dados gerais</ButtonOptions>
-                        <ButtonOptions>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions>Componentes</ButtonOptions>
-                     
+                        <ButtonOptions isActive={false}>Dados gerais</ButtonOptions>
+                        <ButtonOptions isActive={false}>Dados jurídicos</ButtonOptions>
+                        <ButtonOptions isActive={true}>História da agremiação</ButtonOptions>
                     </Infos>
                 </DataInfos>
                 <FormContainer>
@@ -117,6 +118,7 @@ export const Components: React.FC = () => {
                     </FormInputs>
                 </FormContainer>
             </Section>
+            <Footer/>
         </>
     )
 }

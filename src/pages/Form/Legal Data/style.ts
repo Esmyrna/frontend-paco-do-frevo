@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Section = styled.section`
     margin-top: 30px;
     width: 100%;
-    height: 30vh;
+    height: 100vh;
     display: flex;
     
     
@@ -19,7 +19,7 @@ export const DataInfos = styled.div`
 export const Infos = styled.div`
     background-color: #E9E9E9;
     width: 250px;
-    height: 230px;
+    height: 180px;
     margin-top: 10%;
     border-radius: 12px;
     display: flex;
@@ -29,24 +29,8 @@ export const Infos = styled.div`
  
 `;
 
-export const ButtonOptions = styled.div`
- 
-    border: none;
-    text-align: start;
-    margin: 1rem;
-    font-family: 'Righteous', sans-serif;
 
-    &:hover {
-    color: #E20821;
-    border: none;
-    padding: .8rem;
-    margin: .5rem;
-    text-align: start;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 8px;
-    }
-`;
+
 
 export const FormContainer = styled.div`
     width: 100%;

@@ -5,7 +5,9 @@ import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
  
-import { BackButton, ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos, Section, SpaceButton, TextForm } from "./style"
+import { BackButton, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos, Section, SpaceButton, TextForm } from "./style"
+import { ButtonOptions } from "../General Data/style"
+import Footer from "../../../components/Footer"
 
 
 
@@ -29,10 +31,9 @@ export const LegalData = (): JSX.Element => {
             <Section>
                 <DataInfos>
                     <Infos>
-                        <ButtonOptions>Dados gerais</ButtonOptions>
-                        <ButtonOptions>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions>Componentes</ButtonOptions>
-                        <ButtonOptions>História da agremiação</ButtonOptions>
+                        <ButtonOptions isActive={false}>Dados gerais</ButtonOptions>
+                        <ButtonOptions isActive={true}>Dados jurídicos</ButtonOptions>
+                        <ButtonOptions isActive={false}>História da agremiação</ButtonOptions>
                     </Infos>
                 </DataInfos>
                 <FormContainer>
@@ -155,6 +156,7 @@ export const LegalData = (): JSX.Element => {
                     </FormInputs>
                 </FormContainer>
             </Section>
+            <Footer/>
         </>
     )
 }

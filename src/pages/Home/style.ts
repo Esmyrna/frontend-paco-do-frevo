@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 /** ????????????
  * separar interface no arquivo de types
@@ -59,97 +59,54 @@ export const TextAbout = styled.p`
    
 `;
 
-export const Card = styled.div<{ border: string }>`
-    width: 300px;
-    height: 350px;
-    border:${props => props.border};
-    margin: 1rem;
+
+export const blinkAnimation = keyframes`
+  0% {
+    box-shadow: 0 0 10px #E20821;
+  }
+  50% {
+    box-shadow: 0 0 20px #00377B;
+  }
+  100% {
+    box-shadow: 0 0 10px #27962D;
+  }
 `;
 
-export const ContainerInfosCard = styled.div``;
+export const Card = styled.div<{ border: string; backgroundColor: string; boxShadow: string }>`
+  width: 300px;
+  height: 350px;
+  border: ${props => props.border};
+  margin: 1rem;
+  background-color: ${props => props.backgroundColor};
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: ${props => props.boxShadow};
+  animation: ${blinkAnimation} 2s infinite alternate; /* 2s de duração, infinito e alternado */
+`;
+
+export const ContainerInfosCard = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+ 
+`;
 
 export const SignUp = styled.div`
     
-    width: 30%;
+    width: 31%;
     display: flex;
     justify-content: flex-end;
     
 `;
 
-// Logo
-export const Logo = styled.img`
-  height: 2rem;
-  width: 2rem;
+export const Img = styled.img``;
+
+export const CardText = styled.p<{fontSize: string, fontWeight: string}>`
+  color: #fff;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: ${props => props.fontSize};
+  font-weight: ${props => props.fontWeight};
 `;
-
-// Footer text
-export const FooterText = styled.p`
-  font-family: 'Lato', sans-serif;
-  font-size: 1rem;
-  text-align: justify;
-  padding-left: 1rem;
-`;
-
-// Footer link texts
-export const FooterLinkTexts = styled.a`
-  font-family: 'Lato', sans-serif;
-  font-size: 0.75rem;
-  text-align: justify;
-  padding-left: 1rem;
-  color: #000;
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: #444;
-  }
-`;
-
-// Footer container
-export const Footer = styled.footer`
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  background-color: white;
-  border-top: solid 0.15rem #000;
-  padding-top: 0.75rem;
-  padding-bottom: 1rem;
-  padding-left: 2.5vw;
-  padding-right: 2.9vw;
-
-  @media (max-width: 576px) {
-    flex-direction: column;
-  }
-
-  & > ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-`;
-
-// Redes sociais
-export const SocialNetworksList = styled.ul`
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1rem;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-// Links úteis
-export const UsefulLinksList = styled.ul`
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-export const FooterSection = styled.section<{ flexDirection: string }>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: flex-start;
-    justify-self: flex-start;
-    flex-direction: ${props => props.flexDirection};
-  `;

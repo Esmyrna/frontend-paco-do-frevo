@@ -1,5 +1,6 @@
 import { Item, List, Logo, NavBar, NavImage, Options, RegisterButton, User } from './style'
 import PageSymbol from "../../assets/logo-paco.png"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -8,6 +9,17 @@ import PageSymbol from "../../assets/logo-paco.png"
  * @returns 
  */
 const Nav = () => {
+
+    const navigate = useNavigate();
+
+    const handleClickPageHome = () => {
+      navigate('/');
+    };
+  
+    const handleClickPageForm = () => {
+        navigate('/cadastrar-agremiacao/dados-gerais');
+    };
+
     return (
         <NavBar>
             <NavImage>
@@ -16,8 +28,8 @@ const Nav = () => {
             <Options>
                 <List>
                     {/* Os itens da navbar precisam sem importados do button, com o padrão large */}
-                    <Item>Home</Item>
-                    <Item>Cadastrar agremiação</Item>
+                    <Item onClick={handleClickPageHome}>Home</Item>
+                    <Item onClick={handleClickPageForm}>Cadastrar agremiação</Item>
                     <Item>Dashboard</Item>
                 </List>
             </Options>

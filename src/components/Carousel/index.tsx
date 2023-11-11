@@ -8,7 +8,7 @@ interface CarouselProps {
 const Container = styled.div`
   display: flex;
   overflow: hidden;
-  border: 6px solid #E20821;
+  border-radius: 10px;
 `;
 
 const Slide = styled.img`

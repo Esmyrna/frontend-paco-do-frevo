@@ -8,28 +8,29 @@ import { SaveInfos } from "../Legal Data/style"
 import { ButtonAdd,  ButtonOptions, Contact, DataInfos, Fields, FormContainer, FormInputs, FormText, ImgDetails, Infos, InputsContainer,  Section, Select, TextForm } from "./style"
 import Details from '../../../assets/detalhe-site.png'
 import { useNavigate } from 'react-router-dom';
+import Footer from "../../../components/Footer"
+ 
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
 export const GeneralData: React.FC = () => {
- 
+    
     const navigate = useNavigate();
 
     const handleClick = () => {
       navigate('/cadastrar-agremiacao/dados-juridicos');
-    };
-  
+    };  
+
     return (
         <>
             <Nav />
             <Section>
                 <DataInfos>
                     <Infos>
-                        <ButtonOptions>Dados gerais</ButtonOptions>
-                        <ButtonOptions>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions>Componentes</ButtonOptions>
-                        <ButtonOptions>História da agremiação</ButtonOptions>
+                        <ButtonOptions isActive={true}>Dados gerais</ButtonOptions>
+                        <ButtonOptions isActive={false}>Dados jurídicos</ButtonOptions>
+                        <ButtonOptions isActive={false}>História da agremiação</ButtonOptions>    
                     </Infos>
                 </DataInfos>
                 <FormContainer>
@@ -108,11 +109,10 @@ export const GeneralData: React.FC = () => {
                                 <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                             </SaveInfos>
                         </Fields>
-
-                        
                     </FormInputs>
                 </FormContainer>
             </Section>
+            <Footer/>
         </>
     )
 }
