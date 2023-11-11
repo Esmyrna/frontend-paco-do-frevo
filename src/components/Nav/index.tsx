@@ -1,4 +1,4 @@
-import { Item, List, Logo, NavBar, NavImage, Options, RegisterButton } from './style'
+import { Item, List, Logo, NavBar, NavImage, Options, RegisterButton, User } from './style'
 import PageSymbol from "../../assets/logo-paco.png"
 
 
@@ -24,7 +24,7 @@ const Nav = () => {
             {/* Também deve seguir o padrão de botão */}
              <RegisterButton>
                 {/* Não usar tamanho fixo no botão nem margin, o botão deve conter apenas padding */}
-           
+                <User/>
            
              </RegisterButton>
         </NavBar>

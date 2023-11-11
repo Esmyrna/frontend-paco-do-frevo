@@ -121,7 +121,10 @@ export const Contact = styled.div`
   
 `;
 
-
+export const ImgDetails = styled.img`
+    margin-bottom: 6%;
+    width: 350px;
+`;
 
 export const ButtonAdd = styled.button`
     margin-left: 50px;

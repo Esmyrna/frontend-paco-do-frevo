@@ -39,6 +39,12 @@ export const VideoSlogan = styled.div<{ backgroundColor: string, width: string, 
 export const About = styled.div<{width: string}>`
     width: ${props => props.width};
     text-align: center;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items:  flex-start;
+ 
+     
  
 `;
 
@@ -47,9 +53,25 @@ export const TextAbout = styled.p`
     text-align: justify;
     padding-left: 2rem;
     font-family: 'Righteous', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 20px;
+     
     /** Fonte */
-    font-family: 'Alatsi', sans-serif;
+   
 `;
- 
+
+export const Card = styled.div<{border: string}>`
+    width: 300px;
+    height: 350px;
+    border:${props => props.border};
+    margin: 1rem;
+`;
+
+export const ContainerInfosCard = styled.div``;
+
+export const SignUp = styled.div`
+    
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    
+`;

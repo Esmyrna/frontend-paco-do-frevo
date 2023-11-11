@@ -1,4 +1,5 @@
 
+import { useNavigate } from "react-router-dom"
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
@@ -13,6 +14,13 @@ import { BackButton, ButtonOptions, DataInfos, Fields, FormContainer, FormInputs
  * @returns 
  */
 export const LegalData = (): JSX.Element => {
+    
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+      navigate('/cadastrar-agremiacao/componentes');
+    };
+  
     return (
         <>
             <Nav />
@@ -52,7 +60,7 @@ export const LegalData = (): JSX.Element => {
                                     <Input type={'text'} width={'95%'} placeholder="Ex: José Gomes da Silva" />
                                 </InputsContainer>
                                 <SpaceButton>
-                                    <Button>Pesquisar</Button>
+                                    <Button backgroundColor="#27962D">Pesquisar</Button>
                                 </SpaceButton>
                             </InputsContainer>
 
@@ -95,7 +103,7 @@ export const LegalData = (): JSX.Element => {
                                     <Input type={'text'} width={'90%'} placeholder="Ex: PE" />
                                 </InputsContainer>
                             </InputsContainer>
-                            <RadioInputContainer>
+                            <RadioInputContainer height={'70%'}>
                                   <QuestionsInput>
                                     <Label fontSize={'16px'}>O endereço em questão corresponde à sede da agremiação?</Label>
                                     <Options>
@@ -136,9 +144,9 @@ export const LegalData = (): JSX.Element => {
                                         <RadioLabel htmlFor="option2">Não</RadioLabel>
                                     </Options>
                                     </QuestionsInput>
-                                    <SaveInfos justifyContent={'space-between'}>
+                                    <SaveInfos height={'90%'} justifyContent={'space-between'}>
                                  <BackButton>Voltar</BackButton>
-                                <Button>Próxima Etapa</Button>
+                                <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                             </SaveInfos>
                             </RadioInputContainer>
                         </Fields>

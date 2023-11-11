@@ -3,6 +3,7 @@ import styled from 'styled-components';
 type ButtonSaveProps = {
     children: React.ReactNode;
     onClick?: () => void;
+    backgroundColor: string;
   };
 
 export const StyledButton = styled.button<ButtonSaveProps>`
@@ -11,6 +12,6 @@ export const StyledButton = styled.button<ButtonSaveProps>`
   border-radius: 4px;
   cursor: pointer;
   color: #ffffff;
-  background-color: #0065E0;
- 
+  background-color: ${props => props.backgroundColor};
+  
 `;

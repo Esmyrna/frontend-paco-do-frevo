@@ -83,3 +83,10 @@ export const DefaultButton = styled.button`
         opacity: 0.7;
     }
 `;
+
+export const User = styled.div`
+    background-color: grey;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+`;

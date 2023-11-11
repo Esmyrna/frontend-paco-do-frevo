@@ -135,3 +135,16 @@ export const ButtonAdd = styled.button`
      
 `;
 
+export const TextArea = styled.div`
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    width: 97%;
+   
+`;
+
+
+export const FieldTextArea = styled.textarea`
+    height: 80%;
+    margin-top: 10px;
+`;

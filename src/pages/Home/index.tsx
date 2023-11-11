@@ -1,64 +1,92 @@
-import Nav from "../../components/Nav"
-import Elipse from "../../assets/Ellipse.png"
-import Frevo from "../../assets/Sombrinha.png"
-import FrevoVivo from "../../assets/FREVO-VIVO.png"
-import Details from "../../assets/detalhe-site.png"
-import { About, Section, TextAbout,  VideoContainer, VideoSlogan } from "./style"
-import Video from "../../assets/VideoPaço.mp4"
-import { Title } from "../../components/Title/style"
-import { Images } from "../../components/Images/style"
+import React from 'react';
+import Nav from '../../components/Nav';
 
- 
-/**
- * Página inicial do projeto
- * @returns 
- */
-export const HomePage = (): JSX.Element => {
+import frevo1 from '../../assets/frevo1.jpeg'
+import frevo2 from '../../assets/frevo2.jpeg'
+import frevo3 from '../../assets/frevo3.jpeg'
+
+import Video from '../../assets/VideoPaço.mp4';
+import { Title } from '../../components/Title/style';
+
+import {
+    About,
+    Card,
+    ContainerInfosCard,
+    Section,
+    SignUp,
+    TextAbout,
+    VideoContainer,
+    VideoSlogan
+} from './style';
+import CarouselImage from '../../components/Carousel';
+import Button from '../../components/Button';
+
+const HomePage: React.FC = () => {
+    const images = [frevo1, frevo2, frevo3];
     return (
         <>
             <Nav />
-            <Section marginTop={"0px"} flexDirection='row'>
+            <Section marginTop={'0px'} flexDirection="row">
                 <VideoContainer autoPlay muted loop>
                     <source src={Video} type="video/mp4" />
                 </VideoContainer>
-                <VideoSlogan backgroundColor='#000' width={'480px'} height={'270px'}>
-                    <VideoSlogan backgroundColor='#3c02028c' width={'400px'} height={'230px'}>
-                        <Title Size={"24px"} textAlign={"center"} color={"#fff"}>Venha fazer parte dessa história</Title>
-                      
+                <VideoSlogan backgroundColor="#000" width={'480px'} height={'270px'}>
+                    <VideoSlogan backgroundColor="#3c02028c" width={'400px'} height={'230px'}>
+                        <Title Size="24px" textAlign="center" color="#fff">
+                            Venha fazer parte dessa história
+                        </Title>
+                        <Button backgroundColor='red'>Cadastre sua agremiação</Button>
                     </VideoSlogan>
                 </VideoSlogan>
             </Section>
-            <Section marginTop={"30px"} flexDirection='row'>
-                <About width={"700px"}>
-                    <Title Size={"24px"} textAlign={"start"} color={"#E20821"}>Conecte-se com a gente!</Title>
-                    <Title Size={"24px"} textAlign={"start"} color={"#E20821"}>Sobre</Title>
-                    <TextAbout>O Paço do Frevo é reconhecido pelo Iphan como centro de referência em ações, projetos, transmissão,
-                        salvaguarda e valorização de uma das principais tradições culturais do Brasil, o Frevo.
-                        Patrimônio imaterial pela Unesco e pelo Iphan, o Frevo é um convite à celebração da vida,
-                        por meio da ativação de memórias, personalidades e linguagens artísticas, que no Paço do Frevo encontram
-                        seu lugar máximo de expressão, na manutenção de ações  de difusão, pesquisa e formação nas áreas da dança e da música,
-                        dos adereços e das agremiações do Frevo.
+            <Section marginTop={'30px'} flexDirection="row">
+                <About width="700px">
+                    <Title Size="24px" textAlign="start" color="#E20821">
+                        Conecte-se com a gente!
+                    </Title>
+                    <Title Size="24px" textAlign="start" color="#E20821">
+                        Sobre
+                    </Title>
+                    <TextAbout>
+                        O Paço do Frevo é reconhecido pelo Iphan como centro de referência em ações, projetos, transmissão,
+                        salvaguarda e valorização de uma das principais tradições culturais do Brasil, o Frevo. Patrimônio imaterial
+                        pela Unesco e pelo Iphan, o Frevo é um convite à celebração da vida, por meio da ativação de memórias,
+                        personalidades e linguagens artísticas, que no Paço do Frevo encontram seu lugar máximo de expressão, na
+                        manutenção de ações de difusão, pesquisa e formação nas áreas da dança e da música, dos adereços e das
+                        agremiações do Frevo.
                     </TextAbout>
-                    <Images  top={"30px"} right={"250px"} width={"382.18"} height={"120.18"} src={Details} />
+                    <SignUp>
+                    <Button backgroundColor='red'>Cadastre sua agremiação</Button>
+                    </SignUp>
+                   
                 </About>
-                <About width={"500px"}>
-                    <Images  top={"0px"}  right={"0px"} width={"230px"} height={"230px"} src={Frevo} />
-                    <Images  top={"0px"} right={"40px"} width={"230px"} height={"230px"} src={Elipse} />
+                <About width="500px">
+                    <CarouselImage images={images} />
                 </About>
-            </Section>
-            <Section marginTop={"30px"} flexDirection='row'>
-                <About width={"600px"}>
-                  <Images top={"0px"} right={"0px"} width={"440px"} height={"230px"} src={FrevoVivo} />
-                </About>
-                <About width={"600px"}>
-                    <Title Size={"42px"}textAlign={"center"} color={"#E20821"}>O que desejas?</Title>
-                 
-                </About>       
-            </Section>
-            <Section marginTop={"70px"} flexDirection='row'>
-            
-            </Section>        
-        </>
 
-    )
-}
+            </Section>
+
+            <Section marginTop={'30px'} flexDirection="row">
+                <Card border={'7px solid #27962D'}>
+                  <ContainerInfosCard>
+
+                  </ContainerInfosCard>
+                </Card>
+
+                <Card border={'7px solid #00377B'}>
+
+                </Card>
+
+                <Card border={'7px solid #E20821'}>
+
+                </Card>
+
+            </Section>
+            <Section marginTop={'70px'} flexDirection="row">
+                {/* Conteúdo aqui */}
+            </Section>
+        </>
+    );
+};
+
+export default HomePage;

@@ -5,13 +5,21 @@ import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
 import { SaveInfos } from "../Legal Data/style"
-import { ButtonAdd,  ButtonOptions, Contact, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer,  Section, Select, TextForm } from "./style"
-
+import { ButtonAdd,  ButtonOptions, Contact, DataInfos, Fields, FormContainer, FormInputs, FormText, ImgDetails, Infos, InputsContainer,  Section, Select, TextForm } from "./style"
+import Details from '../../../assets/detalhe-site.png'
+import { useNavigate } from 'react-router-dom';
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
-export const GeneralData = (): JSX.Element => {
+export const GeneralData: React.FC = () => {
+ 
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+      navigate('/cadastrar-agremiacao/dados-juridicos');
+    };
+  
     return (
         <>
             <Nav />
@@ -95,8 +103,9 @@ export const GeneralData = (): JSX.Element => {
                             <ButtonAdd>Adicionar</ButtonAdd>
                             
                         </Contact>
-                        <SaveInfos justifyContent={'flex-end'}>
-                                <Button>Próxima Etapa</Button>
+                        <SaveInfos height={'90%'} justifyContent={'space-between'}>
+                            <ImgDetails  src={Details} />
+                                <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                             </SaveInfos>
                         </Fields>
 

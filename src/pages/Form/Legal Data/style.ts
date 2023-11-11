@@ -73,9 +73,9 @@ export const InputsContainer = styled.div<{flexDirection: string, width: string,
 `;
 
 
-export const RadioInputContainer = styled.div`
+export const RadioInputContainer = styled.div<{height: string}>`
     display: flex;
-    height: 70%;
+    height: ${props => props.height};
     flex-direction: column;
     margin-top: 20px;
 
@@ -138,8 +138,8 @@ export const Fields = styled.div`
 
 `;
 
-export const SaveInfos = styled.div<{justifyContent: string}>`
-    height: 90%;
+export const SaveInfos = styled.div<{justifyContent: string, height: string}>`
+    height: ${props => props.height};
     display: flex;
     justify-content: ${props => props.justifyContent};
     align-items: center;

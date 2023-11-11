@@ -5,7 +5,7 @@ import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
 import { Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
-import { ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextForm } from "./style"
+import { ButtonOptions, DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
 
 /**
  * Página de cadastro de uma agremiação
@@ -21,7 +21,7 @@ export const Components = (): JSX.Element => {
                         <ButtonOptions>Dados gerais</ButtonOptions>
                         <ButtonOptions>Dados jurídicos</ButtonOptions>
                         <ButtonOptions>Componentes</ButtonOptions>
-                        <ButtonOptions>História da agremiação</ButtonOptions>
+                     
                     </Infos>
                 </DataInfos>
                 <FormContainer>
@@ -59,7 +59,7 @@ export const Components = (): JSX.Element => {
                                     <Input type={'text'} width={'90%'} placeholder="Digite o tipo da agremiação" />
                                 </InputsContainer>
                             </InputsContainer>
-                            <RadioInputContainer>   
+                            <RadioInputContainer height={'30%'}>   
                             <QuestionsInput>
                                     <Label fontSize={'16px'}>Vive do frevo?</Label>
                                     <Options>
@@ -70,9 +70,12 @@ export const Components = (): JSX.Element => {
                                     </Options>
                                     </QuestionsInput>
                             </RadioInputContainer>
-                            
-                            <SaveInfos justifyContent={'flex-end'}>
-                                <Button>Próxima Etapa</Button>
+                            <TextArea>
+                            <Label fontSize={'16px'}>Fale  um pouco sobre a história da agremiação (fundação, prêmios, membros notórios, etc.):</Label>
+                                <FieldTextArea></FieldTextArea>
+                            </TextArea>
+                            <SaveInfos height={'5%'} justifyContent={'flex-end'}>
+                                <Button backgroundColor={'#27962D'}>Salvar agremiação</Button>
                             </SaveInfos>
                         </Fields>
 
