@@ -4,8 +4,8 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
- 
-import { BackButton, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos, Section, SpaceButton, TextForm } from "./style"
+
+import { BackButton, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, RadioInputContainer, SaveInfos, Section, TextForm } from "./style"
 import { ButtonOptions } from "../General Data/style"
 import Footer from "../../../components/Footer"
 
@@ -16,11 +16,11 @@ import Footer from "../../../components/Footer"
  * @returns 
  */
 export const LegalData = (): JSX.Element => {
-    
+
     const navigate = useNavigate();
 
     const handleClick = () => {
-      navigate('/cadastrar-agremiacao/componentes');
+        navigate('/cadastrar-agremiacao/componentes');
     };
     const backPageClick = () => {
         navigate('/cadastrar-agremiacao/dados-gerais');
@@ -58,19 +58,9 @@ export const LegalData = (): JSX.Element => {
                     <FormInputs>
                         <Fields>
                             <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
-                                <InputsContainer   height={'55px'} width={'80%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Digite o CEP</Label>
-                                    <Input type={'text'} width={'95%'} placeholder="Ex: José Gomes da Silva" />
-                                </InputsContainer>
-                                <SpaceButton>
-                                    <Button backgroundColor="#27962D">Pesquisar</Button>
-                                </SpaceButton>
-                            </InputsContainer>
 
-                            <InputsContainer  height={'55px'} width={'100%'} flexDirection="row">
-
-                                <InputsContainer  height={'55px'} width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Logradouro:</Label>
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Endereço:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Ex: Rua do Príncipe" />
                                 </InputsContainer>
 
@@ -80,83 +70,81 @@ export const LegalData = (): JSX.Element => {
                                 </InputsContainer>
                             </InputsContainer>
 
-                            <InputsContainer  height={'55px'}width={'100%'} flexDirection="row">
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
 
-                                <InputsContainer  height={'55px'}width={'100%'} flexDirection="column">
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Complemento:</Label>
+                                    <Input type={'text'} width={'90%'} placeholder="Ex: Rua do Príncipe" />
+                                </InputsContainer>
+
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Bairro:</Label>
+                                    <Input type={'number'} width={'90%'} placeholder="Ex: Bairro Tal" />
+                                </InputsContainer>
+                            </InputsContainer>
+
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
+
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Cidade:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Ex: Apto 407" />
                                 </InputsContainer>
 
-                                <InputsContainer  height={'55px'} width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Bairro:</Label>
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Estado:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Ex: Soledade" />
                                 </InputsContainer>
 
                             </InputsContainer>
 
-                            <InputsContainer  height={'55px'} width={'100%'} flexDirection="row">
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
 
-                                <InputsContainer  height={'55px'} width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Cidade:</Label>
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >País:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Ex: Recife" />
                                 </InputsContainer>
 
-                                <InputsContainer  height={'55px'} width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>UF:</Label>
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>CEP:</Label>
                                     <Input type={'text'} width={'90%'} placeholder="Ex: PE" />
                                 </InputsContainer>
+
                             </InputsContainer>
+
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
+
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Tipo de evento:</Label>
+                                    <Input type={'text'} width={'90%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
+
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Data de realização:</Label>
+                                    <Input type={'date'} width={'90%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
+ 
+                            </InputsContainer>
+
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
+
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Quantidade de participantes:</Label>
+                                    <Input type={'number'} width={'95%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
+
+                            </InputsContainer>
+                            
                             <RadioInputContainer height={'70%'}>
-                                  <QuestionsInput>
-                                    <Label fontSize={'16px'}>O endereço em questão corresponde à sede da agremiação?</Label>
-                                    <Options>
-                                        <RadioInputChecked type="radio" id="option1" />
-                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
-                                        <RadioInputChecked type="radio" id="option2" />
-                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
-                                    </Options>
-                                    </QuestionsInput>
-
-                                    <QuestionsInput>
-                                    <Label fontSize={'16px'}>Os eventos da agremiação são realizados neste local?</Label>
-                                    <Options>
-                                        <RadioInputChecked type="radio" id="option1" />
-                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
-                                        <RadioInputChecked type="radio" id="option2" />
-                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
-                                    </Options>
-                                    </QuestionsInput>
-
-                                    <QuestionsInput>
-                                    <Label fontSize={'16px'}>Costuma realizar eventos fora do período de Carnaval?</Label>
-                                    <Options>
-                                        <RadioInputChecked type="radio" id="option1" />
-                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
-                                        <RadioInputChecked type="radio" id="option2" />
-                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
-                                    </Options>
-                                    </QuestionsInput>
-
-                                    <QuestionsInput>
-                                        
-                                    <Label fontSize={'16px'}>A sede também é a casa de algum componente?</Label>
-                                    <Options>
-                                        <RadioInputChecked type="radio" id="option1" />
-                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
-                                        <RadioInputChecked type="radio" id="option2" />
-                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
-                                    </Options>
-                                    </QuestionsInput>
-                                    <SaveInfos height={'90%'} justifyContent={'space-between'}>
-                                 <BackButton onClick={backPageClick} >Voltar</BackButton>
-                                <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
-                            </SaveInfos>
+                                <SaveInfos height={'100%'} justifyContent={'space-between'}>
+                                    <BackButton onClick={backPageClick} >Voltar</BackButton>
+                                    <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                </SaveInfos>
                             </RadioInputContainer>
                         </Fields>
                     </FormInputs>
                 </FormContainer>
             </Section>
-            <Footer/>
+            <Footer />
         </>
     )
 }

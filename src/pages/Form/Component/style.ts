@@ -131,3 +131,19 @@ export const Infos = styled.div`
     flex-direction: column;
  
 `;
+
+export const ButtonAddContact = styled.button`
+    padding: .6rem;
+    background-color: #27962D;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+`;
+
+export const SpaceButtonAdd = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+`;

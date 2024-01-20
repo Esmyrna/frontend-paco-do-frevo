@@ -61,7 +61,7 @@ export const RadioInputContainer = styled.div<{height: string}>`
     display: flex;
     height: ${props => props.height};
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 30px;
 
 `;
 

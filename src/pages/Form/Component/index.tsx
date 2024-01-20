@@ -5,12 +5,13 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import Nav from "../../../components/Nav"
-import { BackButton, Options, QuestionsInput, RadioInputChecked, RadioInputContainer, RadioLabel, SaveInfos } from "../Legal Data/style"
-import { DataInfos, FieldTextArea, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextArea, TextForm } from "./style"
+import { BackButton, SaveInfos } from "../Legal Data/style"
+import { ButtonAddContact, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section,  SpaceButtonAdd, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useEffect, useState } from "react"
 import { ButtonOptions } from "../General Data/style"
 import Footer from "../../../components/Footer"
+import RadioInputs from "../../../components/RadioInputs"
 /**
  * Página de cadastro de uma agremiação
  * @returns 
@@ -24,11 +25,20 @@ export const Components: React.FC = () => {
     const backPageClick = () => {
         navigate('/cadastrar-agremiacao/dados-juridicos');
     }
-    
+
     const saveFormClick = () => {
         setIsExploding(true)
-        
+
     }
+
+    const [radioThree, setRadioThree] = useState('');
+
+    const handleRadioChange = (value: string, radioGroup: string) => {
+        if (radioGroup === 'radioThree') {
+            setRadioThree(value)
+        }
+    };
+
 
     useEffect(() => {
         if (isExploding) {
@@ -38,7 +48,7 @@ export const Components: React.FC = () => {
             return () => clearTimeout(timeoutId);
         }
     }, [isExploding]);
-    
+
     return (
         <>
             <Nav />
@@ -70,55 +80,102 @@ export const Components: React.FC = () => {
                         </TextForm>
                     </FormText>
                     <FormInputs>   {isExploding && (
-                                        <ConfettiExplosion
-                                        force={0.8}
-                                        duration={3000}
-                                        particleCount={250}
-                                        width={1600}
-                                        />
-                                    )}
+                        <ConfettiExplosion
+                            force={0.8}
+                            duration={3000}
+                            particleCount={250}
+                            width={1600}
+                        />
+                    )}
                         <Fields>
-                     
-                            <Label fontSize={'16px'}>Nome do componente:</Label>
-                            <Input type={'text'} width={'95%'} placeholder="Bloco do Bacalhau do Batata" />
-                          
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Função na agremiação:</Label>
-                                    <Select width={"90%"} />
+                                    <Label fontSize={'16px'} >Nome:</Label>
+                                    <Input type={'text'} width={'90%'} />
+                                </InputsContainer>
+
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Sobrenome:</Label>
+                                    <Input type={'text'} width={'90%'} />
+                                </InputsContainer>
+                            </InputsContainer>
+                            <InputsContainer width={'100%'} flexDirection="row">
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Papel:</Label>
+                                    <Input type={'text'} width={'90%'} />
                                 </InputsContainer>
 
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Tempo de atuação em meses:</Label>
-                                    <Input type={'text'} width={'90%'} placeholder="Digite o tipo da agremiação" />
+                                    <Input type={'number'} width={'90%'} />
+                                </InputsContainer>
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'14px'} >Frevo é a principal receita?</Label>
+                                    <InputsContainer width={'100%'} flexDirection="row">
+                                        <RadioInputs value={'sim'} checked={radioThree === 'sim'} onChange={() => handleRadioChange('sim', 'radioThree')} /> <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs value={'nao'} checked={radioThree === 'nao'} onChange={() => handleRadioChange('nao', 'radioThree')} /> <Label fontSize={'16px'}>Não</Label>
+                                    </InputsContainer>
+                                </InputsContainer>
+
+                            </InputsContainer>
+                            <InputsContainer width={'100%'} flexDirection="row">
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Tipo de rede social:</Label>
+                                    <Input type={'text'} width={'90%'} />
+                                </InputsContainer>
+
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Url:</Label>
+                                    <Input type={'text'} width={'90%'} />
                                 </InputsContainer>
                             </InputsContainer>
-                            <RadioInputContainer height={'30%'}>   
-                            <QuestionsInput >  
-                                    <Label fontSize={'16px'}>Vive do frevo?</Label>
-                                    <Options>
-                                        <RadioInputChecked type="radio" id="option1" />
-                                        <RadioLabel htmlFor="option1">Sim</RadioLabel>
-                                        <RadioInputChecked type="radio" id="option2" />
-                                        <RadioLabel htmlFor="option2">Não</RadioLabel>
-                                    </Options>
-                                    </QuestionsInput>
-                            </RadioInputContainer>
-                            <TextArea>
-                            <Label fontSize={'16px'}>Fale  um pouco sobre a história da agremiação (fundação, prêmios, membros notórios, etc.):</Label>
-                                <FieldTextArea></FieldTextArea>
-                            </TextArea>
-                            <SaveInfos height={'5%'} justifyContent={'space-between'}>
-                            <BackButton onClick={backPageClick} >Voltar</BackButton>
+                            <InputsContainer width={'100%'} flexDirection="row">
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Endereço para:</Label>
+                                    <Input type={'text'} width={'90%'} />
+                                </InputsContainer>
+
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Email:</Label>
+                                    <Input type={'text'} width={'90%'} />
+                                </InputsContainer>
+                            </InputsContainer>
+                            <Label fontSize={'18px'}>Número de telefone:</Label>
+
+                            <InputsContainer width={'100%'} flexDirection="row">
+                                <InputsContainer width={'20%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >País:</Label>
+                                    <Input type={'number'} width={'90%'} />
+                                </InputsContainer>
+
+                                <InputsContainer width={'20%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>DDD:</Label>
+                                    <Input type={'number'} width={'90%'} />
+                                </InputsContainer>
+
+                                <InputsContainer width={'30%'} flexDirection="column">
+                                    <Label fontSize={'16px'}>Número de telefone:</Label>
+                                    <Input type={'number'} width={'90%'} />
+                                </InputsContainer>
+
+                                <SpaceButtonAdd>
+                                    <ButtonAddContact>Adicionar</ButtonAddContact>
+                                </SpaceButtonAdd>
+
+
+                            </InputsContainer>
+                            <SaveInfos height={'100%'} justifyContent={'space-between'}>
+                                <BackButton onClick={backPageClick} >Voltar</BackButton>
                                 <Button onClick={saveFormClick} backgroundColor={'#27962D'}>
-                                    Salvar agremiação 
-                                    </Button>
+                                    Salvar agremiação
+                                </Button>
                             </SaveInfos>
                         </Fields>
+
                     </FormInputs>
                 </FormContainer>
             </Section>
-            <Footer/>
+            <Footer />
         </>
     )
 }

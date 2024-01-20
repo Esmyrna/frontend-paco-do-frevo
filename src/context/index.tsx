@@ -1,16 +1,20 @@
-import React, { createContext,  ReactNode } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { createContext, useState } from "react";
 import { FormContextProps } from "./types";
 
 export const FormContext = createContext<FormContextProps | undefined>(undefined);
 
-interface FormContextProviderProps {
-  children: ReactNode;
-}
+export const FormContextProvider: React.FC<FormContextProps> = ({ children, jsonData, setJsonData }) => {
+  const [formData, setFormData] = useState<object | undefined>(jsonData);
 
-export const FormContextProvider: React.FC<FormContextProviderProps> = ({ children }) => {
+  const contextValue: FormContextProps = {
+    jsonData: formData,
+    setJsonData: setJsonData || ((data) => setFormData(data)),
+    children: children
+  }
 
   return (
-    <FormContext.Provider value={{}}>
+    <FormContext.Provider value={contextValue}> 
       {children}
     </FormContext.Provider>
   );
