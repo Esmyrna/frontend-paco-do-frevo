@@ -1,5 +1,4 @@
 import React from 'react';
-import Nav from '../../components/Nav';
 
 import frevo1 from '../../assets/frevo1.jpeg'
 import frevo2 from '../../assets/frevo2.jpeg'
@@ -26,7 +25,7 @@ import CarouselImage from '../../components/Carousel';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
- 
+
 
 const HomePage: React.FC = () => {
 
@@ -35,12 +34,12 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/cadastrar-agremiacao/dados-gerais');
-  };  
+    navigate('/register-association/one-step');
+  };
 
   return (
     <>
-      <Nav />
+
       <Section marginTop={'0px'} flexDirection="row">
         <VideoContainer autoPlay muted loop>
           <source src={Video} type="video/mp4" />
@@ -71,7 +70,7 @@ const HomePage: React.FC = () => {
             agremiações do Frevo.
           </TextAbout>
           <SignUp>
-            <Button  onClick={handleClick} backgroundColor='red'>Cadastre sua agremiação</Button>
+            <Button onClick={handleClick} backgroundColor='red'>Cadastre sua agremiação</Button>
           </SignUp>
 
         </About>
@@ -83,39 +82,39 @@ const HomePage: React.FC = () => {
       <Section marginTop={'30px'} flexDirection="row">
         <Card boxShadow={'0px 15px 30px 45px #27962D'} backgroundColor={'#27962D'} border={'7px solid #27962D'}>
           <ContainerInfosCard>
-            <Img width="120px"src={cartola}/>
-            <CardText fontWeight={'600'}fontSize={'20px'}>O que o nosso sistema faz?</CardText>
+            <Img width="120px" src={cartola} />
+            <CardText fontWeight={'600'} fontSize={'20px'}>O que o nosso sistema faz?</CardText>
             <CardText fontWeight={'400'} fontSize={'13px'}>
-            Ao cadastrar sua agremiação, você não apenas insere dados, mas adiciona sua história ao 
-            tecido da cultura brasileira. Nosso objetivo é mapear e conectar aqueles que mantêm viva a chama do Frevo,
-             seja através de blocos, troças, clubes ou orquestras. Cada cadastro é uma nota na sinfonia do Carnaval, uma contribuição 
-             para a rica tapeçaria de cores, 
-            ritmos e histórias que tornam o frevo uma manifestação única e inesquecível.
+              Ao cadastrar sua agremiação, você não apenas insere dados, mas adiciona sua história ao
+              tecido da cultura brasileira. Nosso objetivo é mapear e conectar aqueles que mantêm viva a chama do Frevo,
+              seja através de blocos, troças, clubes ou orquestras. Cada cadastro é uma nota na sinfonia do Carnaval, uma contribuição
+              para a rica tapeçaria de cores,
+              ritmos e histórias que tornam o frevo uma manifestação única e inesquecível.
             </CardText>
           </ContainerInfosCard>
         </Card>
 
-        <Card boxShadow={'0px 15px 30px 45px #00377B'}backgroundColor={'#00377B'} border={'7px solid #00377B'}>
-        <ContainerInfosCard>
-           <Img width="150px" src={mascara}/>
-             
-            <CardText fontWeight={'600'}fontSize={'20px'}>Qual é a sua importância?</CardText>
+        <Card boxShadow={'0px 15px 30px 45px #00377B'} backgroundColor={'#00377B'} border={'7px solid #00377B'}>
+          <ContainerInfosCard>
+            <Img width="150px" src={mascara} />
+
+            <CardText fontWeight={'600'} fontSize={'20px'}>Qual é a sua importância?</CardText>
             <CardText fontWeight={'400'} fontSize={'13px'}>
-            O cadastro das agremiações de frevo no Paço do Frevo é essencial para a preservação e promoção dessa rica expressão cultural.
-             Além de contribuir para a preservação da tradição e conectar uma rede valiosa de entusiastas, 
-             o registro proporciona visibilidade nacional e internacional às agremiações. 
+              O cadastro das agremiações de frevo no Paço do Frevo é essencial para a preservação e promoção dessa rica expressão cultural.
+              Além de contribuir para a preservação da tradição e conectar uma rede valiosa de entusiastas,
+              o registro proporciona visibilidade nacional e internacional às agremiações.
             </CardText>
           </ContainerInfosCard>
         </Card>
 
         <Card boxShadow={'0px 15px 30px 45px #E20821'} backgroundColor={'#E20821'} border={'7px solid #E20821'}>
-        <ContainerInfosCard>
-        <Img  width="100px" src={sombrinha}/>
-           
-            <CardText fontWeight={'600'}fontSize={'20px'}>Quem é o Paço do Frevo?</CardText>
+          <ContainerInfosCard>
+            <Img width="100px" src={sombrinha} />
+
+            <CardText fontWeight={'600'} fontSize={'20px'}>Quem é o Paço do Frevo?</CardText>
             <CardText fontWeight={'400'} fontSize={'13px'}>
-            O Paço do Frevo é mais do que um espaço cultural, é um templo dedicado à celebração e preservação de uma das expressões artísticas mais marcantes do Brasil:
-             o frevo. Localizado no coração do Recife, esse centro cultural é uma homenagem viva à riqueza do Carnaval pernambucano.
+              O Paço do Frevo é mais do que um espaço cultural, é um templo dedicado à celebração e preservação de uma das expressões artísticas mais marcantes do Brasil:
+              o frevo. Localizado no coração do Recife, esse centro cultural é uma homenagem viva à riqueza do Carnaval pernambucano.
             </CardText>
           </ContainerInfosCard>
         </Card>

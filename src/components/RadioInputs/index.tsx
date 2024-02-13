@@ -8,6 +8,7 @@ interface RadioInputsProps {
 }
 
 const RadioInputs: React.FC<RadioInputsProps> = ({ value, onChange, checked }) => {
+    
     return (
         <>
             <RadioInput

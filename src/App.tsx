@@ -1,40 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
- 
-import { FormContextProvider } from './context';
-import { GeneralData } from './pages/Form/General Data';
-import { Dashboard } from './pages/Dashboard';
-import { LegalData } from './pages/Form/Legal Data';
-import { Components } from './pages/Form/Component';
+import { FormData } from './pages/Forms/FormData'
+
+
 import HomePage from './pages/Home';
-import { Login } from './pages/Form/Login';
+import Nav from './components/Nav';
+import { MultiStepContext } from './context';
 
 
 function AppRoute() {
   return (
+
     <BrowserRouter>
+      <Nav />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/cadastrar-agremiacao/dados-gerais' element={
-          <FormContextProvider>
-            <GeneralData/>
-          </FormContextProvider>
+        <Route path='/register-association/form' element={
+         <MultiStepContext>
+           <FormData />
+         </MultiStepContext>
+          
         } />
-        <Route path='/cadastrar-agremiacao/dados-juridicos' element={
-          <FormContextProvider>
-            <LegalData/>
-          </FormContextProvider>
-        } />
-         <Route path='/cadastrar-agremiacao/componentes' element={
-          <FormContextProvider>
-            <Components/>
-          </FormContextProvider>
-        } />
-         <Route path='/login' element={
-          <FormContextProvider>
-            <Login/>
-          </FormContextProvider>
-        } />
-        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

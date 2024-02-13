@@ -1,61 +1,25 @@
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
-import Nav from "../../../components/Nav"
-import { SaveInfos } from "../Legal Data/style"
-import { ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, TextForm } from "./style"
-import { useNavigate } from 'react-router-dom';
-import Footer from "../../../components/Footer"
+
+import { SaveInfos } from "../SecondStep/style"
+import { Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, TextForm } from "./style"
 import RadioInputs from "../../../components/RadioInputs"
 import { useContext, useState } from "react"
 import InputBigText from "../../../components/TextArea"
-import { FormContext, FormContextProvider } from "../../../context"
-import { AssociationApi } from "../../../api/AssociationApi"
-import { Association, AssociationGeraData } from "../../../interfaces/type"
-/**
- * Página de cadastro de uma agremiação
- * @returns 
- */
-export const GeneralData: React.FC = () => {
+import { StepContext } from "../../../context"
 
-    const { jsonData, setJsonData } = useContext(FormContext);
-    const associationApi = AssociationApi();
-    
+
+export const OneStep: React.FC = () => {
+    const { setCurrentStep, setUserData, userData } = useContext(StepContext) || {};
+
     const [radio, setRadio] = useState('');
     const [radioTwo, setRadioTwo] = useState('');
     const [radioThree, setRadioThree] = useState('');
     const [radioFour, setRadioFour] = useState('');
-    const navigate = useNavigate();
- 
-    const handleSubmit = () => {
-        const associationData: AssociationGeraData ={
-            name,
-            foundationDate,
-            colors,
-            associationType,
-            activeMembers,
-            isSharedWithAResidence,
-            hasOwnedHeadquarters,
-            isLegalEntity,
-            cnpj,
-            canIssueOwnReceipts,
-            associationHistoryNotes
-            
-        }
-        mutate(associationData)
-    }
-0
-    const [name, setName] = useState(jsonData.name || "");
-    const [foundationDate, setFoundationDate] = useState(jsonData.foundationDate || "");
-    const [colors, setColors] = useState(jsonData.colors || []);
-    const [associationType, setAssociationType] = useState(jsonData.associationType  || 0);
-    const [activeMembers, setActiveMembers] = useState(jsonData.activeMembers  || "");
-    const [isSharedWithAResidence, setIsSharedWithAResidence] = useState(jsonData.isSharedWithAResidence  || true);
-    const [hasOwnedHeadquarters, setHasOwnedHeadquarters] = useState(jsonData.hasOwnedHeadquarters  || true);
-    const [isLegalEntity, setIsLegalEntity] = useState(jsonData.isLegalEntity  || true);
-    const [cnpj, setCnpj] = useState(jsonData.cnpj  || "");
-    const [canIssueOwnReceipts, setCanIssueOwnReceipts] = useState(jsonData.hasOwnedHeadquarters  || "");
-    const [associationHistoryNotes, setAssociationHistoryNotes] = useState(jsonData.associationHistoryNotes  || "");
+
+
+
 
     const handleRadioChange = (value: string, radioGroup: string) => {
         if (radioGroup === 'radio') {
@@ -73,15 +37,8 @@ export const GeneralData: React.FC = () => {
 
     return (
         <>
-            <Nav />
+
             <Section>
-                <DataInfos>
-                    <Infos>
-                        <ButtonOptions isActive={true}>Dados gerais</ButtonOptions>
-                        <ButtonOptions isActive={false}>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions isActive={false}>História da agremiação</ButtonOptions>
-                    </Infos>
-                </DataInfos>
                 <FormContainer>
                     <FormText>
                         <TextForm>
@@ -104,35 +61,52 @@ export const GeneralData: React.FC = () => {
                     <FormInputs>
                         <Fields>
                             <Label fontSize={'16px'}> Nome da agremiação:</Label>
-                            <Input type={'text'} width={'95%'} placeholder="Bloco do Bacalhau do Batata" />
-
+                            <Input
+                            value={userData?.name || ''}
+                            onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, name: e.target.value }))}
+                            type={'text'}
+                            width={'95%'}
+                            placeholder="Bloco do Bacalhau do Batata"
+                            />
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Data de fundação:</Label>
-                                    <Input type="date" width={"90%"} />
+                                    <Input 
+                                    type="date" width={"90%"}
+                                    value={userData?.foundationDate || ''}
+                                    onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, foundationDate: e.target.value }))}
+                                    placeholder="Bloco do Bacalhau do Batata"
+                                     />
                                 </InputsContainer>
-
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Cores: </Label>
-                                    <Input type={'text'} width={'90%'} placeholder="Ex: Azul, Amarelo" />
+                                    <Input 
+                                    type={'text'} 
+                                    width={'90%'}
+                                    placeholder="Ex: Azul, Amarelo" 
+                                    value={userData?.colors || ''}
+                                    onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, foundationDate: e.target.value }))}
+                                     />
                                 </InputsContainer>
                             </InputsContainer>
-
-                            <InputsContainer width={'100%'} flexDirection="column">
-                                <Label fontSize={'16px'} >Cores:</Label>
-                                <Input type={'text'} width={'95%'} placeholder="Ex: Amarelo e azul" />
-                            </InputsContainer>
-
                             <InputsContainer width={'100%'} flexDirection="row">
-
                                 <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Tipo de agremiação:</Label>
-                                    <Input type={'date'} width={'88%'} placeholder="Ex: Amarelo e azul" />
+                                    <Label fontSize={'16px'} >Tipo de associação:</Label>
+                                    <Input
+                                     type={'text'} 
+                                     width={'88%'} 
+                                     placeholder="Ex: Amarelo e azul"
+                                     value={userData?.associationType || ''}
+                                     onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, associationType: e.target.value }))} />
                                 </InputsContainer>
-
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Integrantes ativos:</Label>
-                                    <Input type={'number'} width={'90%'} placeholder="Ex: 25" />
+                                    <Input 
+                                    type={'number'} 
+                                    width={'90%'} 
+                                    placeholder="Ex: 25" 
+                                    value={userData?.activeMembers || ''}
+                                    onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, activeMembers: parseInt(e.target.value, 10) || 0 }))} />
                                 </InputsContainer>
                             </InputsContainer>
                             <InputsContainer width={'100%'} flexDirection="row">
@@ -172,24 +146,20 @@ export const GeneralData: React.FC = () => {
                                 </InputsContainer>
                             </InputsContainer>
                             <InputsContainer width={'100%'} flexDirection="row">
-
-                                <InputsContainer width={'75%'} flexDirection="column">
+                                <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Sobre a agremiação: </Label>
                                     <InputBigText />
+                                    <SaveInfos justifyContent="flex-end" height="100%">
+                                        <Button onClick={() => setCurrentStep && setCurrentStep(2)} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                    </SaveInfos>
                                 </InputsContainer>
-                                <SaveInfos justifyContent="center" height="300px">
-                                    <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
-                                </SaveInfos>
-
-
                             </InputsContainer>
-
 
                         </Fields>
                     </FormInputs>
                 </FormContainer>
             </Section>
-            <Footer />
+
         </>
     )
 }

@@ -3,39 +3,25 @@ import { useNavigate } from "react-router-dom"
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
-import Nav from "../../../components/Nav"
+import { BackButton, Fields, FormContainer, FormInputs, FormText, InputsContainer, RadioInputContainer, SaveInfos, Section, TextForm } from "./style"
+import { useContext } from "react"
+import { StepContext } from "../../../context"
+ 
 
-import { BackButton, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, RadioInputContainer, SaveInfos, Section, TextForm } from "./style"
-import { ButtonOptions } from "../General Data/style"
-import Footer from "../../../components/Footer"
-
-
-
-/**
- * Página de cadastro de uma agremiação
- * @returns 
- */
-export const LegalData = (): JSX.Element => {
+export const SecondStep = (): JSX.Element => {
 
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate('/cadastrar-agremiacao/componentes');
-    };
+    const { setCurrentStep } = useContext(StepContext) ?? {};
+   
     const backPageClick = () => {
         navigate('/cadastrar-agremiacao/dados-gerais');
     }
     return (
         <>
-            <Nav />
+
             <Section>
-                <DataInfos>
-                    <Infos>
-                        <ButtonOptions isActive={false}>Dados gerais</ButtonOptions>
-                        <ButtonOptions isActive={true}>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions isActive={false}>História da agremiação</ButtonOptions>
-                    </Infos>
-                </DataInfos>
+
                 <FormContainer>
                     <FormText>
                         <TextForm>
@@ -122,29 +108,44 @@ export const LegalData = (): JSX.Element => {
                                     <Label fontSize={'16px'} >Data de realização:</Label>
                                     <Input type={'date'} width={'90%'} placeholder="Ex: Recife" />
                                 </InputsContainer>
- 
+
                             </InputsContainer>
 
                             <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Data de realização:</Label>
+                                    <Input type={'date'} width={'90%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
 
                                 <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Quantidade de participantes:</Label>
-                                    <Input type={'number'} width={'95%'} placeholder="Ex: Recife" />
+                                    <Input type={'number'} width={'90%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
+                            </InputsContainer>
+
+                            <InputsContainer height={'55px'} width={'100%'} flexDirection="row">
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Nome do membro:</Label>
+                                    <Input type={'text'} width={'90%'} placeholder="Ex: Recife" />
                                 </InputsContainer>
 
+                                <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Sobrenome do membro:</Label>
+                                    <Input type={'number'} width={'90%'} placeholder="Ex: Recife" />
+                                </InputsContainer>
                             </InputsContainer>
-                            
+
                             <RadioInputContainer height={'70%'}>
-                                <SaveInfos height={'100%'} justifyContent={'space-between'}>
+                                <SaveInfos height={'30%'} justifyContent={'space-between'}>
                                     <BackButton onClick={backPageClick} >Voltar</BackButton>
-                                    <Button onClick={handleClick} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                    <Button onClick={() => setCurrentStep && setCurrentStep(3)} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                                 </SaveInfos>
                             </RadioInputContainer>
                         </Fields>
                     </FormInputs>
                 </FormContainer>
             </Section>
-            <Footer />
+
         </>
     )
 }

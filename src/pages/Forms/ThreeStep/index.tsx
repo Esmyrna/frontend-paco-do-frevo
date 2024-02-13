@@ -4,21 +4,21 @@ import { useNavigate } from "react-router-dom"
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
-import Nav from "../../../components/Nav"
-import { BackButton, SaveInfos } from "../Legal Data/style"
-import { ButtonAddContact, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section,  SpaceButtonAdd, TextForm } from "./style"
+import { BackButton, SaveInfos } from "../SecondStep/style"
+import { ButtonAddContact, Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, SpaceButtonAdd, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
-import { useEffect, useState } from "react"
-import { ButtonOptions } from "../General Data/style"
-import Footer from "../../../components/Footer"
+import {   useContext, useState } from "react"
+
 import RadioInputs from "../../../components/RadioInputs"
+import { StepContext } from "../../../context"
 /**
  * Página de cadastro de uma agremiação
  * @returns 
  */
 
-export const Components: React.FC = () => {
+export const ThreeStep: React.FC = () => {
     const [isExploding, setIsExploding] = useState(false);
+    const { submitData } = useContext(StepContext);
 
     const navigate = useNavigate();
 
@@ -39,27 +39,13 @@ export const Components: React.FC = () => {
         }
     };
 
-
-    useEffect(() => {
-        if (isExploding) {
-            const timeoutId = setTimeout(() => {
-                setIsExploding(false);
-            }, 3000);
-            return () => clearTimeout(timeoutId);
-        }
-    }, [isExploding]);
+ 
 
     return (
         <>
-            <Nav />
+
             <Section>
-                <DataInfos>
-                    <Infos>
-                        <ButtonOptions isActive={false}>Dados gerais</ButtonOptions>
-                        <ButtonOptions isActive={false}>Dados jurídicos</ButtonOptions>
-                        <ButtonOptions isActive={true}>História da agremiação</ButtonOptions>
-                    </Infos>
-                </DataInfos>
+
                 <FormContainer>
                     <FormText>
                         <TextForm>
@@ -88,17 +74,7 @@ export const Components: React.FC = () => {
                         />
                     )}
                         <Fields>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Nome:</Label>
-                                    <Input type={'text'} width={'90%'} />
-                                </InputsContainer>
 
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Sobrenome:</Label>
-                                    <Input type={'text'} width={'90%'} />
-                                </InputsContainer>
-                            </InputsContainer>
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Papel:</Label>
@@ -140,30 +116,31 @@ export const Components: React.FC = () => {
                                     <Input type={'text'} width={'90%'} />
                                 </InputsContainer>
                             </InputsContainer>
-                            <Label fontSize={'18px'}>Número de telefone:</Label>
 
+                            <Label fontSize={'18px'}>Número de telefone:</Label>
                             <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'20%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >País:</Label>
+                                <InputsContainer width={'100%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Código do País:</Label>
                                     <Input type={'number'} width={'90%'} />
                                 </InputsContainer>
 
-                                <InputsContainer width={'20%'} flexDirection="column">
+                                <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>DDD:</Label>
                                     <Input type={'number'} width={'90%'} />
                                 </InputsContainer>
 
-                                <InputsContainer width={'30%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Número de telefone:</Label>
+                            </InputsContainer>
+                            <InputsContainer width={'100%'} flexDirection="row">
+                                <InputsContainer width={'70%'} flexDirection="column">
+                                    <Label fontSize={'16px'} >Número para contato:</Label>
                                     <Input type={'number'} width={'90%'} />
                                 </InputsContainer>
-
                                 <SpaceButtonAdd>
                                     <ButtonAddContact>Adicionar</ButtonAddContact>
                                 </SpaceButtonAdd>
-
-
                             </InputsContainer>
+
+
                             <SaveInfos height={'100%'} justifyContent={'space-between'}>
                                 <BackButton onClick={backPageClick} >Voltar</BackButton>
                                 <Button onClick={saveFormClick} backgroundColor={'#27962D'}>
@@ -175,7 +152,7 @@ export const Components: React.FC = () => {
                     </FormInputs>
                 </FormContainer>
             </Section>
-            <Footer />
+
         </>
     )
 }
