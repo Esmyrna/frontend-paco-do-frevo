@@ -1,9 +1,18 @@
+import { ChangeEvent } from 'react';
 import { InputText } from './style'
 
-const InputBigText = () => {
+interface InputTextProps {
+  value: string;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+}
+
+const InputBigText: React.FC<InputTextProps> = ({value, onChange}) => {
   return (
      <>
-     <InputText />
+     <InputText 
+     value={value}
+     onChange={onChange}
+     />
      </>
   )
 }

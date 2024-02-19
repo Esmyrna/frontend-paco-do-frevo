@@ -1,5 +1,4 @@
 export interface PhoneNumber {
-    contactId: string,
     countryCode: string;
     areaCode: string;
     number: string;
@@ -17,7 +16,6 @@ export interface Address {
 }
 
 export interface Event {
-    associationId: string;
     eventType: string;
     dateOfAccomplishment: string;
     participantsAmount: number;
@@ -32,13 +30,11 @@ export interface Member {
 }
 
 export interface SocialNetwork {
-    associationId: string,
     socialNetworkType: string;
     url: string;
 }
 
 export interface Contact {
-    associationId: string;
     addressTo: string;
     email: string;
     phoneNumbers: PhoneNumber[];

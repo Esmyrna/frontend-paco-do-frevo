@@ -1,46 +1,6 @@
 import React, { useState } from 'react';
+import { Address, Contact, Event, Member, SocialNetwork } from '../interfaces/type';
 
-interface Address {
-  addressSite: string;
-  number: string;
-  complement: string;
-  district: string;
-  city: string;
-  state: string;
-  country: string;
-  zipCode: string;
-}
-
-interface Event {
-  eventType: string;
-  dateOfAccomplishment: string;
-  participantsAmount: number;
-}
-
-interface Member {
-  name: string;
-  surname: string;
-  role: string;
-  actuationTimeInMonths: number;
-  isFrevoTheMainRevenueIncome: boolean;
-}
-
-interface SocialNetwork {
-  socialNetworkType: string;
-  url: string;
-}
-
-interface PhoneNumber {
-  countryCode: string;
-  areaCode: string;
-  number: string;
-}
-
-interface Contact {
-  addressTo: string;
-  email: string;
-  phoneNumbers: PhoneNumber[];
-}
 
 interface ObjectContextProps {
   name: string;
@@ -85,7 +45,7 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
     associationType: '',
     activeMembers: 0,
     isSharedWithAResidence: false,
-    hasOwnedHeadquarters: false, 
+    hasOwnedHeadquarters: false,
     isLegalEntity: false,
     cnpj: '',
     canIssueOwnReceipts: false,
@@ -140,7 +100,9 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
   const [finalData, setFinalData] = useState<ObjectContextProps[]>([]);
 
   const submitData = () => {
-    // Implement your data submission logic here
+    setFinalData(finalData => [...finalData, userData]);
+
+
   };
 
   return (
@@ -152,4 +114,3 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
     </>
   );
 };
- 

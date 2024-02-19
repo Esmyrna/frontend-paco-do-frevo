@@ -1,8 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-/** ????????????
- * separar interface no arquivo de types
- */
+
 export const Section = styled.section<{ flexDirection: string, marginTop: string }>`
     display: flex;
     justify-content: center;
@@ -12,7 +10,7 @@ export const Section = styled.section<{ flexDirection: string, marginTop: string
     margin-top: ${props => props.marginTop}
 `;
 
-/** ????????? */
+
 export const VideoContainer = styled.video`
     width: 100%;
     
