@@ -13,10 +13,10 @@ import { StepContext } from "../../../context"
 export const OneStep: React.FC = () => {
     const { setCurrentStep, setUserData, userData } = useContext(StepContext) || {};
 
-    const [residenceOption, setResidenceOption] = useState<string>('option1');
-    const [headquartersOption, setHeadquartersOption] = useState<string>('option3');
-    const [legalEntityOption, setLegalEntityOption] = useState<string>('option5');
-    const [receiptsOption, setReceiptsOption] = useState<string>('option7');
+    const [residenceOption, setResidenceOption] = useState<string>('option2');
+    const [headquartersOption, setHeadquartersOption] = useState<string>('option4');
+    const [legalEntityOption, setLegalEntityOption] = useState<string>('option6');
+    const [receiptsOption, setReceiptsOption] = useState<string>('option8');
 
     const handleResidenceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedValue = event.target.value;

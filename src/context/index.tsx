@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Address, Contact, Event, Member, SocialNetwork } from '../interfaces/type';
+import axios from 'axios';
 
 
 interface ObjectContextProps {
@@ -28,6 +29,7 @@ interface StepContextProps {
   setUserData?: React.Dispatch<React.SetStateAction<ObjectContextProps>>;
   finalData: ObjectContextProps[];
   setFinalData: React.Dispatch<React.SetStateAction<ObjectContextProps[]>>;
+  submitData: () => Promise<void>; 
 }
 
 interface MultiStepContextProps {
@@ -99,10 +101,17 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
 
   const [finalData, setFinalData] = useState<ObjectContextProps[]>([]);
 
-  const submitData = () => {
-    setFinalData(finalData => [...finalData, userData]);
+  const submitData = async () => {
+    try {
+      const response = await axios.post('sua-rota-no-backend', finalData);
+      console.log('Resposta do servidor:', response.data);
 
+      setFinalData((prevFinalData) => [...prevFinalData, userData]);
+      setCurrentStep((prevStep) => prevStep + 1);
+    } catch (error) {
 
+      console.error('Erro ao enviar dados para o backend:', error);
+    }
   };
 
   return (

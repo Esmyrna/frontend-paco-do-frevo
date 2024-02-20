@@ -15,15 +15,21 @@ import { Contact, Member, SocialNetwork } from "../../../interfaces/type"
 
 export const ThreeStep: React.FC = () => {
     const [isExploding, setIsExploding] = useState(false);
-    const { setUserData, userData, setCurrentStep } = useContext(StepContext) || {};
+    const { setUserData, userData, setCurrentStep, submitData } = useContext(StepContext) || {};
     const [selectedOption, setSelectedOption] = useState<string>('option1');
 
-
-
-
-    const saveFormClick = () => {
+    const saveFormClick =  async () => {
         setIsExploding(true)
 
+        if (submitData) {
+            try {
+              await submitData();
+            } catch (error) {
+              console.error('Erro ao chamar submitData:', error);
+            }
+          } else {
+            console.error('submitData não está definido no contexto.');
+          }
     }
 
     const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
