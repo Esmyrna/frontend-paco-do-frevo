@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Address, Contact, Event, Member, SocialNetwork } from '../interfaces/type';
+import { Address, Contact, Event, Member, SocialNetwork } from '../interfaces/type'
 import axios from 'axios';
+import { EAssociationType, ESocialNetworkType } from '../interfaces/enum'
 
 
 interface ObjectContextProps {
   name: string;
   foundationDate: string;
   colors: string[];
-  associationType: string;
+  associationType: EAssociationType;
   activeMembers: number;
   isSharedWithAResidence: boolean;
   hasOwnedHeadquarters: boolean;
@@ -29,7 +30,32 @@ interface StepContextProps {
   setUserData?: React.Dispatch<React.SetStateAction<ObjectContextProps>>;
   finalData: ObjectContextProps[];
   setFinalData: React.Dispatch<React.SetStateAction<ObjectContextProps[]>>;
-  submitData: () => Promise<void>; 
+  submitData: () => Promise<void>;
+
+  socialNetworkType: ESocialNetworkType;
+  setSocialNetworkType: React.Dispatch<React.SetStateAction<ESocialNetworkType>>;
+  url: string;
+  setUrl: React.Dispatch<React.SetStateAction<string>>;
+  memberName: string,
+  setMemberName: React.Dispatch<React.SetStateAction<string>>;
+  surnameMember: string;
+  setSurnameMember: React.Dispatch<React.SetStateAction<string>>;
+  roleMember: string;
+  setRoleMember: React.Dispatch<React.SetStateAction<string>>;
+  actuationTimeInMonths: number;
+  setActuationTimeInMonths: React.Dispatch<React.SetStateAction<number>>;
+  isFrevoTheMainRevenueIncome: boolean;
+  setIsFrevoTheMainRevenueIncome: React.Dispatch<React.SetStateAction<boolean>>;
+  addressTo: string,
+  setAddressTo: React.Dispatch<React.SetStateAction<string>>;
+  email: string,
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  countryCode: string;
+  setCountryCode: React.Dispatch<React.SetStateAction<string>>;
+  areaCode: string;
+  setAreaCode: React.Dispatch<React.SetStateAction<string>>;
+  number: string;
+  setNumber: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface MultiStepContextProps {
@@ -39,12 +65,30 @@ interface MultiStepContextProps {
 export const StepContext = React.createContext<StepContextProps | undefined>(undefined);
 
 export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) => {
+  
+
+
   const [currentStep, setCurrentStep] = useState(1);
+
+  const [socialNetworkType, setSocialNetworkType] = useState<ESocialNetworkType>(ESocialNetworkType.facebook);
+  const [url, setUrl] = useState<string>('');
+
+  const [memberName, setMemberName] = useState<string>('');
+  const [surnameMember, setSurnameMember] = useState<string>('');
+  const [roleMember, setRoleMember] = useState<string>('');
+  const [actuationTimeInMonths, setActuationTimeInMonths] = useState(0);
+  const [isFrevoTheMainRevenueIncome, setIsFrevoTheMainRevenueIncome] = useState(false);
+  const [addressTo, setAddressTo] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [countryCode, setCountryCode] = useState<string>('');
+  const [areaCode, setAreaCode] = useState<string>('');
+  const [number, setNumber] = useState<string>('');
+
   const [userData, setUserData] = useState<ObjectContextProps>({
     name: '',
     foundationDate: '',
     colors: [],
-    associationType: '',
+    associationType: EAssociationType.carnivalBlock,
     activeMembers: 0,
     isSharedWithAResidence: false,
     hasOwnedHeadquarters: false,
@@ -69,21 +113,8 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
         participantsAmount: 0,
       },
     ],
-    members: [
-      {
-        name: '',
-        surname: '',
-        role: '',
-        actuationTimeInMonths: 0,
-        isFrevoTheMainRevenueIncome: false,
-      },
-    ],
-    socialNetworks: [
-      {
-        socialNetworkType: '',
-        url: '',
-      },
-    ],
+    members: [],
+    socialNetworks: [],
     contacts: [
       {
         addressTo: '',
@@ -117,7 +148,32 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
   return (
     <>
       <StepContext.Provider
-        value={{ currentStep, setCurrentStep, userData, setUserData, finalData, setFinalData, submitData }}>
+        value={{
+          currentStep, setCurrentStep, userData, setUserData, finalData, setFinalData, submitData, socialNetworkType,
+          setSocialNetworkType,
+          url,
+          setUrl,
+          memberName,
+          setMemberName,
+          surnameMember,
+          setSurnameMember,
+          roleMember,
+          setRoleMember,
+          actuationTimeInMonths,
+          setActuationTimeInMonths,
+          isFrevoTheMainRevenueIncome,
+          setIsFrevoTheMainRevenueIncome,
+          addressTo,
+          setAddressTo,
+          email,
+          setEmail,
+          countryCode,
+          setCountryCode,
+          areaCode,
+          setAreaCode,
+          number,
+          setNumber
+        }}>
         {children}
       </StepContext.Provider>
     </>

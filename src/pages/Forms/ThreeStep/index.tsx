@@ -4,119 +4,63 @@
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
-import { BackButton, SaveInfos } from "../SecondStep/style"
-import { ButtonAddContact, Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, SpaceButtonAdd, TextForm } from "./style"
+import { BackButton, InputTitle, SaveInfos } from "../SecondStep/style"
+import { ButtonAddContact, ButtonMemberAdd, ButtonMemberContainer, Fields, FormContainer, FormInputs, FormText, InputSocialNetwork, InputsContacts, InputsContactsContainer, InputsSocialNetworkContainer, Section, Select, SpaceButtonAdd, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useContext, useState } from "react"
-
-import RadioInputs from "../../../components/RadioInputs"
 import { StepContext } from "../../../context"
-import { Contact, Member, SocialNetwork } from "../../../interfaces/type"
+import { ESocialNetworkType } from '../../../interfaces/enum'
+
+
 
 export const ThreeStep: React.FC = () => {
     const [isExploding, setIsExploding] = useState(false);
-    const { setUserData, userData, setCurrentStep, submitData } = useContext(StepContext) || {};
-    const [selectedOption, setSelectedOption] = useState<string>('option1');
+    const { setUserData, setCurrentStep, socialNetworkType, setSocialNetworkType, url, setUrl, addressTo, email,
+     setAddressTo, setEmail, countryCode, setCountryCode, areaCode} = useContext(StepContext) || {};
 
-    const saveFormClick =  async () => {
+
+    const saveFormClick = async () => {
         setIsExploding(true)
-
-        if (submitData) {
-            try {
-              await submitData();
-            } catch (error) {
-              console.error('Erro ao chamar submitData:', error);
-            }
-          } else {
-            console.error('submitData não está definido no contexto.');
-          }
     }
 
-    const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedOption(event.target.value);
-        setUserData && setUserData((prevData) => ({
-            ...prevData,
-            isFrevoTheMainRevenueIncome: selectedOption === 'option1',
 
-        }));
+    const handleSocialNetworkTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSocialNetworkType && setSocialNetworkType(
+            event.target.value as ESocialNetworkType,
+        );
     };
 
-    const handleMemberChange = (index: number, field: keyof Member, value: string | number) => {
-        setUserData && setUserData((prevUserData) => {
-            const userDataUpdate = { ...prevUserData };
-            const updatedMembers = [...userDataUpdate.members];
-            updatedMembers[index] = {
-                ...updatedMembers[index],
-                [field]: value,
-            };
-
-            userDataUpdate.members = updatedMembers;
-            return userDataUpdate;
-        });
-    }
-
-    const handleSocialNetworkChange = (index: number, field: keyof SocialNetwork, value: string | number) => {
-        setUserData && setUserData((prevUserData) => {
-            const userDataUpdate = { ...prevUserData };
-            const updatedMembers = [...userDataUpdate.socialNetworks];
-            updatedMembers[index] = {
-                ...updatedMembers[index],
-                [field]: value,
-            };
-
-            userDataUpdate.socialNetworks = updatedMembers;
-            return userDataUpdate;
-        });
-    }
-  
-    const handleContactsChange = (index: number, field: keyof Contact, value: string | number, subField?: keyof Contact['phoneNumbers'][0]) => {
-        setUserData && setUserData((prevUserData) => {
-            if (!prevUserData) {
-                return prevUserData; 
-            }
-    
-            const userDataUpdate = { ...prevUserData };
-            const updatedContacts = [...userDataUpdate.contacts];
-    
-            if (field === 'phoneNumbers' && subField) {
-          
-                if (updatedContacts[index]?.phoneNumbers[0]) {
-                    const newPhoneNumber = {
-                        ...updatedContacts[index].phoneNumbers[0],
-                        [subField]: value,
-                    };
-        
-                    updatedContacts[index].phoneNumbers[0] = newPhoneNumber;
-                }
-            } else {
-                updatedContacts[index] = {
-                    ...updatedContacts[index],
-                    [field]: value,
-                };
-            }
-    
-            userDataUpdate.contacts = updatedContacts;
-            return userDataUpdate;
-        });
-
+    const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUrl && setUrl(
+            event.target.value
+        )
     };
-    const handleAddPhoneNumber = () => {
-        setUserData && setUserData((prevUserData) => {
-            const userDataUpdate = { ...prevUserData };
-            const updatedContacts = [...userDataUpdate.contacts];
 
-            const newPhoneNumber = {
-                countryCode: '',
-                areaCode: '',
-                number: '',
-            };
 
-            updatedContacts[updatedContacts.length - 1].phoneNumbers.push(newPhoneNumber);
-            userDataUpdate.contacts = updatedContacts;
-            return userDataUpdate;
-        });
+
+    const handleAddSocialNetwork = () => {
+        if (socialNetworkType && url) {
+            setUserData && setUserData((prevData) => ({
+                ...prevData,
+                socialNetworks: [
+                    ...prevData.socialNetworks,
+                    {
+                        socialNetworkType,
+                        url,
+                    },
+                ],
+            }));
+
+            setSocialNetworkType && setSocialNetworkType(ESocialNetworkType.facebook);
+            setUrl && setUrl('');
+        } else {
+            console.error("Preencha todos os campos antes de adicionar.");
+        }
     };
-    
+
+
+
+
     return (
         <>
             <Section>
@@ -148,114 +92,80 @@ export const ThreeStep: React.FC = () => {
                         />
                     )}
                         <Fields>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'} >Papel:</Label>
-                                    <Input
-                                        type={'text'}
-                                        width={'90%'}
-                                        value={userData?.members[2]?.role || ''}
-                                        onChange={(e) => handleMemberChange(2, 'role', e.target.value)} />
-                                </InputsContainer>
 
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Tempo de atuação em meses:</Label>
-                                    <Input
-                                        type={'number'}
-                                        width={'90%'}
-                                        value={userData?.members[3]?.actuationTimeInMonths || ''}
-                                        onChange={(e) => handleMemberChange(3, 'actuationTimeInMonths', e.target.value)} />
-                                </InputsContainer>
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'14px'} >Frevo é a principal receita?</Label>
-                                    <InputsContainer width={'100%'} flexDirection="row">
-                                        <RadioInputs
-                                            value={'option1'}
-                                            checked={selectedOption === 'option1'}
-                                            onChange={handleOptionChange} />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
-                                            value={'option2'}
-                                            checked={selectedOption === 'option2'}
-                                            onChange={handleOptionChange} />
-                                        <Label fontSize={'16px'}>Não</Label>
-                                    </InputsContainer>
-                                </InputsContainer>
-                            </InputsContainer>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'100%'} flexDirection="column">
+                            <InputTitle>  <Label fontSize={'22px'} >Rede Social</Label> </InputTitle>
+                            <InputsSocialNetworkContainer>
+                                <InputSocialNetwork>
                                     <Label fontSize={'16px'} >Tipo de rede social:</Label>
-                                    <Input
-                                        type={'text'}
-                                        width={'90%'}
-                                        value={userData?.socialNetworks[0]?.socialNetworkType || ''}
-                                        onChange={(e) => handleSocialNetworkChange(0, 'socialNetworkType', e.target.value)} />
-                                </InputsContainer>
+                                    <Select width="95%"
+                                        value={socialNetworkType}
+                                        onChange={handleSocialNetworkTypeChange}>
+                                        <option value="">Selecione um tipo de rede social</option>
+                                        {Object.values(ESocialNetworkType).map((type) => (
+                                            <option key={type} value={type}>
+                                                {type}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </InputSocialNetwork>
 
-                                <InputsContainer width={'100%'} flexDirection="column">
-                                    <Label fontSize={'16px'}>Url:</Label>
+                                <InputSocialNetwork>
+                                    <Label fontSize={'16px'} >Url:</Label>
                                     <Input
                                         type={'text'}
                                         width={'90%'}
-                                        value={userData?.socialNetworks[1]?.url || ''}
-                                        onChange={(e) => handleSocialNetworkChange(1, 'url', e.target.value)} />
-                                </InputsContainer>
-                            </InputsContainer>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'100%'} flexDirection="column">
+                                        value={url}
+                                        onChange={handleUrlChange}
+                                    />
+                                </InputSocialNetwork>
+                                <ButtonMemberContainer>
+                                    <ButtonMemberAdd onClick={handleAddSocialNetwork}>Adicionar</ButtonMemberAdd>
+                                </ButtonMemberContainer>
+                            </InputsSocialNetworkContainer>
+                            <InputTitle>   <Label fontSize={'22px'} >Contatos</Label> </InputTitle>
+                            <InputsContactsContainer>
+                                <InputsContacts>
                                     <Label fontSize={'16px'} >Endereço para:</Label>
                                     <Input
                                         type={'text'}
                                         width={'90%'}
-                                        value={userData?.contacts[0]?.addressTo || ''}
-                                        onChange={(e) => handleContactsChange(0, 'addressTo', e.target.value)} />
-                                </InputsContainer>
-
-                                <InputsContainer width={'100%'} flexDirection="column">
+                                    />
+                                </InputsContacts>
+                                <InputsContacts>
                                     <Label fontSize={'16px'}>Email:</Label>
                                     <Input
                                         type={'text'}
                                         width={'90%'}
-                                        value={userData?.contacts[1]?.email || ''}
-                                        onChange={(e) => handleContactsChange(1, 'email', e.target.value)} />
-                                </InputsContainer>
-                            </InputsContainer>
-
-                            <Label fontSize={'18px'}>Número de telefone:</Label>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'100%'} flexDirection="column">
+                                    />
+                                </InputsContacts>
+                            </InputsContactsContainer>
+                            <InputsContactsContainer>
+                                <InputsContacts>
                                     <Label fontSize={'16px'} >Código do País:</Label>
                                     <Input
                                         type={'number'}
                                         width={'90%'}
-                                        value={userData?.contacts && userData.contacts[0]?.phoneNumbers && userData.contacts[0].phoneNumbers[0]?.countryCode || ''}
-                                        onChange={(e) => handleContactsChange(0, 'phoneNumbers', e.target.value, 'countryCode')} />
-                                </InputsContainer>
-
-                                <InputsContainer width={'100%'} flexDirection="column">
+                                    />
+                                </InputsContacts>
+                                <InputsContacts>
                                     <Label fontSize={'16px'}>DDD:</Label>
                                     <Input
                                         type={'number'}
                                         width={'90%'}
-                                        value={userData?.contacts && userData.contacts[0]?.phoneNumbers && userData.contacts[0].phoneNumbers[0]?.areaCode || ''}
-                                        onChange={(e) => handleContactsChange(0, 'phoneNumbers', e.target.value, 'areaCode')} />
-                                </InputsContainer>
+                                    />
+                                </InputsContacts>
 
-                            </InputsContainer>
-                            <InputsContainer width={'100%'} flexDirection="row">
-                                <InputsContainer width={'70%'} flexDirection="column">
+                                <InputsContacts>
                                     <Label fontSize={'16px'} >Número para contato:</Label>
                                     <Input
                                         type={'number'}
                                         width={'90%'}
-                                        value={userData?.contacts && userData.contacts[0]?.phoneNumbers && userData.contacts[0].phoneNumbers[0]?.number || ''}
-                                        onChange={(e) => handleContactsChange(0, 'phoneNumbers', e.target.value, 'number')} />
-                                </InputsContainer>
+                                    />
+                                </InputsContacts>
                                 <SpaceButtonAdd>
-                                    <ButtonAddContact onClick={handleAddPhoneNumber}>Adicionar</ButtonAddContact>
+                                    <ButtonAddContact>Adicionar</ButtonAddContact>
                                 </SpaceButtonAdd>
-                            </InputsContainer>
-
+                            </InputsContactsContainer>
                             <SaveInfos height={'100%'} justifyContent={'space-between'}>
                                 <BackButton onClick={() => setCurrentStep && setCurrentStep(2)} >Voltar</BackButton>
                                 <Button onClick={saveFormClick} backgroundColor={'#27962D'}>
@@ -266,7 +176,7 @@ export const ThreeStep: React.FC = () => {
 
                     </FormInputs>
                 </FormContainer>
-            </Section>
+            </Section >
 
         </>
     )

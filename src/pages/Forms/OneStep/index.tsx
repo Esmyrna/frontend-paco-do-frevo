@@ -3,11 +3,14 @@ import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 
 import { SaveInfos } from "../SecondStep/style"
-import { Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, TextForm } from "./style"
+import { AdressContainer, Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, Select, TextForm } from "./style"
 import RadioInputs from "../../../components/RadioInputs"
 import { useContext, useState } from "react"
 import InputBigText from "../../../components/TextArea"
 import { StepContext } from "../../../context"
+import { EAssociationType } from "../../../interfaces/enum"
+import { Address } from "../../../interfaces/type"
+
 
 
 export const OneStep: React.FC = () => {
@@ -52,6 +55,30 @@ export const OneStep: React.FC = () => {
             canIssueOwnReceipts: selectedValue === 'option7',
         }));
     };
+
+    const choiceAssociationType = (value: EAssociationType) => {
+        setUserData && setUserData((prevUserData) => {
+            const userDataUpdate = { ...prevUserData };
+
+            if (Object.values(EAssociationType).includes(value)) {
+                userDataUpdate.associationType = value
+            } else {
+                console.error('Valor inválido para associationType:', value);
+            }
+
+            return userDataUpdate;
+        });
+    }
+
+    const handleAdressChange = (field: keyof Address, value: string) => {
+        setUserData && setUserData((prevUserData) => {
+            const userDataUpdate = { ...prevUserData };
+            userDataUpdate.address[field] = value;
+
+            return userDataUpdate;
+        });
+    };
+
 
 
     return (
@@ -113,12 +140,14 @@ export const OneStep: React.FC = () => {
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Tipo de associação:</Label>
-                                    <Input
-                                        type={'text'}
-                                        width={'88%'}
-                                        placeholder="Ex: Amarelo e azul"
-                                        value={userData?.associationType || ''}
-                                        onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, associationType: e.target.value }))} />
+                                    <Select width="95%" value={userData?.associationType}
+                                        onChange={(e) => choiceAssociationType(e.target.value as EAssociationType)}>
+                                        {Object.values(EAssociationType).map((type) => (
+                                            <option key={type} value={type}>
+                                                {type}
+                                            </option>
+                                        ))}
+                                    </Select>
                                 </InputsContainer>
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Integrantes ativos:</Label>
@@ -212,7 +241,28 @@ export const OneStep: React.FC = () => {
                                         value={userData?.associationHistoryNotes || ''}
                                         onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, associationHistoryNotes: e.target.value }))}
                                     />
-                                    <SaveInfos justifyContent="flex-end" height="100%">
+                                    <AdressContainer>
+                                        <InputsContainer width={'100%'} flexDirection="column">
+                                            <Label fontSize={'16px'} >Endereço:</Label>
+                                            <Input
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Rua do Príncipe"
+                                                value={userData?.address.addressSite}
+                                                onChange={(e) => handleAdressChange('addressSite', e.target.value)}
+                                            />
+                                        </InputsContainer>
+
+                                        <InputsContainer width={'100%'} flexDirection="column">
+                                            <Label fontSize={'16px'}>Número:</Label>
+                                            <Input
+                                                type={'number'}
+                                                width={'90%'} placeholder="Ex: 2245"
+                                                value={userData?.address.number}
+                                                onChange={(e) => handleAdressChange('number', e.target.value)} />
+                                        </InputsContainer>
+                                    </AdressContainer>
+                                    <SaveInfos height="" justifyContent="flex-end">
                                         <Button onClick={() => setCurrentStep && setCurrentStep(2)} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                                     </SaveInfos>
                                 </InputsContainer>

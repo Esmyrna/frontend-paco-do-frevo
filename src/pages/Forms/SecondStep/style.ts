@@ -52,7 +52,6 @@ export const RadioInputContainer = styled.div<{ height: string }>`
   display: flex;
   height: ${(props) => props.height};
   flex-direction: column;
-  margin-top: 30px;
 `;
 
 export const Options = styled.div`
@@ -106,8 +105,7 @@ export const SaveInfos = styled.div<{ justifyContent: string; height: string }>`
   display: flex;
   justify-content: ${(props) => props.justifyContent};
   align-items: center;
-  margin-top: 10px;
-
+  margin-top: 15px;
   width: 95%;
 `;
 export const Select = styled.select<{ width: string }>`
@@ -165,4 +163,67 @@ export const BackButton = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
+`;
+
+export const InputEventContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const InputEvents = styled.div`
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ButtonAddEvent = styled.button`
+  padding: 0.4rem 1rem;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+`;
+export const ButtonEventContainer = styled.div`
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const InputsMemberContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+export const InputsMember = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 26%;
+`;
+
+export const InputTitle = styled.div`
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
+
+export const ButtonAddMemberContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ButtonAddMember = styled.button`
+  padding: 0.4rem 1rem;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 14px;
+  margin-top: 20px;
 `;

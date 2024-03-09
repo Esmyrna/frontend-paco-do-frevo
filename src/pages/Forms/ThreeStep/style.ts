@@ -111,8 +111,8 @@ export const Infos = styled.div`
 `;
 
 export const ButtonAddContact = styled.button`
-  padding: 0.6rem 3rem;
-  background-color: #0065e0;
+  padding: 0.4rem 1rem;
+  background-color: red;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -123,4 +123,36 @@ export const SpaceButtonAdd = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  width: 20%;
+`;
+
+export const InputsSocialNetworkContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+export const InputSocialNetwork = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+`;
+
+export const ButtonMemberContainer = styled.div``;
+export const ButtonMemberAdd = styled.button`
+  padding: 0.6rem 2rem;
+  background-color: #0065e0;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+`;
+
+export const InputsContactsContainer = styled.div`
+  display: flex;
+  width: 96%;
+`;
+export const InputsContacts = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;

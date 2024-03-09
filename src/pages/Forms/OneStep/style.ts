@@ -56,7 +56,6 @@ export const FormContainer = styled.div`
   width: 100%;
   height: 80vh;
   display: flex;
- 
 `;
 
 export const FormText = styled.div`
@@ -130,4 +129,8 @@ export const ButtonAdd = styled.button`
   color: #fff;
   border: none;
   cursor: pointer;
+`;
+
+export const AdressContainer = styled.div`
+  display: flex;
 `;
