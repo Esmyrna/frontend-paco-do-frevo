@@ -15,7 +15,7 @@ export interface Address {
   zipCode: string;
 }
 
-export interface Event {
+export interface Events {
   eventType: string;
   dateOfAccomplishment: string;
   participantsAmount: number;

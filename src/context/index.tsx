@@ -1,90 +1,47 @@
-import React, { useState } from 'react';
-import { Address, Contact, Event, Member, SocialNetwork } from '../interfaces/type'
-import axios from 'axios';
-import { EAssociationType, ESocialNetworkType } from '../interfaces/enum'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ReactNode, createContext, useContext, useReducer } from "react";
+import { EAssociationType, ESocialNetworkType } from "../interfaces/enum";
+import { Address, Contact, Events, Member, SocialNetwork } from "../interfaces/type";
 
 
-interface ObjectContextProps {
-  name: string;
-  foundationDate: string;
-  colors: string[];
-  associationType: EAssociationType;
-  activeMembers: number;
-  isSharedWithAResidence: boolean;
-  hasOwnedHeadquarters: boolean;
-  isLegalEntity: boolean;
-  cnpj: string;
-  canIssueOwnReceipts: boolean;
-  associationHistoryNotes: string;
-  address: Address;
-  events: Event[];
-  members: Member[];
-  socialNetworks: SocialNetwork[];
-  contacts: Contact[];
+type State = {
+    currentStep: number;
+    name: string;
+    foundationDate: string;
+    colors: string[];
+    associationType: EAssociationType;
+    activeMembers: number;
+    isSharedWithAResidence: boolean;
+    hasOwnedHeadquarters: boolean;
+    isLegalEntity: boolean;
+    cnpj: string;
+    canIssueOwnReceipts: boolean;
+    associationHistoryNotes: string;
+    address: Address;
+    events: Events[];
+    members: Member[];
+    socialNetworks: SocialNetwork[];
+    contacts: Contact[];
 }
 
-interface StepContextProps {
-  currentStep?: number;
-  setCurrentStep?: React.Dispatch<React.SetStateAction<number>>;
-  userData?: ObjectContextProps;
-  setUserData?: React.Dispatch<React.SetStateAction<ObjectContextProps>>;
-  finalData: ObjectContextProps[];
-  setFinalData: React.Dispatch<React.SetStateAction<ObjectContextProps[]>>;
-  submitData: () => Promise<void>;
-
-  socialNetworkType: ESocialNetworkType;
-  setSocialNetworkType: React.Dispatch<React.SetStateAction<ESocialNetworkType>>;
-  url: string;
-  setUrl: React.Dispatch<React.SetStateAction<string>>;
-  memberName: string,
-  setMemberName: React.Dispatch<React.SetStateAction<string>>;
-  surnameMember: string;
-  setSurnameMember: React.Dispatch<React.SetStateAction<string>>;
-  roleMember: string;
-  setRoleMember: React.Dispatch<React.SetStateAction<string>>;
-  actuationTimeInMonths: number;
-  setActuationTimeInMonths: React.Dispatch<React.SetStateAction<number>>;
-  isFrevoTheMainRevenueIncome: boolean;
-  setIsFrevoTheMainRevenueIncome: React.Dispatch<React.SetStateAction<boolean>>;
-  addressTo: string,
-  setAddressTo: React.Dispatch<React.SetStateAction<string>>;
-  email: string,
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  countryCode: string;
-  setCountryCode: React.Dispatch<React.SetStateAction<string>>;
-  areaCode: string;
-  setAreaCode: React.Dispatch<React.SetStateAction<string>>;
-  number: string;
-  setNumber: React.Dispatch<React.SetStateAction<string>>;
+type Action = {
+    type: FormActions,
+    payload: any;
 }
 
-interface MultiStepContextProps {
-  children: React.ReactNode;
+type ContextType = {
+    state: State,
+    dispatch: (action: Action) => void;
 }
 
-export const StepContext = React.createContext<StepContextProps | undefined>(undefined);
+type FormProviderProps = {
+    children: ReactNode
+}
 
-export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) => {
-  
+// Initial State:
 
-
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const [socialNetworkType, setSocialNetworkType] = useState<ESocialNetworkType>(ESocialNetworkType.facebook);
-  const [url, setUrl] = useState<string>('');
-
-  const [memberName, setMemberName] = useState<string>('');
-  const [surnameMember, setSurnameMember] = useState<string>('');
-  const [roleMember, setRoleMember] = useState<string>('');
-  const [actuationTimeInMonths, setActuationTimeInMonths] = useState(0);
-  const [isFrevoTheMainRevenueIncome, setIsFrevoTheMainRevenueIncome] = useState(false);
-  const [addressTo, setAddressTo] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [countryCode, setCountryCode] = useState<string>('');
-  const [areaCode, setAreaCode] = useState<string>('');
-  const [number, setNumber] = useState<string>('');
-
-  const [userData, setUserData] = useState<ObjectContextProps>({
+const initialData = {
+    currentStep: 0,
     name: '',
     foundationDate: '',
     colors: [],
@@ -97,85 +54,139 @@ export const MultiStepContext: React.FC<MultiStepContextProps> = ({ children }) 
     canIssueOwnReceipts: false,
     associationHistoryNotes: '',
     address: {
-      addressSite: '',
-      number: '',
-      complement: '',
-      district: '',
-      city: '',
-      state: '',
-      country: '',
-      zipCode: '',
+        addressSite: '',
+        number: '',
+        complement: '',
+        district: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: '',
     },
     events: [
-      {
-        eventType: '',
-        dateOfAccomplishment: '',
-        participantsAmount: 0,
-      },
+        {
+            eventType: '',
+            dateOfAccomplishment: '',
+            participantsAmount: 0,
+        },
     ],
-    members: [],
-    socialNetworks: [],
+    members: [
+        {
+            name: '',
+            surname: '',
+            role: '',
+            actuationTimeInMonths: 0,
+            isFrevoTheMainRevenueIncome: false,
+        },
+    ],
+    socialNetworks: [
+        {
+            socialNetworkType: ESocialNetworkType.instagram,
+            url: '',
+        },
+    ],
     contacts: [
-      {
-        addressTo: '',
-        email: '',
-        phoneNumbers: [
-          {
-            countryCode: '',
-            areaCode: '',
-            number: '',
-          },
-        ],
-      },
+        {
+            addressTo: '',
+            email: '',
+            phoneNumbers: [
+                {
+                    countryCode: '',
+                    areaCode: '',
+                    number: '',
+                },
+            ],
+        },
     ],
-  });
-
-  const [finalData, setFinalData] = useState<ObjectContextProps[]>([]);
-
-  const submitData = async () => {
-    try {
-      const response = await axios.post('sua-rota-no-backend', finalData);
-      console.log('Resposta do servidor:', response.data);
-
-      setFinalData((prevFinalData) => [...prevFinalData, userData]);
-      setCurrentStep((prevStep) => prevStep + 1);
-    } catch (error) {
-
-      console.error('Erro ao enviar dados para o backend:', error);
-    }
-  };
-
-  return (
-    <>
-      <StepContext.Provider
-        value={{
-          currentStep, setCurrentStep, userData, setUserData, finalData, setFinalData, submitData, socialNetworkType,
-          setSocialNetworkType,
-          url,
-          setUrl,
-          memberName,
-          setMemberName,
-          surnameMember,
-          setSurnameMember,
-          roleMember,
-          setRoleMember,
-          actuationTimeInMonths,
-          setActuationTimeInMonths,
-          isFrevoTheMainRevenueIncome,
-          setIsFrevoTheMainRevenueIncome,
-          addressTo,
-          setAddressTo,
-          email,
-          setEmail,
-          countryCode,
-          setCountryCode,
-          areaCode,
-          setAreaCode,
-          number,
-          setNumber
-        }}>
-        {children}
-      </StepContext.Provider>
-    </>
-  );
 };
+
+// Context
+
+const FormContext = createContext<ContextType | undefined>(undefined);
+
+// Reducer
+
+export enum FormActions {
+    setCurrentStep,
+    setName,
+    setFoundationDate,
+    setColors,
+    setAssociationType,
+    setActiveMembers,
+    setIsSharedWithAResidence,
+    setHasOwnedHeadquarters,
+    setIsLegalEntity,
+    setCnpj,
+    setCanIssueOwnReceipts,
+    setAssociationHistoryNotes,
+    setAddress,
+    setEvents,
+    setMembers,
+    setSocialNetworks,
+    setContacts
+}
+
+
+const formReducer = (state: State, action: Action) => {
+    switch (action.type) {
+        case FormActions.setCurrentStep:
+            return { ...state, currentStep: action.payload };
+        case FormActions.setName:
+            return { ...state, name: action.payload };
+        case FormActions.setFoundationDate:
+            return { ...state, foundationDate: action.payload };
+        case FormActions.setColors:
+            return { ...state, colors: action.payload };
+        case FormActions.setAssociationType:
+            return { ...state, associationType: action.payload };
+        case FormActions.setActiveMembers:
+            return { ...state, activeMembers: action.payload };
+        case FormActions.setIsSharedWithAResidence:
+            return { ...state, isSharedWithAResidence: action.payload };
+        case FormActions.setHasOwnedHeadquarters:
+            return { ...state, hasOwnedHeadquarters: action.payload };
+        case FormActions.setIsLegalEntity:
+            return { ...state, isLegalEntity: action.payload };
+        case FormActions.setCnpj:
+            return { ...state, cnpj: action.payload };
+        case FormActions.setCanIssueOwnReceipts:
+            return { ...state, canIssueOwnReceipts: action.payload };
+        case FormActions.setAssociationHistoryNotes:
+            return { ...state, associationHistoryNotes: action.payload };
+        case FormActions.setAddress:
+            return { ...state, address: action.payload };
+        case FormActions.setEvents:
+            return { ...state, events: action.payload };
+        case FormActions.setMembers:
+            return { ...state, members: action.payload };
+        case FormActions.setSocialNetworks:
+            return { ...state, socialNetworks: action.payload };
+        case FormActions.setContacts:
+            return { ...state, contacts: action.payload };
+        default:
+            return state;
+    }
+};
+
+// Provider
+
+export const FormProvider = ({children}: FormProviderProps) => {
+    const [state, dispatch] = useReducer(formReducer, initialData);
+    const value = { state, dispatch };
+
+    return (
+        <FormContext.Provider value={value}>
+            {children}
+        </FormContext.Provider>
+    );
+};
+
+// Context Hook
+
+export const useForm = () => {
+    const context = useContext(FormContext);
+    if (context === undefined) {
+        throw new Error("useForm precisa ser usado dentro do FormProvider")
+    }
+    return context;
+}

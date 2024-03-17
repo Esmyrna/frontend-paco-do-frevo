@@ -25,6 +25,7 @@ import CarouselImage from '../../components/Carousel';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import Nav from '../../components/Nav';
 
 
 const HomePage: React.FC = () => {
@@ -34,12 +35,12 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/register-association/one-step');
+    navigate('/step1');
   };
 
   return (
     <>
-
+      <Nav />
       <Section marginTop={'0px'} flexDirection="row">
         <VideoContainer autoPlay muted loop>
           <source src={Video} type="video/mp4" />

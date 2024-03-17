@@ -17,7 +17,7 @@ const Nav = () => {
     };
 
     const handleClickPageForm = () => {
-        navigate('/register-association/form');
+        navigate('/step1');
     };
 
     return (

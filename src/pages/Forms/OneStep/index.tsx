@@ -5,84 +5,66 @@ import { Label } from "../../../components/Input/style"
 import { SaveInfos } from "../SecondStep/style"
 import { AdressContainer, Fields, FormContainer, FormInputs, FormText, InputsContainer, Section, Select, TextForm } from "./style"
 import RadioInputs from "../../../components/RadioInputs"
-import { useContext, useState } from "react"
 import InputBigText from "../../../components/TextArea"
-import { StepContext } from "../../../context"
+import { FormActions, useForm } from "../../../context"
 import { EAssociationType } from "../../../interfaces/enum"
-import { Address } from "../../../interfaces/type"
+import Nav from "../../../components/Nav"
+import Footer from "../../../components/Footer"
+import { useNavigate } from "react-router-dom"
+
+
 
 
 
 export const OneStep: React.FC = () => {
-    const { setCurrentStep, setUserData, userData } = useContext(StepContext) || {};
 
-    const [residenceOption, setResidenceOption] = useState<string>('option2');
-    const [headquartersOption, setHeadquartersOption] = useState<string>('option4');
-    const [legalEntityOption, setLegalEntityOption] = useState<string>('option6');
-    const [receiptsOption, setReceiptsOption] = useState<string>('option8');
+    const { state, dispatch } = useForm();
+    const navigate = useNavigate();
 
-    const handleResidenceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = event.target.value;
-        setResidenceOption(selectedValue);
-        setUserData && setUserData((prevData) => ({
-            ...prevData,
-            isSharedWithAResidence: selectedValue === 'option1',
-        }));
-    };
-    const handleHeadquartersChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = event.target.value;
-        setHeadquartersOption(selectedValue);
-        setUserData && setUserData((prevData) => ({
-            ...prevData,
-            hasOwnedHeadquarters: selectedValue === 'option3',
-        }));
-    };
-
-    const handleLegalEntityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = event.target.value;
-        setLegalEntityOption(selectedValue);
-        setUserData && setUserData((prevData) => ({
-            ...prevData,
-            isLegalEntity: selectedValue === 'option5',
-        }));
-    };
-
-    const handleReceiptsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = event.target.value;
-        setReceiptsOption(selectedValue);
-        setUserData && setUserData((prevData) => ({
-            ...prevData,
-            canIssueOwnReceipts: selectedValue === 'option7',
-        }));
-    };
-
-    const choiceAssociationType = (value: EAssociationType) => {
-        setUserData && setUserData((prevUserData) => {
-            const userDataUpdate = { ...prevUserData };
-
-            if (Object.values(EAssociationType).includes(value)) {
-                userDataUpdate.associationType = value
-            } else {
-                console.error('Valor inválido para associationType:', value);
-            }
-
-            return userDataUpdate;
+    const handleFieldChange = (field: keyof typeof FormActions, value: string | boolean) => {
+        dispatch({
+            type: FormActions[field],
+            payload: value
         });
+        console.log(state)
     }
 
-    const handleAdressChange = (field: keyof Address, value: string) => {
-        setUserData && setUserData((prevUserData) => {
-            const userDataUpdate = { ...prevUserData };
-            userDataUpdate.address[field] = value;
-
-            return userDataUpdate;
+    const handleSharedResidenceChange = (value: boolean) => {
+        dispatch({
+            type: FormActions.setIsSharedWithAResidence,
+            payload: value
         });
     };
 
+    const handleHasOwnedHeadquarters = (value: boolean) => {
+        dispatch({
+            type: FormActions.setHasOwnedHeadquarters,
+            payload: value
+        });
+    };
 
+    const handleIsLegalEntity = (value: boolean) => {
+        dispatch({
+            type: FormActions.setIsLegalEntity,
+            payload: value
+        });
+    };
+    
+    const handleCanIssueOwnReceipts = (value: boolean) => {
+        dispatch({
+            type: FormActions.setCanIssueOwnReceipts,
+            payload: value
+        });
+    };
 
+    const handleNextStep = () => {
+        navigate('/step2')
+    }
+    
+    
     return (
         <>
+            <Nav />
             <Section>
                 <FormContainer>
                     <FormText>
@@ -107,8 +89,8 @@ export const OneStep: React.FC = () => {
                         <Fields>
                             <Label fontSize={'16px'}> Nome da agremiação:</Label>
                             <Input
-                                value={userData?.name || ''}
-                                onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, name: e.target.value }))}
+                                value={state.name}
+                                onChange={(e) => handleFieldChange('setName', e.target.value)}
                                 type={'text'}
                                 width={'95%'}
                                 placeholder="Bloco do Bacalhau do Batata"
@@ -118,8 +100,8 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'16px'} >Data de fundação:</Label>
                                     <Input
                                         type="date" width={"90%"}
-                                        value={userData?.foundationDate || ''}
-                                        onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, foundationDate: e.target.value }))}
+                                        value={state.foundationDate}
+                                        onChange={(e) => handleFieldChange('setFoundationDate', e.target.value)}
                                         placeholder="Bloco do Bacalhau do Batata"
                                     />
                                 </InputsContainer>
@@ -129,19 +111,17 @@ export const OneStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: Azul, Amarelo"
-                                        value={userData?.colors.join(', ') || ''}
-                                        onChange={(e) => {
-                                            const colorsArray = e.target.value.split(',').map(color => color.trim());
-                                            setUserData && setUserData((prevData) => ({ ...prevData, colors: colorsArray }));
-                                        }}
+                                        value={state.colors}
+                                        onChange={(e) => handleFieldChange('setColors', e.target.value)}
                                     />
                                 </InputsContainer>
                             </InputsContainer>
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Tipo de associação:</Label>
-                                    <Select width="95%" value={userData?.associationType}
-                                        onChange={(e) => choiceAssociationType(e.target.value as EAssociationType)}>
+                                    <Select width="95%"
+                                        value={state.associationType}
+                                        onChange={(e) => handleFieldChange('setAssociationType', e.target.value as EAssociationType)}>
                                         {Object.values(EAssociationType).map((type) => (
                                             <option key={type} value={type}>
                                                 {type}
@@ -155,8 +135,9 @@ export const OneStep: React.FC = () => {
                                         type={'number'}
                                         width={'90%'}
                                         placeholder="Ex: 25"
-                                        value={userData?.activeMembers || ''}
-                                        onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, activeMembers: parseInt(e.target.value, 10) || 0 }))} />
+                                        value={state.activeMembers}
+                                        onChange={(e) => handleFieldChange('setActiveMembers', e.target.value)}
+                                    />
                                 </InputsContainer>
                             </InputsContainer>
                             <InputsContainer width={'100%'} flexDirection="row">
@@ -164,14 +145,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >Possui residência compartilhada?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value='option1'
-                                            checked={residenceOption === 'option1'}
-                                            onChange={handleResidenceChange} />
+                                           value={true}
+                                           checked={state.isSharedWithAResidence === true}
+                                           onChange={() => handleSharedResidenceChange(true)} />
                                         <Label fontSize={'16px'}>Sim</Label>
                                         <RadioInputs
-                                            value={'option2'}
-                                            checked={residenceOption === 'option2'}
-                                            onChange={handleResidenceChange} />
+                                            value={false}
+                                            checked={state.isSharedWithAResidence === false}
+                                            onChange={() => handleSharedResidenceChange(false)} />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -179,14 +160,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >Possui sede própria?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value='option3'
-                                            checked={headquartersOption === 'option3'}
-                                            onChange={handleHeadquartersChange} />
+                                            value={true}
+                                            checked={state.hasOwnedHeadquarters === true}
+                                            onChange={() => handleHasOwnedHeadquarters(true)}  />
                                         <Label fontSize={'16px'}>Sim</Label>
                                         <RadioInputs
-                                            value={'option4'}
-                                            checked={headquartersOption === 'option4'}
-                                            onChange={handleHeadquartersChange} />
+                                            value={false}
+                                            checked={state.hasOwnedHeadquarters === false}
+                                            onChange={() => handleHasOwnedHeadquarters(false)}  />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -194,15 +175,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >É uma entidade legal?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={'option5'}
-                                            checked={legalEntityOption === 'option5'}
-                                            onChange={handleLegalEntityChange}
-                                        />
+                                             value={true}
+                                             checked={state.isLegalEntity === true}
+                                             onChange={() => handleIsLegalEntity(true)}  />
                                         <Label fontSize={'16px'}>Sim</Label>
                                         <RadioInputs
-                                            value={'option6'}
-                                            checked={legalEntityOption === 'option6'}
-                                            onChange={handleLegalEntityChange} />
+                                            value={false}
+                                            checked={state.isLegalEntity === false}
+                                            onChange={() => handleIsLegalEntity(false)}  />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -214,22 +194,22 @@ export const OneStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: 12345678111134"
-                                        value={userData?.cnpj || ''}
-                                        onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, cnpj: e.target.value }))}
+                                        value={state.cnpj}
+                                        onChange={(e) => handleFieldChange('setCnpj', e.target.value)}
                                     />
                                 </InputsContainer>
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'14px'} >Pode emitir recibos próprios</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={'option7'}
-                                            checked={receiptsOption === 'option7'}
-                                            onChange={handleReceiptsChange} />
+                                            value={true}
+                                            checked={state.canIssueOwnReceipts === true}
+                                            onChange={() => handleCanIssueOwnReceipts(true)}  />
                                         <Label fontSize={'16px'}>Sim</Label>
                                         <RadioInputs
-                                            value={'option8'}
-                                            checked={receiptsOption === 'option8'}
-                                            onChange={handleReceiptsChange} />
+                                           value={false}
+                                           checked={state.canIssueOwnReceipts === false}
+                                           onChange={() => handleCanIssueOwnReceipts(false)}  />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -238,8 +218,8 @@ export const OneStep: React.FC = () => {
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Sobre a agremiação: </Label>
                                     <InputBigText
-                                        value={userData?.associationHistoryNotes || ''}
-                                        onChange={(e) => setUserData && setUserData((prevData) => ({ ...prevData, associationHistoryNotes: e.target.value }))}
+                                        value={state.associationHistoryNotes}
+                                        onChange={(e) => handleFieldChange('setAssociationHistoryNotes', e.target.value)}
                                     />
                                     <AdressContainer>
                                         <InputsContainer width={'100%'} flexDirection="column">
@@ -248,8 +228,8 @@ export const OneStep: React.FC = () => {
                                                 type={'text'}
                                                 width={'90%'}
                                                 placeholder="Ex: Rua do Príncipe"
-                                                value={userData?.address.addressSite}
-                                                onChange={(e) => handleAdressChange('addressSite', e.target.value)}
+                                                value={state.address.addressSite}
+                                                onChange={(e) => handleFieldChange('setAddress', e.target.value)}
                                             />
                                         </InputsContainer>
 
@@ -258,12 +238,12 @@ export const OneStep: React.FC = () => {
                                             <Input
                                                 type={'number'}
                                                 width={'90%'} placeholder="Ex: 2245"
-                                                value={userData?.address.number}
-                                                onChange={(e) => handleAdressChange('number', e.target.value)} />
+                                                value={state.address.number}
+                                                onChange={(e) => handleFieldChange('setAddress', e.target.value)} />
                                         </InputsContainer>
                                     </AdressContainer>
                                     <SaveInfos height="" justifyContent="flex-end">
-                                        <Button onClick={() => setCurrentStep && setCurrentStep(2)} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                        <Button onClick={handleNextStep} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                                     </SaveInfos>
                                 </InputsContainer>
                             </InputsContainer>
@@ -271,6 +251,7 @@ export const OneStep: React.FC = () => {
                     </FormInputs>
                 </FormContainer>
             </Section>
+            <Footer />
 
         </>
     )
