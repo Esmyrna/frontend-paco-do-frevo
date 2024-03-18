@@ -1,0 +1,4 @@
+
+interface AssociationStylesProps {
+    isGreen?: boolean;
+}

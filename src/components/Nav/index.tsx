@@ -30,7 +30,7 @@ const Nav = () => {
                     {/* Os itens da navbar precisam sem importados do button, com o padrão large */}
                     <Item onClick={handleClickPageHome}>Home</Item>
                     <Item onClick={handleClickPageForm}>Cadastrar agremiação</Item>
-                    <Item>Dashboard</Item>
+                    <Item onClick={() =>navigate('/dashboard')}>Dashboard</Item>
                 </List>
             </Options>
             {/* Também deve seguir o padrão de botão */}
