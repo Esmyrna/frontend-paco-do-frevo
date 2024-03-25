@@ -3,62 +3,77 @@ import styled, { keyframes } from "styled-components";
 /** ????????????
  * separar interface no arquivo de types
  */
-export const Section = styled.section<{ flexDirection: string, marginTop: string }>`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: ${props => props.flexDirection};
-    width: 100%;
-    margin-top: ${props => props.marginTop}
+export const Section = styled.section<{
+  flexDirection: string;
+  marginTop: string;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: ${(props) => props.flexDirection};
+  width: 100%;
+  margin-top: ${(props) => props.marginTop};
 `;
 
 /** ????????? */
 export const VideoContainer = styled.video`
-    width: 100%;
-    
+  width: 100%;
 `;
 
 /** ??????????// */
-export const VideoSlogan = styled.div<{ backgroundColor: string, width: string, height: string }>`
-    position: absolute;
-    background-color: ${props => props.backgroundColor};
-    color: #fff;
-    width: ${props => props.width};
-    height: ${props => props.height};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0.8;
-    border-radius: 12px;
-    flex-direction: column;
-    z-index: 0;
-    
+export const VideoSlogan = styled.section<{
+  backgroundColor: string;
+  width: string;
+  height: string;
+}>`
+  position: absolute;
+  background-color: ${(props) => props.backgroundColor};
+  color: #fff;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  border-radius: 12px;
+  flex-direction: column;
+  z-index: 0;
 `;
 
 /** ?????????? */
-export const About = styled.div<{ width: string }>`
-    width: ${props => props.width};
-    text-align: center;
-    margin: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items:  flex-start;
- 
-     
- 
+export const About = styled.section<{ width?: string }>`
+  width: ${(props) => props.width ?? '30vw'};
+  text-align: center;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media (width <= 1000px) {
+    align-items: center;
+    width: 80vw;
+  }
 `;
 
-/** ??????????????????? */
+/**
+The `TextAbout` styled component is defining the styles for a `<p>` element with the following
+properties:
+- Text alignment is set to justify.
+- Font family is set to "Righteous" and fallback to sans-serif.
+- Font size is initially set to 1.5rem.
+- Maximum width is set to 80% of the container width.
+*/
 export const TextAbout = styled.p`
-    text-align: justify;
-    padding-left: 2rem;
-    font-family: 'Righteous', sans-serif;
-    font-size: 20px;
-     
-    /** Fonte */
-   
-`;
+  text-align: justify;
+  font-family: "Righteous", sans-serif;
+  font-size: 1.5rem;
+  max-width: 80%;
 
+  @media (width <= 1000px) {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+`;
 
 export const blinkAnimation = keyframes`
   0% {
@@ -72,41 +87,65 @@ export const blinkAnimation = keyframes`
   }
 `;
 
-export const Card = styled.div<{ border: string; backgroundColor: string; boxShadow: string }>`
+export const Card = styled.section<{
+  border: string;
+  backgroundColor: string;
+  boxShadow: string;
+}>`
   width: 300px;
   height: 350px;
-  border: ${props => props.border};
+  border: ${(props) => props.border};
   margin: 1rem;
-  background-color: ${props => props.backgroundColor};
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: ${props => props.boxShadow};
+  box-shadow: ${(props) => props.boxShadow};
   animation: ${blinkAnimation} 2s infinite alternate; /* 2s de duração, infinito e alternado */
 `;
 
-export const ContainerInfosCard = styled.div`
+export const ContainerInfosCard = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100%;
- 
 `;
 
-export const SignUp = styled.div`
-    
-    width: 31%;
-    display: flex;
-    justify-content: flex-end;
-    
+export const SignUp = styled.section`
+  width: 31%;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const Img = styled.img``;
 
-export const CardText = styled.p<{fontSize: string, fontWeight: string}>`
+export const CardText = styled.p<{ fontSize: string; fontWeight: string }>`
   color: #fff;
   font-family: sans-serif;
   text-align: center;
-  font-size: ${props => props.fontSize};
-  font-weight: ${props => props.fontWeight};
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.fontWeight};
+  text-align: justify;
 `;
+
+/**
+The `TextAndCarouselContainer` styled component is defining a container element with the following
+styles:
+- It has a width of 100vw, which means it will take up the full width of the viewport.
+- It is a flex container with the flex direction set to row, aligning items along the main axis
+(horizontally) and justifying content along the cross axis (center).
+- Additionally, there is a media query specified using `@media` which targets viewport widths less
+than or equal to 1000px. When the viewport width is less than or equal to 1000px, the flex direction
+of the container is changed to column. This means that the items inside the container will be
+stacked vertically instead of horizontally when the viewport is smaller. */
+export const TextAndCarouselContainer = styled.section`
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  @media (width <= 1000px) {
+    flex-direction: column;
+  }
+`
