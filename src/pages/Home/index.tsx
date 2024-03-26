@@ -13,6 +13,7 @@ import { Title } from "../../components/Title/style";
 import {
   About,
   Card,
+  CardsContainer,
   CardText,
   ContainerInfosCard,
   Img,
@@ -46,11 +47,11 @@ const HomePage: React.FC = () => {
           <source src={Video} type="video/mp4" />
         </VideoContainer>
 
-        <VideoSlogan backgroundColor="#000" width={"100vw"} height={"270px"}>
+        <VideoSlogan backgroundColor="#000" width={"50%"}>
           <VideoSlogan
             backgroundColor="#3c02028c"
-            width={"400px"}
-            height={"230px"}
+            width={"50%"}
+            isSecondary={true}
           >
             <Title Size="24px" textAlign="center" color="#fff">
               Venha fazer parte dessa história
@@ -94,12 +95,12 @@ const HomePage: React.FC = () => {
           </SignUp>
         </About>
 
-        <About width="50%">
+        <About width="45%">
           <CarouselImage images={images} />
         </About>
       </TextAndCarouselContainer>
 
-      <TextAndCarouselContainer>
+      <CardsContainer>
         <Card
           boxShadow={`0px 15px 30px 45px ${BaseColors.vividGreen}`}
           backgroundColor={BaseColors.vividGreen}
@@ -111,7 +112,7 @@ const HomePage: React.FC = () => {
               O que o nosso sistema faz?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"13px"}>
+            <CardText fontWeight={"400"} fontSize={"1rem"}>
               Ao cadastrar sua agremiação, você não apenas insere dados, mas
               adiciona sua história ao tecido da cultura brasileira. Nosso
               objetivo é mapear e conectar aqueles que mantêm viva a chama do
@@ -135,7 +136,7 @@ const HomePage: React.FC = () => {
               Qual é a sua importância?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"13px"}>
+            <CardText fontWeight={"400"} fontSize={"1rem"}>
               O cadastro das agremiações de frevo no Paço do Frevo é essencial
               para a preservação e promoção dessa rica expressão cultural. Além
               de contribuir para a preservação da tradição e conectar uma rede
@@ -157,7 +158,7 @@ const HomePage: React.FC = () => {
               Quem é o Paço do Frevo?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"13px"}>
+            <CardText fontWeight={"400"} fontSize={"1rem"}>
               O Paço do Frevo é mais do que um espaço cultural, é um templo
               dedicado à celebração e preservação de uma das expressões
               artísticas mais marcantes do Brasil: o frevo. Localizado no
@@ -166,7 +167,7 @@ const HomePage: React.FC = () => {
             </CardText>
           </ContainerInfosCard>
         </Card>
-      </TextAndCarouselContainer>
+      </CardsContainer>
 
       <Section marginTop={"70px"} flexDirection="row">
         {/* Conteúdo aqui */}

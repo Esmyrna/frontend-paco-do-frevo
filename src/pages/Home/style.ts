@@ -13,6 +13,7 @@ export const Section = styled.section<{
   flex-direction: ${(props) => props.flexDirection};
   width: 100%;
   margin-top: ${(props) => props.marginTop};
+  margin-bottom: 5vh;
 `;
 
 /** ????????? */
@@ -24,7 +25,8 @@ export const VideoContainer = styled.video`
 export const VideoSlogan = styled.section<{
   backgroundColor: string;
   width: string;
-  height: string;
+  height?: string;
+  isSecondary?: boolean;
 }>`
   position: absolute;
   background-color: ${(props) => props.backgroundColor};
@@ -38,13 +40,20 @@ export const VideoSlogan = styled.section<{
   border-radius: 12px;
   flex-direction: column;
   z-index: 0;
+  height: 50vh;
+  gap: 10%;
+
+  @media (width <= 1000px) {
+    height: ${(props) => props.isSecondary ? '15vh' : '20vh'};
+    width: ${(props) => props.isSecondary ? '60vw' : '70vw'};
+  }
 `;
 
 /** ?????????? */
 export const About = styled.section<{ width?: string }>`
-  width: ${(props) => props.width ?? '30vw'};
+  width: ${(props) => props.width ?? "30vw"};
   text-align: center;
-  margin: 2rem;
+  margin: 0.2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -66,7 +75,7 @@ properties:
 export const TextAbout = styled.p`
   text-align: justify;
   font-family: "Righteous", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   max-width: 80%;
 
   @media (width <= 1000px) {
@@ -92,15 +101,25 @@ export const Card = styled.section<{
   backgroundColor: string;
   boxShadow: string;
 }>`
-  width: 300px;
-  height: 350px;
+  width: 20vw;
+  height: 50vh;
   border: ${(props) => props.border};
   margin: 1rem;
   background-color: ${(props) => props.backgroundColor};
   border-radius: 12px;
   padding: 1rem;
   box-shadow: ${(props) => props.boxShadow};
-  animation: ${blinkAnimation} 2s infinite alternate; /* 2s de duração, infinito e alternado */
+  animation: ${blinkAnimation} 2s infinite alternate; //* 2s de duração, infinito e alternado
+
+  @media (width < 900px) {
+    width: 30vw;
+    height: 45vh;
+  }
+
+  @media (width < 720px) {
+    width: 60vw;
+    height: 40vh;
+  }
 `;
 
 export const ContainerInfosCard = styled.section`
@@ -109,6 +128,16 @@ export const ContainerInfosCard = styled.section`
   align-items: center;
   flex-direction: column;
   height: 100%;
+
+  @media (width < 900px) {
+    :first-child {
+      scale: 0.7;
+    }
+
+    :nth-child(3){
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 export const SignUp = styled.section`
@@ -139,13 +168,31 @@ than or equal to 1000px. When the viewport width is less than or equal to 1000px
 of the container is changed to column. This means that the items inside the container will be
 stacked vertically instead of horizontally when the viewport is smaller. */
 export const TextAndCarouselContainer = styled.section`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
-  @media (width <= 1000px) {
+  margin-bottom: 5vh;
+
+  @media (width < 720px) {
     flex-direction: column;
+    gap: 2rem;
   }
-`
+`;
+
+export const CardsContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 10vh 0;
+
+  @media (width < 720px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
