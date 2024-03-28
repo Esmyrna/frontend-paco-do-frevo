@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import BaseColors from "../../styleguide/BaseColors";
 
 /** ????????????
  * separar interface no arquivo de types
@@ -15,7 +16,6 @@ export const Section = styled.section<{
   margin-top: ${(props) => props.marginTop};
   margin-bottom: 5vh;
 `;
-
 
 export const VideoContainer = styled.video`
   width: 100%;
@@ -188,7 +188,7 @@ export const CardsContainer = styled.section`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: #f5f5f5;
+  background-color: ${BaseColors.whiteishGray};
   padding: 10vh 0;
 
   @media (width < 720px) {

@@ -24,7 +24,7 @@ import {
   VideoContainer,
   VideoSlogan,
 } from "./style";
-import { BaseColors } from "../../styleguide/Colors";
+import BaseColors from "../../styleguide/BaseColors";
 import CarouselImage from '../../components/Carousel';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
 
         <VideoSlogan backgroundColor="#000" width={"50%"}>
           <VideoSlogan
-            backgroundColor="#3c02028c"
+            backgroundColor={BaseColors.darkWineRed}
             width={"50%"}
             isSecondary={true}
           >
@@ -125,9 +125,9 @@ const HomePage: React.FC = () => {
         </Card>
 
         <Card
-          boxShadow={"0px 15px 30px 45px #00377B"}
-          backgroundColor={"#00377B"}
-          border={"7px solid #00377B"}
+          boxShadow={`0px 15px 30px 45px ${BaseColors.darkBlue}`}
+          backgroundColor={BaseColors.darkBlue}
+          border={`7px solid ${BaseColors.darkBlue}`}
         >
           <ContainerInfosCard>
             <Img width="150px" src={mascara} />
@@ -147,9 +147,9 @@ const HomePage: React.FC = () => {
         </Card>
 
         <Card
-          boxShadow={"0px 15px 30px 45px #E20821"}
+          boxShadow={`0px 15px 30px 45px ${BaseColors.vividRed}`}
           backgroundColor={BaseColors.vividRed}
-          border={"7px solid #E20821"}
+          border={`7px solid ${BaseColors.vividRed}`}
         >
           <ContainerInfosCard>
             <Img width="100px" src={sombrinha} />
