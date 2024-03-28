@@ -9,6 +9,4 @@ export const Title = styled.h2<{color: string, textAlign: string, Size: string}>
     text-transform: uppercase;
     color: ${props => props.color};
     font-weight: 700;
-    padding-left: 2rem;
-
 `;

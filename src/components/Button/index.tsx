@@ -4,15 +4,22 @@ type ButtonProps = {
     children: React.ReactNode;
     variant?: 'primary' | 'secondary';
     onClick?: () => void;
-    backgroundColor: string
+    backgroundColor: string;
   };
-  
-  const Button: React.FC<ButtonProps> = ({ children, onClick, backgroundColor }) => {
+
+  const Button: React.FC<ButtonProps> = (
+    {
+      children,
+      onClick,
+      backgroundColor,
+    }) => {
     return (
-      <StyledButton  backgroundColor={backgroundColor} onClick={onClick}>
+      <StyledButton
+      backgroundColor={backgroundColor}
+      onClick={onClick}>
         {children}
       </StyledButton>
     );
   };
-  
+
   export default Button;
