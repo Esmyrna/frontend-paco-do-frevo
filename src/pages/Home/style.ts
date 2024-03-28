@@ -16,7 +16,7 @@ export const Section = styled.section<{
   margin-bottom: 5vh;
 `;
 
-/** ????????? */
+
 export const VideoContainer = styled.video`
   width: 100%;
 `;

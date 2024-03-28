@@ -24,11 +24,11 @@ import {
   VideoContainer,
   VideoSlogan,
 } from "./style";
-import CarouselImage from "../../components/Carousel";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
 import { BaseColors } from "../../styleguide/Colors";
+import CarouselImage from '../../components/Carousel';
+import Button from '../../components/Button';
+import Footer from '../../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   const images = [frevo1, frevo2, frevo3];
@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/cadastrar-agremiacao/dados-gerais");
+    navigate('/step1');
   };
 
   return (
