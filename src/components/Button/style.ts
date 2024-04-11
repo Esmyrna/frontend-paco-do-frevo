@@ -12,6 +12,5 @@ export const StyledButton = styled.button<ButtonSaveProps>`
   border-radius: 4px;
   cursor: pointer;
   color: #ffffff;
-  background-color: ${props => props.backgroundColor};
-  
+  background-color: ${ props => props.backgroundColor};
 `;
