@@ -17,7 +17,7 @@ const Nav = () => {
     };
 
     const handleClickPageForm = () => {
-        navigate('/step1');
+        navigate('/multistep');
     };
 
     return (

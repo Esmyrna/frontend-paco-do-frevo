@@ -10,18 +10,16 @@ import { FormActions, useForm } from "../../../context"
 import { EAssociationType } from "../../../interfaces/enum"
 import Nav from "../../../components/Nav"
 import Footer from "../../../components/Footer"
-import { useNavigate } from "react-router-dom"
 
 
+interface Step1Props {
+    onNext: () => void;
+}
 
-
-
-export const OneStep: React.FC = () => {
+export const OneStep: React.FC<Step1Props> = ({ onNext }) => {
 
     const { state, dispatch } = useForm();
-    const navigate = useNavigate();
 
-  
     const handleSharedResidenceChange = (value: boolean) => {
         dispatch({
             type: FormActions.setIsSharedWithAResidence,
@@ -51,14 +49,9 @@ export const OneStep: React.FC = () => {
         });
     };
 
-    const handleNextStep = () => {
-        navigate('/step2')
-    }
-
 
     return (
         <>
-
             <Nav />
             <Section>
                 <DataInfos>
@@ -100,12 +93,12 @@ export const OneStep: React.FC = () => {
                                 width={'95%'}
                                 placeholder="Bloco do Bacalhau do Batata"
                             />
-
                             <InputsContainer width={'100%'} flexDirection="row">
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Data de fundação:</Label>
                                     <Input
-                                        type="date" width={"90%"}
+                                        type="date"
+                                        width={"90%"}
                                         value={state.foundationDate}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setFoundationDate,
@@ -113,6 +106,7 @@ export const OneStep: React.FC = () => {
                                         })}
                                         placeholder="Bloco do Bacalhau do Batata"
                                     />
+
                                 </InputsContainer>
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Cores: </Label>
@@ -152,13 +146,13 @@ export const OneStep: React.FC = () => {
                                 <InputsContainer width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Integrantes ativos:</Label>
                                     <Input
-                                        type={'number'}
+                                        type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: 25"
                                         value={state.activeMembers}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setActiveMembers,
-                                            payload: e.target.value
+                                            payload: parseInt(e.target.value, 10)
                                         })}
                                     />
                                 </InputsContainer>
@@ -168,14 +162,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >Possui residência compartilhada?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={false}
-                                            checked={state.isSharedWithAResidence === false}
-                                            onChange={() => handleSharedResidenceChange(false)} />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
                                             value={true}
                                             checked={state.isSharedWithAResidence === true}
                                             onChange={() => handleSharedResidenceChange(true)} />
+                                        <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs
+                                            value={false}
+                                            checked={state.isSharedWithAResidence === false}
+                                            onChange={() => handleSharedResidenceChange(false)} />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -183,14 +177,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >Possui sede própria?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={false}
-                                            checked={state.hasOwnedHeadquarters === false}
-                                            onChange={() => handleHasOwnedHeadquarters(false)} />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
                                             value={true}
                                             checked={state.hasOwnedHeadquarters === true}
                                             onChange={() => handleHasOwnedHeadquarters(true)} />
+                                        <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs
+                                            value={false}
+                                            checked={state.hasOwnedHeadquarters === false}
+                                            onChange={() => handleHasOwnedHeadquarters(false)} />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -198,14 +192,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >É uma entidade legal?</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={false}
-                                            checked={state.isLegalEntity === false}
-                                            onChange={() => handleIsLegalEntity(false)} />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
                                             value={true}
                                             checked={state.isLegalEntity === true}
                                             onChange={() => handleIsLegalEntity(true)} />
+                                        <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs
+                                            value={false}
+                                            checked={state.isLegalEntity === false}
+                                            onChange={() => handleIsLegalEntity(false)} />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -228,14 +222,14 @@ export const OneStep: React.FC = () => {
                                     <Label fontSize={'14px'} >Pode emitir recibos próprios</Label>
                                     <InputsContainer width={'100%'} flexDirection="row">
                                         <RadioInputs
-                                            value={false}
-                                            checked={state.canIssueOwnReceipts === false}
-                                            onChange={() => handleCanIssueOwnReceipts(false)} />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
                                             value={true}
                                             checked={state.canIssueOwnReceipts === true}
                                             onChange={() => handleCanIssueOwnReceipts(true)} />
+                                        <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs
+                                            value={false}
+                                            checked={state.canIssueOwnReceipts === false}
+                                            onChange={() => handleCanIssueOwnReceipts(false)} />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsContainer>
@@ -257,7 +251,7 @@ export const OneStep: React.FC = () => {
                                                 type={'text'}
                                                 width={'90%'}
                                                 placeholder="Ex: Rua do Príncipe"
-                                                value={state.address.addressSite}
+                                                value={state.address?.addressSite}
                                                 onChange={(e) => dispatch({
                                                     type: FormActions.setAddress,
                                                     payload: {
@@ -267,24 +261,23 @@ export const OneStep: React.FC = () => {
                                                 })}
                                             />
                                         </InputsContainer>
-
                                         <InputsContainer width={'100%'} flexDirection="column">
                                             <Label fontSize={'16px'}>Número:</Label>
                                             <Input
-                                                type={'number'}
+                                                type={'text'}
                                                 width={'90%'} placeholder="Ex: 2245"
-                                                value={state.address.number}
+                                                value={state.address?.number}
                                                 onChange={(e) => dispatch({
                                                     type: FormActions.setAddress,
                                                     payload: {
                                                         ...state.address,
                                                         number: e.target.value
                                                     }
-                                                })}/>
+                                                })} />
                                         </InputsContainer>
                                     </AdressContainer>
                                     <SaveInfos height="" justifyContent="flex-end">
-                                        <Button onClick={handleNextStep} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                        <Button onClick={onNext} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                                     </SaveInfos>
                                 </InputsContainer>
                             </InputsContainer>

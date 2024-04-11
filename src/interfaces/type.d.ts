@@ -5,27 +5,27 @@ export interface PhoneNumber {
 }
 
 export interface Address {
-  addressSite: string;
-  number: string;
-  complement: string;
-  district: string;
-  city: string;
-  state: string;
-  country: string;
-  zipCode: string;
+  addressSite: string | null;
+  number: string | null ;
+  complement: string | null;
+  district: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  zipCode: string | null;
 }
 
 export interface Events {
-  eventType: string;
-  dateOfAccomplishment: string;
-  participantsAmount: number;
+  eventType: string | null;
+  dateOfAccomplishment: string | null;
+  participantsAmount: number | null;
 }
 
 export interface Member {
-  name: string;
-  surname: string;
-  role: string;
-  actuationTimeInMonths: number;
+  name: string | null;
+  surname: string | null;
+  role: string | null;
+  actuationTimeInMonths: number | null;
   isFrevoTheMainRevenueIncome: boolean;
 }
 export enum ESocialNetworkType {
@@ -37,15 +37,15 @@ export enum ESocialNetworkType {
 }
 
 export interface SocialNetwork {
-  socialNetworkType: ESocialNetworkType;
-  url: string;
+  socialNetworkType: ESocialNetworkTyp | null;
+  url: string | null;
 }
  
 
  
 export interface Contact {
-  addressTo: string;
-  email: string;
+  addressTo: string | null;
+  email: string | null;
   phoneNumbers: PhoneNumber[];
 }
 
@@ -58,15 +58,15 @@ export interface Association {
 }
 
 export interface AssociationGeraData {
-  name: string;
-  foundationDate: string;
-  colors: string[];
-  associationType: string;
-  activeMembers: number;
+  name: string | null;
+  foundationDate: string | null;
+  colors: string[] | null;
+  associationType: string | null;
+  activeMembers: number | null;
   isSharedWithAResidence: boolean;
   hasOwnedHeadquarters: boolean;
   isLegalEntity: boolean;
-  cnpj: string;
+  cnpj: string | null;
   canIssueOwnReceipts: boolean;
-  associationHistoryNotes: string;
+  associationHistoryNotes: string | null;
 }
