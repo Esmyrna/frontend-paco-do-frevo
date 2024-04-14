@@ -10,7 +10,6 @@ const MultiStepForm: React.FC = () => {
 
     const nextStep = () => {
         setStep(step + 1);
-      
     };
 
     const prevStep = () => {

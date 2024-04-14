@@ -2,8 +2,6 @@ import { Item, List, Logo, NavBar, NavImage, Options, RegisterButton, User } fro
 import PageSymbol from "../../assets/logo-paco.png"
 import { useNavigate } from 'react-router-dom';
 
-
-
 /**
  * Falta documentação
  * @returns 

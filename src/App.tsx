@@ -9,7 +9,6 @@ function AppRoute() {
     <FormProvider>
       <QueryClientProvider client={queryClient}>
         <RouterPage />
-
       </QueryClientProvider>
     </FormProvider>
   );
