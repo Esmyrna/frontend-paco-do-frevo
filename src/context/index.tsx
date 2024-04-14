@@ -1,27 +1,27 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode, createContext, useContext, useReducer } from "react";
-import { EAssociationType, ESocialNetworkType } from "../interfaces/enum";
+import { EAssociationType } from "../interfaces/enum";
 import { Address, Contact, Events, Member, SocialNetwork } from "../interfaces/type";
 
 
-type State = {
-    currentStep: number;
-    name: string;
-    foundationDate: string;
+export type State = {
+    name: string | null;
+    foundationDate: string | null;
     colors: string[];
     associationType: EAssociationType;
-    activeMembers: number;
+    activeMembers: string | null;
     isSharedWithAResidence: boolean;
     hasOwnedHeadquarters: boolean;
     isLegalEntity: boolean;
-    cnpj: string;
+    cnpj: string | null;
     canIssueOwnReceipts: boolean;
-    associationHistoryNotes: string;
-    address: Address;
-    events: Events[];
-    members: Member[];
-    socialNetworks: SocialNetwork[];
-    contacts: Contact[];
+    associationHistoryNotes: string | null;
+    address: Address | null;
+    events: Events[] | null;
+    members: Member[] | null;
+    socialNetworks: SocialNetwork[] | null;
+    contacts: Contact[] | null;
 }
 
 type Action = {
@@ -41,63 +41,22 @@ type FormProviderProps = {
 // Initial State:
 
 const initialData = {
-    currentStep: 0,
-    name: '',
-    foundationDate: '',
+    name: null,
+    foundationDate: null,
     colors: [],
     associationType: EAssociationType.carnivalBlock,
-    activeMembers: 0,
+    activeMembers: null,
     isSharedWithAResidence: false,
     hasOwnedHeadquarters: false,
     isLegalEntity: false,
-    cnpj: '',
+    cnpj: null,
     canIssueOwnReceipts: false,
-    associationHistoryNotes: '',
-    address: {
-        addressSite: '',
-        number: '',
-        complement: '',
-        district: '',
-        city: '',
-        state: '',
-        country: '',
-        zipCode: '',
-    },
-    events: [
-        {
-            eventType: '',
-            dateOfAccomplishment: '',
-            participantsAmount: 0,
-        },
-    ],
-    members: [
-        {
-            name: '',
-            surname: '',
-            role: '',
-            actuationTimeInMonths: 0,
-            isFrevoTheMainRevenueIncome: false,
-        },
-    ],
-    socialNetworks: [
-        {
-            socialNetworkType: ESocialNetworkType.instagram,
-            url: '',
-        },
-    ],
-    contacts: [
-        {
-            addressTo: '',
-            email: '',
-            phoneNumbers: [
-                {
-                    countryCode: '',
-                    areaCode: '',
-                    number: '',
-                },
-            ],
-        },
-    ],
+    associationHistoryNotes: null,
+    address: null,
+    events: null,
+    members: null,
+    socialNetworks: null,
+    contacts: null
 };
 
 // Context
@@ -107,7 +66,6 @@ const FormContext = createContext<ContextType | undefined>(undefined);
 // Reducer
 
 export enum FormActions {
-    setCurrentStep,
     setName,
     setFoundationDate,
     setColors,
@@ -127,10 +85,10 @@ export enum FormActions {
 }
 
 
+// Reducer
+
 const formReducer = (state: State, action: Action) => {
     switch (action.type) {
-        case FormActions.setCurrentStep:
-            return { ...state, currentStep: action.payload };
         case FormActions.setName:
             return { ...state, name: action.payload };
         case FormActions.setFoundationDate:
@@ -154,9 +112,10 @@ const formReducer = (state: State, action: Action) => {
         case FormActions.setAssociationHistoryNotes:
             return { ...state, associationHistoryNotes: action.payload };
         case FormActions.setAddress:
-            return { ...state, address: action.payload };
+            return { ...state, address: action.payload === '' ? null : action.payload };
         case FormActions.setEvents:
-            return { ...state, events: action.payload };
+            const eventsPayload = action.payload.length > 0 ? action.payload : null;
+            return { ...state, events: eventsPayload };
         case FormActions.setMembers:
             return { ...state, members: action.payload };
         case FormActions.setSocialNetworks:
@@ -168,9 +127,10 @@ const formReducer = (state: State, action: Action) => {
     }
 };
 
+
 // Provider
 
-export const FormProvider = ({children}: FormProviderProps) => {
+export const FormProvider = ({ children }: FormProviderProps) => {
     const [state, dispatch] = useReducer(formReducer, initialData);
     const value = { state, dispatch };
 

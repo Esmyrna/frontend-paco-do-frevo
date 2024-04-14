@@ -3,34 +3,51 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 import { BackButton, InputTitle, SaveInfos } from "../SecondStep/style"
-import { ButtonAddContact, ButtonMemberAdd, ButtonMemberContainer, Fields, FormContainer, FormInputs, FormText, InputSocialNetwork, InputsContacts, InputsContactsContainer, InputsSocialNetworkContainer, Section, Select, SpaceButtonAdd, TextForm } from "./style"
+import { ButtonAddContact, ButtonMemberAdd, ButtonMemberContainer, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputSocialNetwork, InputsContacts, InputsContactsContainer, InputsSocialNetworkContainer, Section, Select, SpaceButtonAdd, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useState } from "react"
 import { ESocialNetworkType } from '../../../interfaces/enum'
-import { FormActions, useForm } from "../../../context"
+import { FormActions, State, useForm } from "../../../context"
+
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useMutation } from "react-query"
+import Nav from "../../../components/Nav"
+import Footer from "../../../components/Footer"
+import { ButtonOptions } from "../OneStep/style"
+interface Step3Props {
+    onBack: () => void;
 
+}
 
-export const ThreeStep: React.FC = () => {
+export const ThreeStep: React.FC<Step3Props> = ({ onBack }) => {
     const [isExploding, setIsExploding] = useState(false);
     const { state, dispatch } = useForm();
-    const navigate = useNavigate();
 
-   
+    const BASE_URL = 'http://localhost:3000/associations';
 
-    const saveFormClick = async () => {
-        setIsExploding(true);
-
+    const saveFormData = async (formData: State) => {
         try {
-            const response = await axios.post('URL_DO_SEU_BACKEND', state);
-            console.log('Dados enviados com sucesso:', response.data);
+            const response = await axios.post(BASE_URL, formData);
+            return response.data; // Return the response data if needed
+            console.log(formData)
+
         } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
+            throw new Error('Failed to save form data');
         }
     };
 
+    const { mutate } = useMutation(saveFormData);
 
+    const saveFormClick = async () => {
+        try {
+            await mutate(state);
+            console.log(state)
+            console.log('ok')
+            setIsExploding(true);
+        } catch (error) {
+            console.error('Failed to save form data:', error);
+        }
+    };
 
     const handleAddSocialNetwork = () => {
         dispatch({
@@ -46,16 +63,21 @@ export const ThreeStep: React.FC = () => {
             payload: state.contacts
         });
         console.log(state.contacts)
-    }
 
-    const handleBackStep = () => {
-        navigate('/step2')
     }
 
 
     return (
         <>
+            <Nav />
             <Section>
+                <DataInfos>
+                    <Infos>
+                        <ButtonOptions isActive={true}>Dados gerais</ButtonOptions>
+                        <ButtonOptions isActive={false}>Dados jurídicos</ButtonOptions>
+                        <ButtonOptions isActive={false}>História da agremiação</ButtonOptions>
+                    </Infos>
+                </DataInfos>
                 <FormContainer>
                     <FormText>
                         <TextForm>
@@ -84,63 +106,81 @@ export const ThreeStep: React.FC = () => {
                         />
                     )}
                         <Fields>
-
                             <InputTitle>  <Label fontSize={'22px'} >Rede Social</Label> </InputTitle>
                             <InputsSocialNetworkContainer>
                                 <InputSocialNetwork>
                                     <Label fontSize={'16px'} >Tipo de rede social:</Label>
-                                    {state.socialNetworks.map((network, index) => (
-                                        <Select
-                                            key={index}
-                                            value={network.socialNetworkType}
-                                            width="95%"
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedSocialNetworks = state.socialNetworks.map((net, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...net, socialNetworkType: value };
-                                                    }
-                                                    return net;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setSocialNetworks,
-                                                    payload: updatedSocialNetworks
-                                                });
-                                            }}>
-                                            <option value="">Selecione um tipo de rede social</option>
-                                            {Object.values(ESocialNetworkType).map((type) => (
-                                                <option key={type} value={type}>
-                                                    {type}
-                                                </option>
-                                            ))}
-                                        </Select>
-                                    ))}
-
-                                </InputSocialNetwork>
-                                <InputSocialNetwork>
-                                    <Label fontSize={'16px'} >Url:</Label>
-                                    {state.socialNetworks.map((social, index) => (
+                                    {state.socialNetworks ? (
+                                        state.socialNetworks.map((network, index) => (
+                                            <Select
+                                                key={index}
+                                                value={network.socialNetworkType}
+                                                width="95%"
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedSocialNetworks = state.socialNetworks?.map((net, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...net, socialNetworkType: value };
+                                                        }
+                                                        return net;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setSocialNetworks,
+                                                        payload: updatedSocialNetworks
+                                                    });
+                                                }}>
+                                                <option value="">Selecione um tipo de rede social</option>
+                                                {Object.values(ESocialNetworkType).map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type}
+                                                    </option>
+                                                ))}
+                                            </Select>
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={social.url}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedSocialNetwork = state.socialNetworks.map((sn, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...sn, url: value };
-                                                    }
-                                                    return sn;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setSocialNetworks,
-                                                    payload: updatedSocialNetwork
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
+                                </InputSocialNetwork>
+                                <InputSocialNetwork>
+                                    <Label fontSize={'16px'} >Url:</Label>
+                                    {state.socialNetworks ? (
+                                        state.socialNetworks.map((social, index) => (
+                                            <Input
+                                                key={index}
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={social.url}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedSocialNetworks = state.socialNetworks?.map((sn, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...sn, url: value };
+                                                        }
+                                                        return sn;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setSocialNetworks,
+                                                        payload: updatedSocialNetworks
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
+                                        <Input
+                                            type={'text'}
+                                            width={'90%'}
+                                            placeholder="Ex: Recife"
+                                            value=""
+                                            onChange={() => { }}
+                                        />
+                                    )}
                                 </InputSocialNetwork>
                                 <ButtonMemberContainer>
                                     <ButtonMemberAdd onClick={handleAddSocialNetwork}>Adicionar</ButtonMemberAdd>
@@ -150,165 +190,209 @@ export const ThreeStep: React.FC = () => {
                             <InputsContactsContainer>
                                 <InputsContacts>
                                     <Label fontSize={'16px'} >Endereço para:</Label>
-                                    {state.contacts.map((contact, index) => (
+                                    {state.contacts ? (
+                                        state.contacts.map((contact, index) => (
+                                            <Input
+                                                key={index}
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={contact.addressTo}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedContacts = state.contacts?.map((ct, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...ct, addressTo: value };
+                                                        }
+                                                        return ct;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setContacts,
+                                                        payload: updatedContacts
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={contact.addressTo}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedContacts = state.contacts.map((ct, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...ct, addressTo: value };
-                                                    }
-                                                    return ct;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setContacts,
-                                                    payload: updatedContacts
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}                                                                                   
+                                    )}
                                 </InputsContacts>
                                 <InputsContacts>
                                     <Label fontSize={'16px'}>Email:</Label>
-                                    {state.contacts.map((contact, index) => (
+                                    {state.contacts ? (
+                                        state.contacts.map((contact, index) => (
+                                            <Input
+                                                key={index}
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={contact.email}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedContacts = state.contacts?.map((ct, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...ct, email: value };
+                                                        }
+                                                        return ct;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setContacts,
+                                                        payload: updatedContacts
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={contact.email}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedContacts = state.contacts.map((ct, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...ct, email: value };
-                                                    }
-                                                    return ct;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setContacts,
-                                                    payload: updatedContacts
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}       
+                                    )}
                                 </InputsContacts>
                             </InputsContactsContainer>
                             <InputsContactsContainer>
                                 <InputsContacts>
                                     <Label fontSize={'16px'} >Código do País:</Label>
-                                    {state.contacts.map((contact, contactIndex) => (
-                                    <div key={contactIndex}>
-                                        <Input
-                                            type={'number'}
-                                            width={'90%'}
-                                            value={contact.phoneNumbers.map(phoneNumber => phoneNumber.countryCode)} 
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedContacts = state.contacts.map((cont, idx) => {
-                                                    if (idx === contactIndex) { 
-                                                        const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
-                                                            if (phoneIndex === 0) {
-                                                                return { ...phoneNumber, countryCode: value };
+                                    {state.contacts ? (
+                                        state.contacts.map((contact, contactIndex) => (
+                                            <div key={contactIndex}>
+                                                <Input
+                                                    type={'number'}
+                                                    width={'90%'}
+                                                    value={contact.phoneNumbers[0].countryCode} // Assumindo que há pelo menos um número de telefone por contato
+                                                    onChange={(e) => {
+                                                        const { value } = e.target;
+                                                        const updatedContacts = state.contacts?.map((cont, idx) => {
+                                                            if (idx === contactIndex) {
+                                                                const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
+                                                                    if (phoneIndex === 0) {
+                                                                        return { ...phoneNumber, countryCode: value };
+                                                                    }
+                                                                    return phoneNumber;
+                                                                });
+                                                                return { ...cont, phoneNumbers: updatedPhoneNumbers };
                                                             }
-                                                            return phoneNumber;
+                                                            return cont;
                                                         });
-                                                        return { ...cont, phoneNumbers: updatedPhoneNumbers };
-                                                    }
-                                                    return cont;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setContacts,
-                                                    payload: updatedContacts
-                                                });
-                                            }}
+                                                        dispatch({
+                                                            type: FormActions.setContacts,
+                                                            payload: updatedContacts
+                                                        });
+                                                    }}
+                                                />
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <Input
+                                            type={'text'}
+                                            width={'90%'}
+                                            placeholder="Ex: Recife"
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    </div>
-                                ))}
+                                    )}
+
                                 </InputsContacts>
                                 <InputsContacts>
                                     <Label fontSize={'16px'}>DDD:</Label>
-                                    {state.contacts.map((contact, contactIndex) => (
-                                    <div key={contactIndex}>
-                                        <Input
-                                            type={'number'}
-                                            width={'90%'}
-                                            value={contact.phoneNumbers.map(phoneNumber => phoneNumber.areaCode)} 
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedContacts = state.contacts.map((cont, idx) => {
-                                                    if (idx === contactIndex) { 
-                                                        const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
-                                                            if (phoneIndex === 0) {
-                                                                return { ...phoneNumber, areaCode: value };
-                                                            }
-                                                            return phoneNumber;
-                                                        });
-                                                        return { ...cont, phoneNumbers: updatedPhoneNumbers };
-                                                    }
-                                                    return cont;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setContacts,
-                                                    payload: updatedContacts
-                                                });
-                                            }}
-                                        />
-                                    </div>
-                                ))}
+                                    {state.contacts?.map((contact, contactIndex) => (
+                                        <div key={contactIndex}>
+                                            <Input
+                                                type={'number'}
+                                                width={'90%'}
+                                                value={contact.phoneNumbers[0].number} // Supondo que só haja um número de telefone por contato
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedContacts = state.contacts?.map((cont, idx) => {
+                                                        if (idx === contactIndex) {
+                                                            const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
+                                                                if (phoneIndex === 0) {
+                                                                    return { ...phoneNumber, number: value };
+                                                                }
+                                                                return phoneNumber;
+                                                            });
+                                                            return { ...cont, phoneNumbers: updatedPhoneNumbers };
+                                                        }
+                                                        return cont;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setContacts,
+                                                        payload: updatedContacts
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
+                                    <Input
+                                        type={'text'}
+                                        width={'90%'}
+                                        placeholder="Ex: Recife"
+                                        value=""
+                                        onChange={() => { }}
+                                    />
                                 </InputsContacts>
-
                                 <InputsContacts>
                                     <Label fontSize={'16px'} >Número para contato:</Label>
-                                    {state.contacts.map((contact, contactIndex) => (
-                                    <div key={contactIndex}>
-                                        <Input
-                                            type={'number'}
-                                            width={'90%'}
-                                            value={contact.phoneNumbers.map(phoneNumber => phoneNumber.number)} 
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedContacts = state.contacts.map((cont, idx) => {
-                                                    if (idx === contactIndex) { 
-                                                        const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
-                                                            if (phoneIndex === 0) {
-                                                                return { ...phoneNumber, number: value };
-                                                            }
-                                                            return phoneNumber;
-                                                        });
-                                                        return { ...cont, phoneNumbers: updatedPhoneNumbers };
-                                                    }
-                                                    return cont;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setContacts,
-                                                    payload: updatedContacts
-                                                });
-                                            }}
-                                        />
-                                    </div>
-                                ))}
+                                    {state.contacts?.map((contact, contactIndex) => (
+                                        <div key={contactIndex}>
+                                            <Input
+                                                type={'number'}
+                                                width={'90%'}
+                                                value={contact.phoneNumbers.map(phoneNumber => phoneNumber.number)}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedContacts = state.contacts?.map((cont, idx) => {
+                                                        if (idx === contactIndex) {
+                                                            const updatedPhoneNumbers = cont.phoneNumbers.map((phoneNumber, phoneIndex) => {
+                                                                if (phoneIndex === 0) {
+                                                                    return { ...phoneNumber, number: value };
+                                                                }
+                                                                return phoneNumber;
+                                                            });
+                                                            return { ...cont, phoneNumbers: updatedPhoneNumbers };
+                                                        }
+                                                        return cont;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setContacts,
+                                                        payload: updatedContacts
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
+                                    <Input
+                                        type={'text'}
+                                        width={'90%'}
+                                        placeholder="Ex: Recife"
+                                        value=""
+                                        onChange={() => { }}
+                                    />
                                 </InputsContacts>
                                 <SpaceButtonAdd>
-                                    <ButtonAddContact onAbort={handleAddContacts}>Adicionar</ButtonAddContact>
+                                    <ButtonAddContact onClick={handleAddContacts}>Adicionar</ButtonAddContact>
                                 </SpaceButtonAdd>
                             </InputsContactsContainer>
                             <SaveInfos height={'100%'} justifyContent={'space-between'}>
-                                <BackButton onClick={handleBackStep}>Voltar</BackButton>
+                                <BackButton onClick={onBack} >Voltar</BackButton>
                                 <Button onClick={saveFormClick} backgroundColor={'#27962D'}>
                                     Salvar agremiação
                                 </Button>
                             </SaveInfos>
                         </Fields>
-
                     </FormInputs>
                 </FormContainer>
             </Section >
+            <Footer />
 
         </>
     )

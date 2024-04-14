@@ -7,18 +7,20 @@ import RadioInputs from "../../../components/RadioInputs"
 import { FormActions, useForm } from "../../../context"
 import { Member } from "../../../interfaces/type"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import Nav from "../../../components/Nav"
 import Footer from "../../../components/Footer"
 import { ButtonOptions } from "../OneStep/style"
 
 
 
+interface Step2Props {
+    onNext: () => void;
+    onBack: () => void;
+}
 
-export const SecondStep: React.FC = () => {
 
+export const SecondStep: React.FC<Step2Props> = ({ onNext, onBack }) => {
     const { state, dispatch } = useForm();
-    const navigate = useNavigate();
 
 
     const [newMemberData, setNewMemberData] = useState<Member>({
@@ -47,13 +49,7 @@ export const SecondStep: React.FC = () => {
         console.log(state.members)
     }
 
-    const handleNextStep = () => {
-        navigate('/step3')
-    }
 
-    const handleBackStep = () => {
-        navigate('/step1')
-    }
 
     return (
         <>
@@ -95,7 +91,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: Rua do Príncipe"
-                                        value={state.address.complement}
+                                        value={state.address?.complement}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -111,7 +107,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text '}
                                         width={'90%'}
                                         placeholder="Ex: Bairro Tal"
-                                        value={state.address.district}
+                                        value={state.address?.district}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -129,7 +125,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: Apto 407"
-                                        value={state.address.city}
+                                        value={state.address?.city}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -145,7 +141,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: Soledade"
-                                        value={state.address.state}
+                                        value={state.address?.state}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -163,7 +159,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: Recife"
-                                        value={state.address.country}
+                                        value={state.address?.country}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -178,7 +174,7 @@ export const SecondStep: React.FC = () => {
                                         type={'text'}
                                         width={'90%'}
                                         placeholder="Ex: PE"
-                                        value={state.address.zipCode}
+                                        value={state.address?.zipCode}
                                         onChange={(e) => dispatch({
                                             type: FormActions.setAddress,
                                             payload: {
@@ -192,7 +188,7 @@ export const SecondStep: React.FC = () => {
                             <InputEventContainer>
                                 <InputEvents>
                                     <Label fontSize={'13px'} >Tipo de evento</Label>
-                                    {state.events.map((event, index) => (
+                                    {state.events?.map((event, index) => (
                                         <Input
                                             key={index}
                                             type={'text'}
@@ -201,7 +197,7 @@ export const SecondStep: React.FC = () => {
                                             value={event.eventType}
                                             onChange={(e) => {
                                                 const { value } = e.target;
-                                                const updatedEvents = state.events.map((evt, idx) => {
+                                                const updatedEvents = state.events?.map((evt, idx) => {
                                                     if (idx === index) {
                                                         return { ...evt, eventType: value };
                                                     }
@@ -214,56 +210,86 @@ export const SecondStep: React.FC = () => {
                                             }}
                                         />
                                     ))}
+                                    {state.events ? null : (
+                                        <Input
+                                            type={'text'}
+                                            width={'90%'}
+                                            placeholder="Ex: Recife"
+                                            value=""
+                                            onChange={() => { }}
+                                        />
+                                    )}
                                 </InputEvents>
                                 <InputEvents>
                                     <Label fontSize={'13px'} >Data de realização</Label>
-                                    {state.events.map((event, index) => (
+                                    {state.events ? (
+                                        state.events.map((event, index) => (
+                                            <Input
+                                                key={index}
+                                                type={'date'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={event.dateOfAccomplishment || ''}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedEvents = state.events?.map((evt, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...evt, dateOfAccomplishment: value };
+                                                        }
+                                                        return evt;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setEvents,
+                                                        payload: updatedEvents
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={event.dateOfAccomplishment}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedEvents = state.events.map((evt, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...evt, dateOfAccomplishment: value };
-                                                    }
-                                                    return evt;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setEvents,
-                                                    payload: updatedEvents
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
                                 </InputEvents>
                                 <InputEvents>
                                     <Label fontSize={'13px'} >Quantidade de participantes</Label>
-                                    {state.events.map((event, index) => (
+                                    <Label fontSize={'13px'}>Quantidade de participantes</Label>
+                                    {state.events ? (
+                                        state.events.map((event, index) => (
+                                            <Input
+                                                key={index} // Use um identificador único para a chave
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={event.participantsAmount}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedEvents = state.events?.map((evt, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...evt, participantsAmount: value };
+                                                        }
+                                                        return evt;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setEvents,
+                                                        payload: updatedEvents
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={event.participantsAmount}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedEvents = state.events.map((evt, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...evt, participantsAmount: value };
-                                                    }
-                                                    return evt;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setEvents,
-                                                    payload: updatedEvents
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
                                 </InputEvents>
                                 <ButtonEventContainer>
                                     <ButtonAddEvent onClick={handleAddEvent}>Adicionar</ButtonAddEvent>
@@ -273,123 +299,164 @@ export const SecondStep: React.FC = () => {
                             <InputsMemberContainer>
                                 <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'} >Nome do membro:</Label>
-                                    {state.members.map((member, index) => (
+                                    {state.members ? (
+                                        state.members.map((member, index) => (
+                                            <Input
+                                                key={index} // Use um identificador único para a chave
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={member.name}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedMembers = state.members?.map((mb, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...mb, name: value };
+                                                        }
+                                                        return mb;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setMembers,
+                                                        payload: updatedMembers
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={member.name}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedMembers = state.members.map((mb, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...mb, name: value };
-                                                    }
-                                                    return mb;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setMembers,
-                                                    payload: updatedMembers
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
-
+                                    )}
                                 </InputsContainer>
                                 <InputsContainer height={'55px'} width={'100%'} flexDirection="column">
                                     <Label fontSize={'16px'}>Sobrenome do membro:</Label>
-                                    {state.members.map((member, index) => (
+                                    {state.members ? (
+                                        state.members.map((member, index) => (
+                                            <Input
+                                                key={index} // Use um identificador único para a chave
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={member.surname}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedMembers = state.members?.map((mb, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...mb, surname: value };
+                                                        }
+                                                        return mb;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setMembers,
+                                                        payload: updatedMembers
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={member.surname}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedMembers = state.members.map((mb, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...mb, surname: value };
-                                                    }
-                                                    return mb;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setMembers,
-                                                    payload: updatedMembers
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
+
                                 </InputsContainer>
                             </InputsMemberContainer>
                             <InputsMemberContainer>
                                 <InputsMember>
                                     <Label fontSize={'13px'} >Papel</Label>
-                                    {state.members.map((member, index) => (
+                                    {state.members ? (
+                                        state.members.map((member, index) => (
+                                            <Input
+                                                key={index} // Use um identificador único para a chave
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={member.role}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedMembers = state.members?.map((mb, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...mb, role: value };
+                                                        }
+                                                        return mb;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setMembers,
+                                                        payload: updatedMembers
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index} // Use um identificador único para a chave
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={member.role}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedMembers = state.members.map((mb, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...mb, role: value };
-                                                    }
-                                                    return mb;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setMembers,
-                                                    payload: updatedMembers
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
+
                                 </InputsMember>
                                 <InputsMember>
                                     <Label fontSize={'13px'} >Frevo é a principal receita?</Label>
                                     <InputsContainer width={'80%'} flexDirection="row" height="">
                                         <RadioInputs
-                                            value={false}
-                                            checked={newMemberData.isFrevoTheMainRevenueIncome === false}
-                                            onChange={() => setNewMemberData({ ...newMemberData, isFrevoTheMainRevenueIncome: false })}
-                                        />
-                                        <Label fontSize={'16px'}>Sim</Label>
-                                        <RadioInputs
                                             value={true}
                                             checked={newMemberData.isFrevoTheMainRevenueIncome === true}
                                             onChange={() => setNewMemberData({ ...newMemberData, isFrevoTheMainRevenueIncome: true })}
+                                        />
+                                        <Label fontSize={'16px'}>Sim</Label>
+                                        <RadioInputs
+                                            value={false}
+                                            checked={newMemberData.isFrevoTheMainRevenueIncome === false}
+                                            onChange={() => setNewMemberData({ ...newMemberData, isFrevoTheMainRevenueIncome: false })}
                                         />
                                         <Label fontSize={'16px'}>Não</Label>
                                     </InputsContainer>
                                 </InputsMember>
                                 <InputsMember>
                                     <Label fontSize={'13px'}>Tempo de atuação em meses:</Label>
-                                    {state.members.map((member, index) => (
+                                    {state.members ? (
+                                        state.members.map((member, index) => (
+                                            <Input
+                                                key={index}
+                                                type={'text'}
+                                                width={'90%'}
+                                                placeholder="Ex: Recife"
+                                                value={member.actuationTimeInMonths}
+                                                onChange={(e) => {
+                                                    const { value } = e.target;
+                                                    const updatedMembers = state.members?.map((mb, idx) => {
+                                                        if (idx === index) {
+                                                            return { ...mb, actuationTimeInMonths: value };
+                                                        }
+                                                        return mb;
+                                                    });
+                                                    dispatch({
+                                                        type: FormActions.setMembers,
+                                                        payload: updatedMembers
+                                                    });
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
                                         <Input
-                                            key={index}
                                             type={'text'}
                                             width={'90%'}
                                             placeholder="Ex: Recife"
-                                            value={member.actuationTimeInMonths}
-                                            onChange={(e) => {
-                                                const { value } = e.target;
-                                                const updatedMembers = state.members.map((mb, idx) => {
-                                                    if (idx === index) {
-                                                        return { ...mb, actuationTimeInMonths: value };
-                                                    }
-                                                    return mb;
-                                                });
-                                                dispatch({
-                                                    type: FormActions.setMembers,
-                                                    payload: updatedMembers
-                                                });
-                                            }}
+                                            value=""
+                                            onChange={() => { }}
                                         />
-                                    ))}
+                                    )}
                                 </InputsMember>
                                 <ButtonAddMemberContainer>
                                     <ButtonAddMember onClick={handleAddMember}>Adicionar</ButtonAddMember>
@@ -397,9 +464,9 @@ export const SecondStep: React.FC = () => {
                             </InputsMemberContainer>
 
                             <RadioInputContainer height={'70%'}>
-                                <SaveInfos height={'65%'} justifyContent={'space-between'}>
-                                    <BackButton onClick={handleBackStep}>Voltar</BackButton>
-                                    <Button onClick={handleNextStep} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
+                                <SaveInfos height={'45%'} justifyContent={'space-between'}>
+                                    <BackButton onClick={onBack}>Voltar</BackButton>
+                                    <Button onClick={onNext} backgroundColor={'#0065E0'}>Próxima Etapa</Button>
                                 </SaveInfos>
                             </RadioInputContainer>
                         </Fields>
