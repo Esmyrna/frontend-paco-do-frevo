@@ -25,7 +25,7 @@ const MultiStepForm: React.FC = () => {
         case 3:
             return <ThirdStep onNext={nextStep} onBack={prevStep} />;
         case 4:
-            return <FourthStep onNext={nextStep} onBack={prevStep} />;
+            return <FourthStep  onBack={prevStep} />;
         default:
             return null;
     }

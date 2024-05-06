@@ -11,7 +11,7 @@ import InputFilterSearch from "../../components/SearchInput";
 import InputFilterCategory from "../../components/InputFilterCategory";
 import { EAssociationType } from "../../interfaces/enum";
 import { FilterItemsAssociations } from "../../interfaces/filterAssociations";
-import { filter } from "lodash";
+ 
 
 
 interface Item {
