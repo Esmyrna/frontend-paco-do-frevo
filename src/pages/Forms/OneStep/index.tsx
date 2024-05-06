@@ -2,7 +2,7 @@ import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
 
-import { SaveInfos } from "../SecondStep/style"
+import { SaveInfos } from "../SecondaryStep/style"
 import { AdressContainer, ButtonOptions, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputsContainer, Section, Select, TextForm } from "./style"
 import RadioInputs from "../../../components/RadioInputs"
 import InputBigText from "../../../components/TextArea"

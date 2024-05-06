@@ -22,6 +22,7 @@ export const StepTitle = styled.p`
   text-align: center;
   font-family: sans-serif;
   font-size: 10px;
+  font-weight: bold;
 `;
 export const HorizontalLine = styled.hr`
   width: 30%;

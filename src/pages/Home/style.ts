@@ -49,7 +49,6 @@ export const VideoSlogan = styled.section<{
   }
 `;
 
-/** ?????????? */
 export const About = styled.section<{ width?: string }>`
   width: ${(props) => props.width ?? "30vw"};
   text-align: center;

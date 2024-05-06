@@ -1,9 +1,10 @@
 // MultiStepForm.tsx
 import React, { useState } from 'react';
-import { OneStep } from '../../pages/Forms/OneStep';
-import { SecondStep } from '../../pages/Forms/SecondStep';
-import { ThreeStep } from '../../pages/Forms/ThreeStep';
-
+ 
+import ThirdStep from '../../pages/Forms/ThirdStep'
+import FirstStep from '../../pages/Forms/FirstStep/FirstStep';
+import SecondStep from '../../pages/Forms/SecondStep';
+import FourthStep from '../../pages/Forms/FourthStep'
 
 const MultiStepForm: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -18,11 +19,13 @@ const MultiStepForm: React.FC = () => {
 
     switch (step) {
         case 1:
-            return <OneStep onNext={nextStep} />;
+            return <FirstStep onNext={nextStep} />;
         case 2:
             return <SecondStep onNext={nextStep} onBack={prevStep} />;
         case 3:
-            return <ThreeStep onBack={prevStep} />;
+            return <ThirdStep onNext={nextStep} onBack={prevStep} />;
+        case 4:
+            return <FourthStep onNext={nextStep} onBack={prevStep} />;
         default:
             return null;
     }

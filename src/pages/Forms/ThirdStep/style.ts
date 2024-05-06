@@ -98,7 +98,7 @@ export const ContainerFormButtons = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 1%;
+  height: 5%;
   padding-left: 3%;
 `;
 
@@ -132,27 +132,34 @@ export const AllContainerForm = styled.div`
   height: 80%;
 `;
 
-export const ContainerInputsRadio = styled.div`
-  height: 10%;
+export const ButtonAddElement = styled.button`
+  background-color: #00377b;
+  color: #fff;
+  cursor: pointer;
   width: 85%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-export const ContainerEachInputRadio = styled.div`
-  width: 20%;
-  height: 5%;
   padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 20px;
+  border-radius: 10px;
+
+  &:hover {
+    color: #00377b;
+    border: 3px solid #00377b;
+    background-color: #fff;
+  }
 `;
 
-export const LabelRadio = styled.label`
-  font-family: sans-serif;
-  font-size: 25px;
-  padding-bottom: 10px;
-  margin-top: 15px;
-  height: 10%;
+export const ButtonAddEvent = styled.button`
+  background-color: #00377b;
+  color: #fff;
+  cursor: pointer;
+  width: 85%;
+  padding: 1rem;
+  margin-top: 50px;
+  border-radius: 10px;
+
+  &:hover {
+    color: #00377b;
+    border: 3px solid #00377b;
+    background-color: #fff;
+  }
 `;

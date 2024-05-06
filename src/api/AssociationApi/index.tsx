@@ -1,7 +1,7 @@
 import axios, { AxiosPromise } from "axios"
 import { Association } from "../../interfaces/type"
 import { useMutation, useQueryClient } from "react-query";
-import IPagingParams from "../requestObjects/IPagingParams";
+import IPagingParams from "../../interfaces/IPagingParams";
 
 const API_URL = 'https://pacodofrevoapi1-6ka9yo5l.b4a.run/associations'
 

@@ -2,7 +2,6 @@
 import Button from "../../../components/Button"
 import Input from "../../../components/Input"
 import { Label } from "../../../components/Input/style"
-import { BackButton, InputTitle, SaveInfos } from "../SecondStep/style"
 import { ButtonAddContact, ButtonMemberAdd, ButtonMemberContainer, DataInfos, Fields, FormContainer, FormInputs, FormText, Infos, InputSocialNetwork, InputsContacts, InputsContactsContainer, InputsSocialNetworkContainer, Section, Select, SpaceButtonAdd, TextForm } from "./style"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useState } from "react"
@@ -14,6 +13,7 @@ import { useMutation } from "react-query"
 import Nav from "../../../components/Nav"
 import Footer from "../../../components/Footer"
 import { ButtonOptions } from "../OneStep/style"
+import { BackButton, InputTitle, SaveInfos } from "../SecondaryStep/style";
 interface Step3Props {
     onBack: () => void;
 

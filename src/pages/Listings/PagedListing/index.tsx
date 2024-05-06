@@ -31,20 +31,7 @@ const PagedResultsPage = () => {
 
   return (
     <div>
-      <h1>Paged Results</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>{/* Renderize seus dados aqui */}</li>
-        ))}
-      </ul>
-      <div>
-        <button onClick={handlePreviousPage} disabled={pageInfo.pageIndex === 1}>
-          Previous
-        </button>
-        <button onClick={handleNextPage} disabled={!pageInfo.hasNextPage}>
-          Next
-        </button>
-      </div>
+     
     </div>
   );
 };

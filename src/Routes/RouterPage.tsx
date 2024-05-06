@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import HomePage from "../pages/Home"
 import MultiStepForm from "../components/MultiStep"
-import FirstStep from "../pages/Forms/FirstStep/FirstStep"
+import ListOfAssociations from "../pages/ListOfAssociations/ListOfAssociations"
+
 
 function RouterPage() {
 
@@ -12,7 +13,7 @@ function RouterPage() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path="/multistep" element={<MultiStepForm />} />
-          <Route path="/new-from" element={<FirstStep />} />
+          <Route path="/listing" element={<ListOfAssociations />} />
         </Routes>
       </BrowserRouter>
     </>
