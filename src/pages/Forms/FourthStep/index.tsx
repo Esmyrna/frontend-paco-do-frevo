@@ -24,7 +24,12 @@ const FourthStep: React.FC<Step1Props> = ({ onBack }) => {
     const [isExploding, setIsExploding] = useState(false);
     const { state, dispatch } = useForm();
     const BASE_URL = 'http://localhost:3000/associations';
+ 
 
+    function createUser(data: unknown) {
+        
+        console.log("Dados", data)
+    }
 
     const saveFormData = async (formData: State) => {
         try {
@@ -314,9 +319,10 @@ const FourthStep: React.FC<Step1Props> = ({ onBack }) => {
                     </C.AllContainerForm>
                     <C.ContainerFormButtons>
                         <C.ButtonForHome onClick={onBack}>Voltar</C.ButtonForHome>
-                        <C.ButtonForList onClick={saveFormClick}>Cadastrar agremiação</C.ButtonForList>
+                        <C.ButtonForList onClick={createUser}>Cadastrar agremiação</C.ButtonForList>
                     </C.ContainerFormButtons>
                 </C.ContainerInputsForm>
+               
             </C.Section>
             <Footer />
         </>

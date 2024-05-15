@@ -12,8 +12,8 @@ import axios from "axios"
 import { useMutation } from "react-query"
 import Nav from "../../../components/Nav"
 import Footer from "../../../components/Footer"
-import { ButtonOptions } from "../OneStep/style"
-import { BackButton, InputTitle, SaveInfos } from "../SecondaryStep/style";
+import { ButtonOptions } from "../DataForm/FirstData/style"
+import { BackButton, InputTitle, SaveInfos } from "../DataForm/AddressStepOneData/style";
 interface Step3Props {
     onBack: () => void;
 

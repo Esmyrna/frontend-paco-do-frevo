@@ -126,9 +126,10 @@ export const ContainerFormRight = styled.div`
   align-items: center;
 `;
 
-export const AllContainerForm = styled.div`
+export const AllContainerForm = styled.form`
   display: flex;
   width: 100%;
   height: 80%;
 `;
 
+ 

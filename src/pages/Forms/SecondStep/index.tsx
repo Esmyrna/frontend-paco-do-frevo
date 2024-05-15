@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Footer from '../../../components/Footer'
 import Input from '../../../components/Input'
@@ -5,18 +6,19 @@ import { Label } from '../../../components/Input/style'
 import Nav from '../../../components/Nav'
 import Steps from '../../../components/Steps/Steps'
 import * as C from './style'
-import { EAssociationType } from '../../../interfaces/enum'
-import Select from '../../../components/Select'
 import RadioInputs from '../../../components/RadioInputs'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { FormActions, useForm } from '../../../context'
 import { Member } from '../../../interfaces/type'
 interface StepsNextAndBack {
     onNext: () => void;
     onBack: () => void;
+    register: any;
+    errors: any;
 }
 
-const Second: React.FC<StepsNextAndBack> = ({ onNext, onBack }) => {
+
+const SecondStep: React.FC<StepsNextAndBack> = ({ onNext, onBack, register, errors, }) => {
 
     const { state, dispatch } = useForm();
 
@@ -70,18 +72,7 @@ const Second: React.FC<StepsNextAndBack> = ({ onNext, onBack }) => {
                         <C.ContainerFormLeft>
                             <C.ContainerFields>
                                 <Label fontSize="15px">Bairro</Label>
-                                <Input
-                                    type={'text '}
-                                    width={'90%'}
-                                    placeholder="Ex: Bairro Tal"
-                                    value={state.address?.district}
-                                    onChange={(e) => dispatch({
-                                        type: FormActions.setAddress,
-                                        payload: {
-                                            ...state.address,
-                                            district: e.target.value
-                                        }
-                                    })} />
+                                <Input type="text" {...register('adre')} />
 
                                 <Label fontSize="15px">Cidade</Label>
                                 <Input
@@ -205,4 +196,4 @@ const Second: React.FC<StepsNextAndBack> = ({ onNext, onBack }) => {
     )
 }
 
-export default Second
+export default SecondStep
