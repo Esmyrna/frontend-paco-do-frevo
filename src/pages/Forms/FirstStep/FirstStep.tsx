@@ -18,7 +18,7 @@ interface Step1Props {
     onNext: () => void;
 }
 
-const FirstStep: React.FC<Step1Props> = ({ onNext }) => {
+const FirstStep: React.FC<Step1Props> = ( ) => {
 
     type CreateUserFormData = z.infer<typeof createUserFormSchema>;
     const [step, setStep] = useState(1);
