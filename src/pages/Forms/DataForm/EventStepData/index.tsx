@@ -1,47 +1,62 @@
+import React, { useState } from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
 import { ContainerFields } from '../../SecondStep/style';
-import { useForm } from 'react-hook-form';
 import { ButtonAddEvent } from './style';
-import { useEffect, useState } from 'react';
-import { Events } from '../../../../interfaces/type';
+import { useGlobalContext } from '../../../../context';
 
-export const EventStepData: React.FC = () => {
-    const { register, handleSubmit } = useForm<Events>(); // Definindo o tipo de dados do formulário como Events
-    const [events, setEvents] = useState<Events[]>([]);
+export const EventStepData = () => {
+    const { userData, setUserData } = useGlobalContext();
 
-    // Função para lidar com o envio do formulário
-    const onSubmit = (data: Events) => {
-        const newEvent = {
-            eventType: data.eventType || '', // Obtendo o valor do input 'Tipo do evento'
-            dateOfAccomplishment: data.dateOfAccomplishment || '', // Obtendo o valor do input 'Data do evento'
-            participantsAmount: data.participantsAmount || 0, // Obtendo o valor do input 'Quantidade de participantes'
-        };
-        setEvents([...events, newEvent]);
-        console.log(events);  
+    const [eventType, setEventType] = useState('');
+    const [dateOfAccomplishment, setDateOfAccomplishment] = useState('');
+    const [participantsAmount, setParticipantsAmount] = useState(0);
+
+    const handleAddEvents = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log('Before adding event:', userData.events);
+        const newEvent = { eventType, dateOfAccomplishment, participantsAmount };
+        setUserData(prevUserData => {
+          const updatedUserData = {
+            ...prevUserData,
+            events: [...prevUserData.events, newEvent],
+          };
+          console.log('After adding event:', updatedUserData);
+          return updatedUserData;
+        });
+        setEventType('');
+        setDateOfAccomplishment('');
+        setParticipantsAmount(0);
     };
-    useEffect(() => {
-        console.log(events);
-    }, [events]);
+    
+      
     return (
-        <>
-            <ContainerFields>
-                <Label fontSize="25px">Novo Evento</Label>
+        <ContainerFields>
+            <Label fontSize="25px">Novo Evento</Label>
 
-                <Label fontSize="15px">Tipo do evento</Label>
-                <Input type="text" {...register('eventType')} />
+            <Label fontSize="15px">Tipo do evento</Label>
+            <Input
+                name="eventType"
+                type="text"
+                value={eventType}
+                onChange={(e) => setEventType(e.target.value)} />
 
-                <Label fontSize="15px">Data do evento</Label>
-                <Input type="date" {...register('dateOfAccomplishment')} />
 
-                <Label fontSize="15px">Quantidade de participantes</Label>
-                <Input type="text" {...register('participantsAmount')} />
+            <Label fontSize="15px">Data do evento</Label>
+            <Input
+                name="dateOfAccomplishment"
+                type="date"
+                value={dateOfAccomplishment}
+                onChange={(e) => setDateOfAccomplishment(e.target.value)} />
 
-                <ButtonAddEvent onClick={handleSubmit(onSubmit)}>
-                    Adicionar Evento
-                </ButtonAddEvent>
-            </ContainerFields>
-        </>
+            <Label fontSize="15px">Quantidade de participantes</Label>
+            <Input
+                name="participantsAmount"
+                type="text"
+                value={participantsAmount}
+                onChange={(e) => setParticipantsAmount(parseInt(e.target.value))} />
+            <ButtonAddEvent onClick={handleAddEvents}>Adicionar Evento</ButtonAddEvent>
+        </ContainerFields>
     );
 }
 

@@ -4,32 +4,45 @@ import Footer from '../../../components/Footer'
 import Nav from '../../../components/Nav'
 import Steps from '../../../components/Steps/Steps'
 import * as C from './style'
-import { useForm } from "react-hook-form"
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { createUserFormSchema } from '../CreateUserFormSchema'
 import { useState } from 'react'
 import FirstData from '../DataForm/FirstData'
 import AddressData from '../DataForm/AddressStepOneData'
 import AddressStepTwoData from '../DataForm/AddressStepTwoData'
 import InputsRadioData from '../DataForm/InputsRadioData'
+import EventStepData from '../DataForm/EventStepData'
+import MemberStepData from '../DataForm/MemberStepData'
+import MidiaStepData from '../DataForm/MidiaStepData'
+import ContactsStepData from '../DataForm/ContactsStepData'
 
-interface Step1Props {
-    onNext: () => void;
-}
+import axios from 'axios'
+import { useGlobalContext } from '../../../context'
+import ConfettiExplosion from 'react-confetti-explosion'
 
-const FirstStep: React.FC<Step1Props> = ( ) => {
-
-    type CreateUserFormData = z.infer<typeof createUserFormSchema>;
+const FirstStep: React.FC = () => {
     const [step, setStep] = useState(1);
-    const { register, formState: { errors } } = useForm<CreateUserFormData>({
-        resolver: zodResolver(createUserFormSchema),
-    });
-    const onNextPage = () => {
-        setStep(step + 1);
+    const { userData } = useGlobalContext();
+    const [isExploding, setIsExploding] = useState(false);
+
+    const onSubmit = async () => {
+        setIsExploding(true);
+        try {
+            const response = await axios.post('http://localhost:3000/associations', userData);
+            console.log('Dados enviados com sucesso:', response.data);
+        } catch (error) {
+            console.error('Erro ao enviar dados:', error);
+        }
+
     };
 
-    const onPrevious = () => {
+    const onNextPage = () => {
+        if (step < 4) {
+            setStep(step + 1);
+        } else {
+            onSubmit();
+        }
+    };
+
+    const onBack = () => {
         setStep(step - 1);
     };
 
@@ -45,20 +58,33 @@ const FirstStep: React.FC<Step1Props> = ( ) => {
                     </C.ContainerFormTitle>
                     <C.AllContainerForm>
                         <C.ContainerFormLeft>
-                            {step == 1 && <FirstData register={register} errors={errors} />}
-                            {step == 2 && <AddressStepTwoData />}
+                            {step === 1 && <FirstData />}
+                            {step === 2 && <AddressStepTwoData />}
+                            {step === 3 && <MemberStepData />}
+                            {step === 4 && <ContactsStepData />}
                         </C.ContainerFormLeft>
+                        {isExploding && (
+                            <ConfettiExplosion
+                                force={0.8}
+                                duration={3000}
+                                particleCount={250}
+                                width={1600}
+                            />
+                        )}
                         <C.ContainerFormRight>
-                            {step == 1 && <AddressData register={register} errors={errors} />}
-                            {step == 2 && <InputsRadioData />}
+                            {step === 1 && <AddressData />}
+                            {step === 2 && <InputsRadioData />}
+                            {step === 3 && <EventStepData />}
+                            {step === 4 && <MidiaStepData />}
                         </C.ContainerFormRight>
                     </C.AllContainerForm>
                     <C.ContainerFormButtons>
-                        <C.ButtonForHome>Conferir Listagem</C.ButtonForHome>
-                        <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>
+                        {step === 1 && <C.ButtonForHome>Conferir Listagem</C.ButtonForHome>}
+                        {step > 1 && <C.ButtonForBack onClick={onBack}>Voltar</C.ButtonForBack>}
+                        {step < 4 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
+                        {step === 4 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
                     </C.ContainerFormButtons>
                 </C.ContainerInputsForm>
-
             </C.Section>
             <Footer />
         </>

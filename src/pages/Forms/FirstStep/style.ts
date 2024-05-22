@@ -132,4 +132,18 @@ export const AllContainerForm = styled.form`
   height: 80%;
 `;
 
- 
+export const ButtonForBack = styled.button`
+   padding: 1rem;
+  background-color: #fff;
+  color: #00377b;
+  border: none;
+  border-radius: 10px;
+  border: 3px solid #00377b;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #00377b;
+    color: #fff;
+  }
+
+`;

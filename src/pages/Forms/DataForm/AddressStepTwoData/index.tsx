@@ -1,43 +1,71 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
 import { ContainerFields } from '../../SecondStep/style';
-import { createUserFormSchema } from '../../CreateUserFormSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod'
+import { useGlobalContext } from '../../../../context';
+
+const AddressData: React.FC = () => {
+    const { userData, setUserData } = useGlobalContext();
+
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        setUserData(prevUserData => {
+            const updatedUserData = {
+                ...prevUserData,
+                address: {
+                    ...prevUserData.address,
+                    [name]: value
+                }
+            };
+            console.log(updatedUserData);
+            return updatedUserData;
+        });
+    };
 
 
-export const AddressStepTwoData: React.FC = () => {
-
-       
-    type CreateUserFormData = z.infer<typeof createUserFormSchema>;
-    const { register, formState: { errors } } = useForm<CreateUserFormData>({
-        resolver: zodResolver(createUserFormSchema),
-    });
-
+    
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setUserData(prevUserData => ({
+            ...prevUserData,
+            [name]: value
+        }));
+    };
 
     return (
-        <>
-            <ContainerFields>
-                <Label fontSize="15px">Bairro</Label>
-                <Input type="text" {...register('address.district')} />
-                {errors.name && <span>{errors.name.message}</span>}
-                <Label fontSize="15px">Cidade</Label>
-                <Input type="date" {...register('address.city')} />
-                {errors.foudationDate && <span>{errors.foudationDate.message}</span>}
-                <Label fontSize="15px">Estado</Label>
-                <Input type="text" {...register('address.state')} />
-                {errors.colors && <span>{errors.colors.message}</span>}
-                <Label fontSize="15px">País</Label>
-                <Input type="text" {...register('address.country')} />
-                {errors.associationType && <span>{errors.associationType?.message}</span>}
-                <Label fontSize="15px">CEP</Label>
-                <Input type="text" {...register('address.zipCode')} />
-                {errors.associationType && <span>{errors.associationType?.message}</span>}
-            </ContainerFields>
-        </>
-    )
-}
+        <ContainerFields>
+            <Label fontSize="25px">Continue...</Label>
+            <Label fontSize="15px">Estado</Label>
+            <Input
+                type="text"
+                value={userData.address.state}
+                name="state"
+                onChange={handleAddressChange}
+            />
+            <Label fontSize="15px">País</Label>
+            <Input
+                type="text"
+                value={userData.address.country}
+                name="country"
+                onChange={handleAddressChange}
+            />
+            <Label fontSize="15px">CEP</Label>
+            <Input
+                type="text"
+                value={userData.address.zipCode}
+                name="zipCode"
+                onChange={handleAddressChange}
+            />
+            <Label fontSize="15px">CNPJ</Label>
+            <Input
+                type="text"
+                value={userData.cnpj}
+                name="cnpj"
+                onChange={handleInputChange}
+            />
+        </ContainerFields>
+    );
+};
 
-export default AddressStepTwoData
+export default AddressData;

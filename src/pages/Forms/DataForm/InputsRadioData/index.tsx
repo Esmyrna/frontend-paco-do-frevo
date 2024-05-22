@@ -1,96 +1,131 @@
-import { ContainerFields } from '../../SecondStep/style';
-import { z } from 'zod'
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { createUserFormSchema } from '../../CreateUserFormSchema';
-import { useState } from 'react';
+import React from 'react';
+import { ContainerFields, ContainerInputsRadio } from '../../SecondStep/style';
+import { RadioInput } from '../../../../components/RadioInputs/style';
+import { Label } from '../../../../components/Input/style';
+import { UserData, useGlobalContext } from '../../../../context';
+import InputBigText from '../../../../components/TextArea';
 
-export const InputRadioData: React.FC = () => {
 
-    type CreateUserFormData = z.infer<typeof createUserFormSchema>;
-    const { register, formState: { errors } } = useForm<CreateUserFormData>({
-        resolver: zodResolver(createUserFormSchema),
-    });
+const InputRadioData: React.FC = () => {
+    const { userData, setUserData } = useGlobalContext();
 
-    const [isLegalEntity, setIsLegalEntity] = useState(false);
-    const [hasOwnedHeadquarters, setHasOwnedHeadquarters] = useState(false);
-    const [canIssueOwnReceipts, setCanIssueOwnReceipts] = useState(false);
+    const handleRadioChange = (name: string, value: boolean) => {
+        setUserData((prevUserData: UserData) => {
+            return {
+                ...prevUserData,
+                [name]: value
+            };
+        });
+    };
 
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setUserData(prevUserData => ({
+            ...prevUserData,
+            [name]: value
+        }));
+    };
     return (
         <>
             <ContainerFields>
-                <label>possui sede propria?</label>
-                <label>
-                    <input
-                        type="radio"
-                        value="true"
-                        {...register('hasOwnedHeadquarters')}
-                        checked={hasOwnedHeadquarters === true}
-                        onChange={() => setHasOwnedHeadquarters(true)}
-                    />
-                    Sim
-                </label>
+                <Label fontSize="15px">Possui sede própria?</Label>
+                <ContainerInputsRadio>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="true"
+                            checked={userData.hasOwnedHeadquarters === true}
+                            onChange={() => handleRadioChange('hasOwnedHeadquarters', true)}
+                        />
+                        Sim
+                    </Label>
 
-                <label>
-                    <input
-                        type="radio"
-                        value="false"
-                        {...register('hasOwnedHeadquarters')}
-                        checked={hasOwnedHeadquarters === false}
-                        onChange={() => setHasOwnedHeadquarters(false)}
-                    />
-                    Não
-                </label>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="false"
+                            checked={userData.hasOwnedHeadquarters === false}
+                            onChange={() => handleRadioChange('hasOwnedHeadquarters', false)}
+                        />
+                        Não
+                    </Label>
+                </ContainerInputsRadio>
+                <Label fontSize="15px">Possui residência compartilhada?</Label>
+                <ContainerInputsRadio>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="true"
+                            checked={userData.isSharedWithAResidence === true}
+                            onChange={() => handleRadioChange('isSharedWithAResidence', true)}
+                        />
+                        Sim
+                    </Label>
 
-                <label>possui receita propria?</label>
-                <label>
-                    <input
-                        type="radio"
-                        value="true"
-                        {...register('canIssueOwnReceipts')}
-                        checked={canIssueOwnReceipts === true}
-                        onChange={() => setCanIssueOwnReceipts(true)}
-                    />
-                    Sim
-                </label>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="false"
+                            checked={userData.isSharedWithAResidence === false}
+                            onChange={() => handleRadioChange('isSharedWithAResidence', false)}
+                        />
+                        Não
+                    </Label>
+                </ContainerInputsRadio>
+                <Label fontSize="15px">Pode emitir nota fiscal?</Label>
+                <ContainerInputsRadio>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="true"
+                            checked={userData.canIssueOwnReceipts === true}
+                            onChange={() => handleRadioChange('canIssueOwnReceipts', true)}
+                        />
+                        Sim
+                    </Label>
 
-                <label>
-                    <input
-                        type="radio"
-                        value="false"
-                        {...register('canIssueOwnReceipts')}
-                        checked={canIssueOwnReceipts === false}
-                        onChange={() => setCanIssueOwnReceipts(false)}
-                    />
-                    Não
-                </label>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="false"
+                            checked={userData.canIssueOwnReceipts === false}
+                            onChange={() => handleRadioChange('canIssueOwnReceipts', false)}
+                        />
+                        Não
+                    </Label>
+                </ContainerInputsRadio>
 
-                <label>é uma entidade legal?</label>
-                <label>
-                    <input
-                        type="radio"
-                        value="true"
-                        {...register('isLegalEntity')}
-                        checked={isLegalEntity === true}
-                        onChange={() => setIsLegalEntity(true)}
-                    />
-                    Sim
-                </label>
 
-                <label>
-                    <input
-                        type="radio"
-                        value="false"
-                        {...register('isLegalEntity')}
-                        checked={isLegalEntity === false}
-                        onChange={() => setIsLegalEntity(false)}
-                    />
-                    Não
-                </label>
+                <Label fontSize="15px">É uma entidade legal?</Label>
+                <ContainerInputsRadio>
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="true"
+                            checked={userData.isLegalEntity === true}
+                            onChange={() => handleRadioChange('isLegalEntity', true)}
+                        />
+                        Sim
+                    </Label>
 
+                    <Label fontSize="15px">
+                        <RadioInput
+                            type="radio"
+                            value="false"
+                            checked={userData.isLegalEntity === false}
+                            onChange={() => handleRadioChange('isLegalEntity', false)}
+                        />
+                        Não
+                    </Label>
+
+                </ContainerInputsRadio>
+                <Label fontSize="15px">História da agremiação</Label>
+                <InputBigText name="associationHistoryNotes"
+                    value={userData.associationHistoryNotes}
+                    onChange={handleTextAreaChange} />
             </ContainerFields>
         </>
-    )
+    );
 }
 
-export default InputRadioData
+export default InputRadioData;

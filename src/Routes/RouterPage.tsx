@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import HomePage from "../pages/Home"
- 
 import ListOfAssociations from "../pages/ListOfAssociations/ListOfAssociations"
 import FirstStep from "../pages/Forms/FirstStep/FirstStep"
 

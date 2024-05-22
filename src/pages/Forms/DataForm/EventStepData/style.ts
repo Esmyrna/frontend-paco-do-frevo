@@ -6,7 +6,7 @@ export const ButtonAddEvent = styled.button`
   cursor: pointer;
   width: 85%;
   padding: 1rem;
-  margin-top: 50px;
+  margin-top: 30px;
   border-radius: 10px;
 
   &:hover {

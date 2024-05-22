@@ -1,52 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
 import { ContainerFields } from '../../SecondStep/style';
-
 import { MidiaAddEvent } from './style';
+
+import Select from '../../../../components/Select';
 import { SocialNetwork } from '../../../../interfaces/type';
+import { useGlobalContext } from '../../../../context';
+import { ESocialNetworkType } from '../../../../interfaces/enum';
 
 export const MidiaStepData: React.FC = () => {
+  const { userData, setUserData } = useGlobalContext();
 
-    const [socialNetworks, setSocialNetworks] = useState<SocialNetwork[]>([
-        { socialNetworkType: '', url: '' }
-    ]);
+  const [socialNetworkType, setSocialNetworkType] = useState<ESocialNetworkType>(
+    ESocialNetworkType.instagram
+  );
+  const [url, setUrl] = useState('');
 
-    const handleSocialNetworkChange = (index: number, field: keyof SocialNetwork, value: string) => {
-        const updatedNetworks = [...socialNetworks];
-        updatedNetworks[index][field] = value;
-        setSocialNetworks(updatedNetworks);
-    };
+  const addSocialNetwork = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const newSocialNetwork: SocialNetwork = { socialNetworkType, url };
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      socialNetworks: prevUserData.socialNetworks.length === 0 ? [newSocialNetwork] : [...prevUserData.socialNetworks, newSocialNetwork],
+    }));
+    setSocialNetworkType(ESocialNetworkType.instagram);
+    setUrl('');
+  };
 
-    const addSocialNetwork = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        setSocialNetworks([...socialNetworks, { socialNetworkType: '', url: '' }]);
-        console.log(socialNetworks)
-    };
-    return (
-        <>
-            <ContainerFields>
-                <Label fontSize="25px">Redes Sociais</Label>
+  useEffect(() => {
+    console.log(userData); 
+  }, [userData]);
 
+  return (
+    <ContainerFields>
+      <Label fontSize="25px">Redes Sociais</Label>
 
-                <Label fontSize="15px">Tipo de rede social</Label>
-                <Input
-                    type="text"
-                    value={socialNetworks[0].socialNetworkType}
-                    onChange={(e) => handleSocialNetworkChange(0, 'socialNetworkType', e.target.value)}
-                />
+      <Label fontSize="15px">Tipo de rede social</Label>
+      <Select
+        value={socialNetworkType}
+        onChange={(e) => setSocialNetworkType(e.target.value as ESocialNetworkType)}
+      >
+        <option value="">Selecione...</option>
+        {Object.values(ESocialNetworkType).map((network) => (
+          <option key={network} value={network}>
+            {network}
+          </option>
+        ))}
+      </Select>
 
-                <Label fontSize="15px">URL</Label>
-                <Input
-                    type="text"
-                    value={socialNetworks[0].url}
-                    onChange={(e) => handleSocialNetworkChange(0, 'url', e.target.value)}
-                />
-
-                <MidiaAddEvent onClick={addSocialNetwork}>Enviar</MidiaAddEvent>
-            </ContainerFields>
-        </>
-    );
+      <Label fontSize="15px">URL</Label>
+      <Input name="url" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+      <MidiaAddEvent onClick={addSocialNetwork}>Enviar</MidiaAddEvent>
+    </ContainerFields>
+  );
 };
 
 export default MidiaStepData;
