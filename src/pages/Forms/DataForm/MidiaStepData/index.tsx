@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
-import { ContainerFields } from '../../SecondStep/style';
 import { MidiaAddEvent } from './style';
 
 import Select from '../../../../components/Select';
 import { SocialNetwork } from '../../../../interfaces/type';
 import { useGlobalContext } from '../../../../context';
 import { ESocialNetworkType } from '../../../../interfaces/enum';
+import { ContainerFields } from '../../ControlForm/style';
 
 export const MidiaStepData: React.FC = () => {
   const { userData, setUserData } = useGlobalContext();
@@ -29,7 +29,7 @@ export const MidiaStepData: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(userData); 
+    console.log(userData);
   }, [userData]);
 
   return (

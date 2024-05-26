@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   overflow: hidden;
   border-radius: 10px;
+  width: 60%;
 `;
 
 const Slide = styled.img`
@@ -23,7 +24,7 @@ const CarouselImage: React.FC<CarouselProps> = ({ images }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((currentSlide + 1) % images.length);
-    }, 2000);  
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [currentSlide, images.length]);

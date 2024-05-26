@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
-import { ContainerFields } from '../../SecondStep/style';
 import { ButtonAddEvent } from './style';
 import { useGlobalContext } from '../../../../context';
+import { ContainerFields } from '../../ControlForm/style';
 
 export const EventStepData = () => {
     const { userData, setUserData } = useGlobalContext();
@@ -17,19 +17,19 @@ export const EventStepData = () => {
         console.log('Before adding event:', userData.events);
         const newEvent = { eventType, dateOfAccomplishment, participantsAmount };
         setUserData(prevUserData => {
-          const updatedUserData = {
-            ...prevUserData,
-            events: [...prevUserData.events, newEvent],
-          };
-          console.log('After adding event:', updatedUserData);
-          return updatedUserData;
+            const updatedUserData = {
+                ...prevUserData,
+                events: [...prevUserData.events, newEvent],
+            };
+            console.log('After adding event:', updatedUserData);
+            return updatedUserData;
         });
         setEventType('');
         setDateOfAccomplishment('');
         setParticipantsAmount(0);
     };
-    
-      
+
+
     return (
         <ContainerFields>
             <Label fontSize="25px">Novo Evento</Label>

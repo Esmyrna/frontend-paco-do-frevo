@@ -1,8 +1,8 @@
 import React from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
-import { ContainerFields } from '../../SecondStep/style';
 import { useGlobalContext } from '../../../../context';
+import { ContainerFields } from '../../ControlForm/style';
 
 const AddressData: React.FC = () => {
     const { userData, setUserData } = useGlobalContext();
