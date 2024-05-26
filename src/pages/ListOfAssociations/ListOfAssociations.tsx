@@ -12,6 +12,8 @@ import InputFilterCategory from "../../components/InputFilterCategory";
 import { EAssociationType } from "../../interfaces/enum";
 import { FilterItemsAssociations } from "../../interfaces/filterAssociations";
 import { SimplifiedAssociationDTO } from "../../interfaces/type";
+import { separateCamelCase } from "../../utils/masks";
+import AssociationInfoBlock from "../../components/AssociationInfoBlock";
 
 interface IPagedResults<T> {
     result: Array<T>;
@@ -58,10 +60,7 @@ const ListOfAssociations = () => {
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
-    function separateCamelCase(word: string) {
 
-        return word.replace(/([a-z])([A-Z])/g, '$1 $2');
-    }
     return (
         <>
             <Nav />
@@ -81,6 +80,7 @@ const ListOfAssociations = () => {
                                 placeholder="Pesquisar..."
                                 value={search}
                                 onChange={handleSearchChange}
+                                backgroundColor="#fff"
                             />
                         </C.SearchAssociation>
 
@@ -99,37 +99,15 @@ const ListOfAssociations = () => {
                     </C.ContainerFilterAssociations>
 
                     <C.ContainerListing>
-                        {data?.result && (
-                            <C.Associations>
-                                {data.result.map(item => (
-                                    <C.Association key={item.id}>
-                                        <C.ContainerInfosAssociation>
-                                            <C.AssociationPropertyBlock>
-                                                <C.Title>Nome:</C.Title>
-                                                {separateCamelCase(item.name)}
-                                            </C.AssociationPropertyBlock>
-
-                                            <C.AssociationPropertyBlock>
-                                                <C.Title>Tipo:</C.Title>
-                                                {separateCamelCase(item.associationType)}
-                                            </C.AssociationPropertyBlock>
-
-                                            <C.AssociationPropertyBlock>
-                                                <C.Title>Data de fundação:</C.Title>
-                                                {item.foundationDate
-                                                    ? new Date(item.foundationDate).toLocaleDateString('pt-BR') 
-                                                    : 'Data não disponível'}
-                                            </C.AssociationPropertyBlock>
-
-                                            <C.AssociationPropertyBlock>
-                                                <C.Title>Membros Ativos:</C.Title>
-                                                {item.activeMembers ?? '0'}
-                                            </C.AssociationPropertyBlock>
-                                        </C.ContainerInfosAssociation>
-                                    </C.Association>
-                                ))}
-                            </C.Associations>
-                        )}
+                        <C.AssocitionListContainer>
+                            {data?.result && (
+                                <C.Associations>
+                                    {data.result.map(item => (
+                                        <AssociationInfoBlock association={item} key={item.id} />
+                                    ))}
+                                </C.Associations>
+                            )}
+                        </C.AssocitionListContainer>
 
                         <C.PageButtonsContainer>
                             <button disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>

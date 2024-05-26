@@ -32,6 +32,7 @@ export const PageButtonsContainer = styled.div`
   justify-self: center;
   align-self: flex-end;
   gap: 2.5%;
+  padding: 2rem;
 `;
 
 export const ContainerPhone = styled.div`
@@ -80,26 +81,26 @@ export const Title = styled.p`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const Association = styled.div`
-  border: 2px solid #989898;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  width: 90%;
-  background-color: #f5f5f5;
-`;
-
-export const ContainerInfosAssociation = styled.div`
-  display: flex;
-  padding: 1rem;
-  gap: 10vw;
-  `;
 
 export const ContainerListing = styled.div`
   width: 100%;
-  height: 70%;
+  max-height: 70%;
+  min-height: 70%;
   background-color: #f5f5f5;
   padding-top: 1%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+  `;
+
+export const AssocitionListContainer = styled.div`
+  width: 100%;
+  max-height: 95%;
+  min-height: 70%;
+  overflow-y: scroll;
+  background-color: #f5f5f5;
+  padding-top: 7.5%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -134,12 +135,6 @@ export const SearchInput = styled.input`
   border: 2px solid #cccccc;
   border-radius: 10px;
   padding: 0.5rem;
-`;
-
-export const AssociationPropertyBlock = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 20%;
 `;
 
 export const PagingButton = styled.button`

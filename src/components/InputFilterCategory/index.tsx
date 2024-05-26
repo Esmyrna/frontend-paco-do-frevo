@@ -21,8 +21,11 @@ const InputField = styled.select`
 const FilterIcon = styled(FaFilter)`
   margin-right: 5px; 
 `;
+interface InputContainerProps{
+    backgroundColor?: string;
+}
 
-interface InputWithFilterIconProps {
+interface InputWithFilterIconProps extends InputContainerProps {
   placeholder: string;
   value?: string | Array<EAssociationType>;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
