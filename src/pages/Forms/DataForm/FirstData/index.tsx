@@ -2,10 +2,12 @@ import React from 'react';
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
-import { ContainerFields } from '../../SecondStep/style';
 import { useGlobalContext } from '../../../../context';
 import { EAssociationType } from '../../../../interfaces/enum';
+import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
+import { ContainerAllInputs, ContainerForLabel } from './style';
 
+ 
 const FirstData: React.FC = () => {
   const { userData, setUserData } = useGlobalContext();
 
@@ -20,6 +22,22 @@ const FirstData: React.FC = () => {
     handleInputChange('associationType', e.target.value as EAssociationType);
   };
 
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setUserData(prevUserData => {
+        const updatedUserData = {
+          ...prevUserData,
+          address: {
+            ...prevUserData.address,
+            [name]: value
+          }
+        };
+        console.log(updatedUserData);  
+        return updatedUserData;
+      });
+    };
+
   const handleInputChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'colors') {
@@ -32,29 +50,40 @@ const FirstData: React.FC = () => {
   };
 
   return (
-    <ContainerFields>
-      <Label fontSize="15px">Nome da agremiação</Label>
+    <>
+    <ContainerAllInputs>
+     <ContainerFormLeft>
+     <ContainerFields>
+      <ContainerForLabel>
+        <Label fontSize="15px">Nome da agremiação</Label>
+      </ContainerForLabel>
       <Input
         type="text"
         value={userData.name}
         name="name"
         onChange={handleInputChangeEvent}
       />
-      <Label fontSize="15px">Data de fundação</Label>
+      <ContainerForLabel>
+        <Label fontSize="15px">Data de fundação</Label>
+      </ContainerForLabel>
       <Input
         type="date"
         value={userData.foundationDate}
         name="foundationDate"
         onChange={handleInputChangeEvent}
       />
-      <Label fontSize="15px">Cores</Label>
+       <ContainerForLabel>
+        <Label fontSize="15px">Cores</Label>
+      </ContainerForLabel>    
       <Input
         type="text"
         value={userData.colors.join(', ')}
         name="colors"
         onChange={handleInputChangeEvent}
       />
-      <Label fontSize="15px">Tipo de associação</Label>
+       <ContainerForLabel>
+         <Label fontSize="15px">Tipo de associação</Label>
+       </ContainerForLabel>
       <Select
         value={userData.associationType}
         onChange={handleSelectChange}
@@ -65,7 +94,9 @@ const FirstData: React.FC = () => {
           </option>
         ))}
       </Select>
-      <Label fontSize="15px">Membros ativos</Label>
+      <ContainerForLabel>
+        <Label fontSize="15px">Membros ativos</Label>
+      </ContainerForLabel>
       <Input
         type="text"
         value={userData.activeMembers.toString()}
@@ -73,6 +104,59 @@ const FirstData: React.FC = () => {
         onChange={handleInputChangeEvent}
       />
     </ContainerFields>
+     </ContainerFormLeft>
+     <ContainerFormRight>
+     <ContainerFields>
+      <ContainerForLabel>
+      <Label fontSize="15px">Endereço</Label>
+      </ContainerForLabel>
+      <Input
+        type="text"
+        value={userData.address.addressSite}
+        name="addressSite"
+        onChange={handleAddressChange}
+      />
+       <ContainerForLabel>
+      <Label fontSize="15px">Número</Label>
+      </ContainerForLabel>
+      <Input
+        type="text"
+        value={userData.address.number}
+        name="number"
+        onChange={handleAddressChange}
+      />
+       <ContainerForLabel>
+      <Label fontSize="15px">Complemento</Label>
+      </ContainerForLabel>
+      <Input
+        type="text"
+        value={userData.address.complement}
+        name="complement"
+        onChange={handleAddressChange}
+      />
+      <ContainerForLabel>
+      <Label fontSize="15px">Bairro</Label>
+      </ContainerForLabel>
+      <Input
+        type="text"
+        value={userData.address.district}
+        name="district"
+        onChange={handleAddressChange}
+      />
+       <ContainerForLabel>
+      <Label fontSize="15px">Cidade</Label>
+      </ContainerForLabel>
+      <Input
+        type="text"
+        value={userData.address.city}
+        name="city"
+        onChange={handleAddressChange}
+      />
+    </ContainerFields>
+     </ContainerFormRight>
+     </ContainerAllInputs>
+    </>
+   
   );
 };
 

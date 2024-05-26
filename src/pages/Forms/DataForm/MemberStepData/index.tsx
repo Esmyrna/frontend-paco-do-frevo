@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
-import { ContainerFields, ContainerInputsRadio } from '../../SecondStep/style';
-import { MemberAddEvent } from './style';
+import { ContainerInputsRadio, MemberAddEvent } from './style';
 import { useGlobalContext } from '../../../../context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RadioInput } from '../../../../components/RadioInputs/style';
+import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
+import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
+import Select from '../../../../components/Select';
+import { MidiaAddEvent } from '../MidiaStepData/style';
+import { ESocialNetworkType } from '../../../../interfaces/enum';
+import { SocialNetwork } from '../../../../interfaces/type';
 
 export const MemberStepData: React.FC = () => {
     const { userData, setUserData } = useGlobalContext();
@@ -16,6 +21,25 @@ export const MemberStepData: React.FC = () => {
     const [actuationTimeInMonths, setActuationTimeInMonths] = useState(0);
     const [isFrevoTheMainRevenueIncome, setIsFrevoTheMainRevenueIncome] = useState(false);
 
+    const [socialNetworkType, setSocialNetworkType] = useState<ESocialNetworkType>(
+        ESocialNetworkType.instagram
+    );
+    const [url, setUrl] = useState('');
+
+    const addSocialNetwork = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const newSocialNetwork: SocialNetwork = { socialNetworkType, url };
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            socialNetworks: prevUserData.socialNetworks.length === 0 ? [newSocialNetwork] : [...prevUserData.socialNetworks, newSocialNetwork],
+        }));
+        setSocialNetworkType(ESocialNetworkType.instagram);
+        setUrl('');
+    };
+
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
 
     const handleAddMember = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -44,62 +68,101 @@ export const MemberStepData: React.FC = () => {
 
     return (
         <>
-            <ContainerFields>
-                <Label fontSize="25px">Membros</Label>
-                <Label fontSize="15px">Nome do membro</Label>
-                <Input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)} />
-
-                <Label fontSize="15px">Sobrenome do membro</Label>
-                <Input
-                    type="text"
-                    name="surname"
-                    value={surname}
-                    onChange={(e) => setSurname(e.target.value)} />
-
-                <Label fontSize="15px">Papel</Label>
-                <Input
-                    type="text"
-                    name="role"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)} />
-
-                <Label fontSize="15px">Tempo de atuação em meses</Label>
-                <Input
-                    name="participantsAmount"
-                    type="text"
-                    value={actuationTimeInMonths}
-                    onChange={(e) => setActuationTimeInMonths(Number(e.target.value))}
-                />
-                <Label fontSize="15px">Frevo é a principal fonte de receita?</Label>
-                <ContainerInputsRadio>
-
-                    <Label fontSize="15px">
-                        <RadioInput
-                            type="radio"
-                            value="true"
-                            checked={isFrevoTheMainRevenueIncome === true}
-                            onChange={() => handleRadioChange(true)}
+            <ContainerAllInputs>
+                <ContainerFormLeft>
+                    <ContainerFields>
+                        <ContainerForLabel>
+                            <Label fontSize="25px">Membros</Label>
+                        </ContainerForLabel>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Nome do membro</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Sobrenome do membro</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="surname"
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Papel</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Tempo de atuação em meses</Label>
+                        </ContainerForLabel>
+                        <Input
+                            name="participantsAmount"
+                            type="text"
+                            value={actuationTimeInMonths}
+                            onChange={(e) => setActuationTimeInMonths(Number(e.target.value))}
                         />
-                        Sim
-                    </Label>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Frevo é a principal fonte de receita?</Label>
+                        </ContainerForLabel>
+                        <ContainerInputsRadio>
 
-                    <Label fontSize="15px">
-                        <RadioInput
-                            type="radio"
-                            value="false"
-                            checked={isFrevoTheMainRevenueIncome === false}
-                            onChange={() => handleRadioChange(false)}
-                        />
-                        Não
-                    </Label>
-                </ContainerInputsRadio>
+                            <Label fontSize="15px">
+                                <RadioInput
+                                    type="radio"
+                                    value="true"
+                                    checked={isFrevoTheMainRevenueIncome === true}
+                                    onChange={() => handleRadioChange(true)}
+                                />
+                                Sim
+                            </Label>
 
-                <MemberAddEvent onClick={handleAddMember}>Adicionar Membro</MemberAddEvent>
-            </ContainerFields>
+                            <Label fontSize="15px">
+                                <RadioInput
+                                    type="radio"
+                                    value="false"
+                                    checked={isFrevoTheMainRevenueIncome === false}
+                                    onChange={() => handleRadioChange(false)}
+                                />
+                                Não
+                            </Label>
+                        </ContainerInputsRadio>
+                        <MemberAddEvent onClick={handleAddMember}>Adicionar Membro</MemberAddEvent>
+                    </ContainerFields>
+                </ContainerFormLeft>
+                <ContainerFormRight>
+                    <ContainerFields>
+                        <ContainerForLabel>
+                            <Label fontSize="25px">Redes Sociais</Label>
+                        </ContainerForLabel>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Tipo de rede social</Label>
+                        </ContainerForLabel>
+                        <Select
+                            value={socialNetworkType}
+                            onChange={(e) => setSocialNetworkType(e.target.value as ESocialNetworkType)}
+                        >
+                            <option value="">Selecione...</option>
+                            {Object.values(ESocialNetworkType).map((network) => (
+                                <option key={network} value={network}>
+                                    {network}
+                                </option>
+                            ))}
+                        </Select>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">URL</Label>
+                        </ContainerForLabel>
+                        <Input name="url" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+                        <MidiaAddEvent onClick={addSocialNetwork}>Enviar</MidiaAddEvent>
+                    </ContainerFields>
+                </ContainerFormRight>
+            </ContainerAllInputs>
+
         </>
     )
 }

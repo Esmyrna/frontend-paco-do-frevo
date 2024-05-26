@@ -15,3 +15,9 @@ export const MemberAddEvent = styled.button`
     background-color: #fff;
   }
 `;
+
+export const ContainerInputsRadio = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+`;

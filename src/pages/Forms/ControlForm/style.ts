@@ -14,6 +14,10 @@ export const FormContainer = styled.div`
   background-image: url("src/assets/frevo-vivo.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
+
+  @media (width < 720px) {
+    display: none;
+  }
 `;
 
 export const ContainerStepTitle = styled.div`
@@ -83,6 +87,11 @@ export const ButtonForHome = styled.button`
 export const ContainerInputsForm = styled.div`
   width: 100%;
   height: 100vh;
+
+  @media (width < 720px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const ContainerFormTitle = styled.div`
@@ -100,6 +109,12 @@ export const ContainerFormButtons = styled.div`
   align-items: center;
   height: 1%;
   padding-left: 3%;
+
+  @media (width < 720px) {
+    height: 100%;
+    padding-left: 3%;
+    align-items: center;
+  }
 `;
 
 export const ContainerFields = styled.div`
@@ -110,6 +125,12 @@ export const ContainerFields = styled.div`
   width: 80%;
   height: 90%;
   padding-bottom: 8%;
+
+  @media (width < 720px) {
+    align-items: center;
+    width: 100%;
+    padding-bottom: 0%;
+  }
 `;
 
 export const ContainerFormLeft = styled.div`
@@ -126,33 +147,29 @@ export const ContainerFormRight = styled.div`
   align-items: center;
 `;
 
-export const AllContainerForm = styled.div`
+export const AllContainerForm = styled.form`
   display: flex;
   width: 100%;
   height: 80%;
+
+  @media (width < 720px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 
-export const ContainerInputsRadio = styled.div`
-  height: 10%;
-  width: 85%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-export const ContainerEachInputRadio = styled.div`
-  width: 20%;
-  height: 5%;
+export const ButtonForBack = styled.button`
   padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+  background-color: #fff;
+  color: #00377b;
+  border: none;
+  border-radius: 10px;
+  border: 3px solid #00377b;
+  cursor: pointer;
 
-export const LabelRadio = styled.label`
-  font-family: sans-serif;
-  font-size: 25px;
-  padding-bottom: 10px;
-  margin-top: 15px;
-  height: 10%;
+  &:hover {
+    background-color: #00377b;
+    color: #fff;
+  }
 `;
