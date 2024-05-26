@@ -10,6 +10,11 @@ export const Field = styled.input<FieldProps>`
   border: 2px solid #cccccc;
   border-radius: 10px;
   padding: 0.5rem;
+
+  @media (width < 720px) {
+    align-items: center;
+    padding: 0.5rem;
+  }
 `;
 
 export const Label = styled.label<{ fontSize: string }>`
