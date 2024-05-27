@@ -3,12 +3,14 @@ import { FaFilter } from 'react-icons/fa';
 import styled from 'styled-components';
 import { EAssociationType } from '../../interfaces/enum';
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   align-items: center;
   border: 1px solid #615b5b;
   border-radius: 5px;
   padding: 5px;
+
+  background-color: ${props => props.backgroundColor ?? 'transparent'};
 `;
 
 const InputField = styled.select`
@@ -19,8 +21,9 @@ const InputField = styled.select`
 `;
 
 const FilterIcon = styled(FaFilter)`
-  margin-right: 5px; 
+  margin-right: 5px;
 `;
+
 interface InputContainerProps{
     backgroundColor?: string;
 }
@@ -34,7 +37,7 @@ interface InputWithFilterIconProps extends InputContainerProps {
 
 const InputFilterCategory: React.FC<InputWithFilterIconProps> = ({ placeholder, value, onChange, children, ...props }) => {
   return (
-    <InputContainer>
+    <InputContainer backgroundColor={props.backgroundColor}>
       <InputField
        placeholder={placeholder} {...props}
        value={value}

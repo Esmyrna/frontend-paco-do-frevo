@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Fundo from '../../assets/Fundo.png';
+import BaseColors from "../../styleguide/BaseColors";
 
 export const Section = styled.div`
   width: 100%;
@@ -98,13 +99,14 @@ export const AssocitionListContainer = styled.div`
   width: 100%;
   max-height: 95%;
   min-height: 70%;
-  overflow-y: scroll;
   background-color: #f5f5f5;
   padding-top: 7.5%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   border-radius: 15px;
+
+  overflow-y: scroll;
 `;
 
 export const SearchAssociation = styled.div`
@@ -137,5 +139,33 @@ export const SearchInput = styled.input`
   padding: 0.5rem;
 `;
 
-export const PagingButton = styled.button`
+export const PaginationButton = styled.button`
+  background: #FFF;
+  border: 0.125rem solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.625rem;
+  padding: 0.625rem 1.25rem;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: ${BaseColors.darkBlue};
+    color: white;
+  }
+`;
+
+export const PreviousButton = styled(PaginationButton)`
+  svg {
+    margin-right: 0.5rem;
+  }
+`;
+
+export const NextButton = styled(PaginationButton)`
+  svg {
+    margin-left: 0.5rem;
+  }
 `;

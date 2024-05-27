@@ -88,7 +88,8 @@ const ListOfAssociations = () => {
                             <InputFilterCategory
                                 placeholder="Filtrar por..."
                                 value={filterCategory}
-                                onChange={handleFilterCategoryChange}>
+                                onChange={handleFilterCategoryChange}
+                                backgroundColor="#fff">
                                 <option value="">Todos</option>
                                 <option value={EAssociationType.club}>Clube</option>
                                 <option value={EAssociationType.troca}>Troça</option>
@@ -110,13 +111,13 @@ const ListOfAssociations = () => {
                         </C.AssocitionListContainer>
 
                         <C.PageButtonsContainer>
-                            <button disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+                            <C.PreviousButton disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
                                 Página anterior
-                            </button>
+                            </C.PreviousButton>
 
-                            <button disabled={!data || !data.hasNextPage} onClick={() => setCurrentPage((prev) => prev + 1)}>
+                            <C.NextButton disabled={!data || !data.hasNextPage} onClick={() => setCurrentPage((prev) => prev + 1)}>
                                 Próxima página
-                            </button>
+                            </C.NextButton>
                         </C.PageButtonsContainer>
                     </C.ContainerListing>
                 </C.ContainerRight>
