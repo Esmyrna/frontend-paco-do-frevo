@@ -15,6 +15,10 @@ const InputContainer = styled.div<InputContainerProps>`
   width: 80%;
 
   background-color: ${props => props.backgroundColor ?? 'transparent'};
+
+  @media (width < 700px) {
+    width: 80%;
+  }
 `;
 
 const InputField = styled.input`
@@ -22,6 +26,10 @@ const InputField = styled.input`
   outline: none;
   padding: 5px;
   flex: 1;
+
+  @media (width < 700px) {
+    width: 90%;
+  }
 `;
 
 const SearchIcon = styled(FaSearch)`

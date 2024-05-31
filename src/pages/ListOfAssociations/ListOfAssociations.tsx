@@ -100,15 +100,18 @@ const ListOfAssociations = () => {
                     </C.ContainerFilterAssociations>
 
                     <C.ContainerListing>
-                        <C.AssocitionListContainer>
+                        <C.AssociationListContainer>
                             {data?.result && (
                                 <C.Associations>
                                     {data.result.map(item => (
-                                        <AssociationInfoBlock association={item} key={item.id} />
+                                        <AssociationInfoBlock
+                                            association={item}
+                                            key={item.id}
+                                            index={data.result.indexOf(item)} />
                                     ))}
                                 </C.Associations>
                             )}
-                        </C.AssocitionListContainer>
+                        </C.AssociationListContainer>
 
                         <C.PageButtonsContainer>
                             <C.PreviousButton disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>

@@ -10,6 +10,14 @@ const InputContainer = styled.div<InputContainerProps>`
   border-radius: 5px;
   padding: 5px;
 
+  @media (width < 700px) {
+    width: 50%;
+  }
+
+  @media (width < 500px) {
+    width: 50%;
+  }
+
   background-color: ${props => props.backgroundColor ?? 'transparent'};
 `;
 
@@ -18,6 +26,17 @@ const InputField = styled.select`
   outline: none;
   padding: 5px;
   flex: 1;
+  background-color: #FFF;
+
+  @media (width < 700px) {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  @media (width < 500px) {
+    width: 90%;
+    max-width: 90%;
+  }
 `;
 
 const FilterIcon = styled(FaFilter)`

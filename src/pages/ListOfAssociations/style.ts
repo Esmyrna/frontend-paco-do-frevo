@@ -21,46 +21,45 @@ export const ContainerLeft = styled.div`
 `;
 
 export const ContainerRight = styled.div`
-  width: 80%;
+  width: 85%;
 `;
 
 export const PageButtonsContainer = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  justify-self: center;
-  align-self: flex-end;
   gap: 2.5%;
-  padding: 2rem;
+  padding: 1.5rem;
+  justify-self: center;
 `;
 
-export const ContainerPhone = styled.div`
-  width: 70%;
-  height: 70%;
-  background-color: #4f4f4f;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
+// export const ContainerPhone = styled.div`
+//   width: 70%;
+//   height: 70%;
+//   background-color: #4f4f4f;
+//   border-radius: 20px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+// `;
 
-export const ContainerDisplayPhone = styled.div`
-  background-color: pink;
-  width: 85%;
-  border-radius: 100%;
-`;
+// export const ContainerDisplayPhone = styled.div`
+//   background-color: pink;
+//   width: 85%;
+//   border-radius: 100%;
+// `;
 
-export const ButtonPhone = styled.button`
-  width: 10%;
-  height: 6%;
-  border-radius: 100%;
-  margin-top: 20px;
-  cursor: pointer;
-  background-color: #6a6a6a;
-`;
+// export const ButtonPhone = styled.button`
+//   width: 10%;
+//   height: 6%;
+//   border-radius: 100%;
+//   margin-top: 20px;
+//   cursor: pointer;
+//   background-color: #6a6a6a;
+// `;
 
 export const ContainerFilterAssociations = styled.div`
   width: 100%;
@@ -69,45 +68,45 @@ export const ContainerFilterAssociations = styled.div`
 `;
 
 export const Associations = styled.ul`
-  width: 95;
+  width: 100%;
+  max-height: 70%;
+  min-height: 70%;
+
   display: flex;
   flex-direction: column;
   padding: 0;
-  justify-content: center;
+  padding-top: 2vw;
   align-items: center;
-`;
+  overflow-y: scroll;
+  `;
 
 export const Title = styled.p`
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-
 export const ContainerListing = styled.div`
   width: 100%;
-  max-height: 70%;
+  max-height: 75%;
+  min-height: 75%;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 15px;
+  `;
+
+export const AssociationListContainer = styled.div`
+  width: 100%;
+  max-height: 95%;
   min-height: 70%;
   background-color: #f5f5f5;
-  padding-top: 1%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   border-radius: 15px;
   `;
-
-export const AssocitionListContainer = styled.div`
-  width: 100%;
-  max-height: 95%;
-  min-height: 70%;
-  background-color: #f5f5f5;
-  padding-top: 7.5%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 15px;
-
-  overflow-y: scroll;
-`;
 
 export const SearchAssociation = styled.div`
   width: 50%;

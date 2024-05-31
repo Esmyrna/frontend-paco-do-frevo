@@ -84,4 +84,5 @@ interface SimplifiedAssociationDTO {
     cnpj: string;
     canIssueOwnReceipts: boolean;
     associationHistoryNotes: string;
+    address: Address;
 }
