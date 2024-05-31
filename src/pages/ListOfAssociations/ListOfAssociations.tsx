@@ -1,19 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import Nav from "../../components/Nav"
-import * as C from './style'
-import SlideListOfAssociations from "./SlideListOfAssociations";
+import Nav from "../../components/Nav";
+import * as C from "./style";
 import axios from "axios";
-import { useQuery } from "react-query";
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import InputFilterSearch from "../../components/SearchInput";
 import InputFilterCategory from "../../components/InputFilterCategory";
 import { EAssociationType } from "../../interfaces/enum";
-import { FilterItemsAssociations } from "../../interfaces/filterAssociations";
-import { SimplifiedAssociationDTO } from "../../interfaces/type";
-import { separateCamelCase } from "../../utils/masks";
 import AssociationInfoBlock from "../../components/AssociationInfoBlock";
+import { SimplifiedAssociationDTO } from "../../interfaces/type";
 
 interface IPagedResults<T> {
     result: Array<T>;
@@ -23,38 +17,50 @@ interface IPagedResults<T> {
     totalCount: number;
     totalPages: number;
 }
-''
+
 const ListOfAssociations = () => {
-    const [currentPage, setCurrentPage] = React.useState<number>(1);
-    const [currentPageSize, setCurrentPageSize] = React.useState<number>(5);
-    const [items, setItems] = useState<FilterItemsAssociations[]>([]);
-    const [search, setSearch] = useState<string>('');
-    const [filterCategory, setFilterCategory] = useState<EAssociationType>();
-
-    const BASE_URL = 'http://localhost:3000';
-
-    const fetchData = async (page: number, pageSize: number, search: string, filterCategory: EAssociationType): Promise<IPagedResults<SimplifiedAssociationDTO>> => {
-        const response = await axios.get(`${BASE_URL}/associations/paged?pageSize=${pageSize}&page=${page}`, {
-            params: {
-                searchParam: search,
-                associationType: filterCategory
-            }
-        });
-        setItems(response.data);
-        return response.data;
-    }
-
-    const { data } = useQuery(['items', currentPage], () => fetchData(currentPage, currentPageSize, search, filterCategory!), {
-        keepPreviousData: true,
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [search, setSearch] = useState<string>("");
+    const [filterCategory, setFilterCategory] = useState<EAssociationType | "">("");
+    const [items, setItems] = useState<IPagedResults<SimplifiedAssociationDTO>>({
+        result: [],
+        hasNextPage: false,
+        pageIndex: 0,
+        pageSize: 0,
+        totalCount: 0,
+        totalPages: 0,
     });
 
+    const BASE_URL = "http://localhost:3000";
+
+    const fetchData = async (
+        page: number,
+        pageSize: number,
+        search: string,
+        filterCategory: EAssociationType | ""
+    ): Promise<void> => {
+        const response = await axios.get(
+            `${BASE_URL}/associations/paged`,
+            {
+                params: {
+                    pageSize,
+                    page,
+                    searchParam: search,
+                    associationType: filterCategory,
+                },
+            });
+
+        setItems(response.data);
+    };
+
     useEffect(() => {
-        fetchData(currentPage, currentPageSize, search, filterCategory!);
-    }, [currentPage, currentPageSize, search, filterCategory]);
+        fetchData(currentPage, 5, search, filterCategory);
+    }, [currentPage, search, filterCategory]);
 
-
-    const handleFilterCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setFilterCategory(event.target.value as EAssociationType);
+    const handleFilterCategoryChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setFilterCategory(event.target.value as EAssociationType | "");
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,24 +107,28 @@ const ListOfAssociations = () => {
 
                     <C.ContainerListing>
                         <C.AssociationListContainer>
-                            {data?.result && (
+                            {items?.result && (
                                 <C.Associations>
-                                    {data.result.map(item => (
+                                    {items.result.map(item => (
                                         <AssociationInfoBlock
                                             association={item}
                                             key={item.id}
-                                            index={data.result.indexOf(item)} />
+                                            index={items.result.indexOf(item)} />
                                     ))}
                                 </C.Associations>
                             )}
                         </C.AssociationListContainer>
 
                         <C.PageButtonsContainer>
-                            <C.PreviousButton disabled={currentPage === 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+                            <C.PreviousButton
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage((prev) => prev - 1)}>
                                 Página anterior
                             </C.PreviousButton>
 
-                            <C.NextButton disabled={!data || !data.hasNextPage} onClick={() => setCurrentPage((prev) => prev + 1)}>
+                            <C.NextButton
+                                disabled={!items || !items.hasNextPage}
+                                onClick={() => setCurrentPage((prev) => prev + 1)}>
                                 Próxima página
                             </C.NextButton>
                         </C.PageButtonsContainer>
