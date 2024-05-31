@@ -8,6 +8,10 @@ export const Steps = styled.div`
   align-items: center;
   text-align: center;
   padding-top: 1rem;
+
+  @media (width < 720px) {
+    display: none;
+  }
 `;
 
 export const Step = styled.div`

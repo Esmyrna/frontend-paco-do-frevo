@@ -5,24 +5,24 @@ import { FaNetworkWired } from "react-icons/fa";
 
 
 interface StepsProps {
-    currentStep: number;
+    step: number;
 }
-const Steps: React.FC<StepsProps> = ({ currentStep }) => {
+const Steps: React.FC<StepsProps> = ({ step }) => {
     return (
         <>
             <C.Steps>
                 <C.Step>
-                    <FaRegUser size={25} color={currentStep === 1 ? '#2e80e3' : 'gray'} />
+                    <FaRegUser size={25} color={step === 1 ? '#2e80e3' : 'gray'} />
                     <C.StepTitle>Dados Gerais</C.StepTitle>
                 </C.Step>
                 <C.HorizontalLine></C.HorizontalLine>
                 <C.Step>
-                    <FaRegAddressCard size={25} color={currentStep === 2 ? '#2e80e3' : 'gray'} />
+                    <FaRegAddressCard size={25} color={step === 2 ? '#2e80e3' : 'gray'} />
                     <C.StepTitle>Eventos</C.StepTitle>
                 </C.Step>
                 <C.HorizontalLine></C.HorizontalLine>
                 <C.Step>
-                    <FaNetworkWired size={25} color={currentStep === 3 ? '#2e80e3' : 'gray'} />
+                    <FaNetworkWired size={25} color={step === 3 || step === 4 ? '#2e80e3' : 'gray'} />
                     <C.StepTitle>Contatos</C.StepTitle>
                 </C.Step>
             </C.Steps>

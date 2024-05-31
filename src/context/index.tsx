@@ -1,152 +1,77 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ReactNode, createContext, useContext, useReducer } from "react";
-import { EAssociationType } from "../interfaces/enum";
-import { Address, Contact, Events, Member, SocialNetwork } from "../interfaces/type";
+import React, { createContext, useContext, useState } from 'react';
+import { Address, Contact, Events, Member, SocialNetwork } from '../interfaces/type';
+import { EAssociationType } from '../interfaces/enum';
+ 
 
-
-export type State = {
-    name: string | null;
-    foundationDate: string | null;
-    colors: string[];
-    associationType: EAssociationType;
-    activeMembers: string | null;
-    isSharedWithAResidence: boolean;
-    hasOwnedHeadquarters: boolean;
-    isLegalEntity: boolean;
-    cnpj: string | null;
-    canIssueOwnReceipts: boolean;
-    associationHistoryNotes: string | null;
-    address: Address | null;
-    events: Events[] | null;
-    members: Member[] | null;
-    socialNetworks: SocialNetwork[] | null;
-    contacts: Contact[] | null;
+export interface UserData {
+  name: string;
+  foundationDate: string;
+  colors: string[];
+  associationType: EAssociationType;
+  activeMembers: number;
+  isSharedWithAResidence: boolean;
+  hasOwnedHeadquarters: boolean;
+  isLegalEntity: boolean;
+  cnpj: string;
+  canIssueOwnReceipts: boolean;
+  associationHistoryNotes: string;
+  address: Address;
+  events: Events[];
+  members: Member[];
+  socialNetworks: SocialNetwork[];
+  contacts: Contact[];
 }
 
-type Action = {
-    type: FormActions,
-    payload: any;
+interface GlobalContextType {
+  userData: UserData;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
 }
 
-type ContextType = {
-    state: State,
-    dispatch: (action: Action) => void;
-}
+// Criando o contexto
+const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
-type FormProviderProps = {
-    children: ReactNode
-}
+// Hook personalizado para usar o contexto
+export const useGlobalContext = () => {
+  const context = useContext(GlobalContext);
+  if (!context) {
+    throw new Error('useGlobalContext must be used within a GlobalProvider');
+  }
+  return context;
+};
 
-// Initial State:
-
-const initialData = {
-    name: null,
-    foundationDate: null,
+// Componente provedor do contexto
+export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [userData, setUserData] = useState<UserData>({
+    name: '',
+    foundationDate: '',
     colors: [],
-    associationType: EAssociationType.carnivalBlock,
-    activeMembers: null,
+    associationType: EAssociationType.club, // Define um valor padrão válido do enum
+    activeMembers: 0,
     isSharedWithAResidence: false,
     hasOwnedHeadquarters: false,
     isLegalEntity: false,
-    cnpj: null,
+    cnpj: '',
     canIssueOwnReceipts: false,
-    associationHistoryNotes: null,
-    address: null,
-    events: null,
-    members: null,
-    socialNetworks: null,
-    contacts: null
+    associationHistoryNotes: '',
+    address: {
+      addressSite: '',
+      number: '',
+      complement: '',
+      district: '',
+      city: '',
+      state: '',
+      country: '',
+      zipCode: '',
+    },
+    events: [],
+    members: [],
+    socialNetworks: [],
+    contacts: [],
+  });
+
+  return (
+    <GlobalContext.Provider value={{ userData, setUserData }}>
+      {children}
+    </GlobalContext.Provider>
+  );
 };
-
-// Context
-
-const FormContext = createContext<ContextType | undefined>(undefined);
-
-// Reducer
-
-export enum FormActions {
-    setName,
-    setFoundationDate,
-    setColors,
-    setAssociationType,
-    setActiveMembers,
-    setIsSharedWithAResidence,
-    setHasOwnedHeadquarters,
-    setIsLegalEntity,
-    setCnpj,
-    setCanIssueOwnReceipts,
-    setAssociationHistoryNotes,
-    setAddress,
-    setEvents,
-    setMembers,
-    setSocialNetworks,
-    setContacts
-}
-
-
-// Reducer
-
-const formReducer = (state: State, action: Action) => {
-    switch (action.type) {
-        case FormActions.setName:
-            return { ...state, name: action.payload };
-        case FormActions.setFoundationDate:
-            return { ...state, foundationDate: action.payload };
-        case FormActions.setColors:
-            return { ...state, colors: action.payload };
-        case FormActions.setAssociationType:
-            return { ...state, associationType: action.payload };
-        case FormActions.setActiveMembers:
-            return { ...state, activeMembers: action.payload };
-        case FormActions.setIsSharedWithAResidence:
-            return { ...state, isSharedWithAResidence: action.payload };
-        case FormActions.setHasOwnedHeadquarters:
-            return { ...state, hasOwnedHeadquarters: action.payload };
-        case FormActions.setIsLegalEntity:
-            return { ...state, isLegalEntity: action.payload };
-        case FormActions.setCnpj:
-            return { ...state, cnpj: action.payload };
-        case FormActions.setCanIssueOwnReceipts:
-            return { ...state, canIssueOwnReceipts: action.payload };
-        case FormActions.setAssociationHistoryNotes:
-            return { ...state, associationHistoryNotes: action.payload };
-        case FormActions.setAddress:
-            return { ...state, address: action.payload === '' ? null : action.payload };
-        case FormActions.setEvents:
-            const eventsPayload = action.payload.length > 0 ? action.payload : null;
-            return { ...state, events: eventsPayload };
-        case FormActions.setMembers:
-            return { ...state, members: action.payload };
-        case FormActions.setSocialNetworks:
-            return { ...state, socialNetworks: action.payload };
-        case FormActions.setContacts:
-            return { ...state, contacts: action.payload };
-        default:
-            return state;
-    }
-};
-
-
-// Provider
-
-export const FormProvider = ({ children }: FormProviderProps) => {
-    const [state, dispatch] = useReducer(formReducer, initialData);
-    const value = { state, dispatch };
-
-    return (
-        <FormContext.Provider value={value}>
-            {children}
-        </FormContext.Provider>
-    );
-};
-
-// Context Hook
-
-export const useForm = () => {
-    const context = useContext(FormContext);
-    if (context === undefined) {
-        throw new Error("useForm precisa ser usado dentro do FormProvider")
-    }
-    return context;
-}

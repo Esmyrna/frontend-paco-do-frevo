@@ -16,9 +16,9 @@ export interface Address {
 }
 
 export interface Events {
-  eventType: string | null;
-  dateOfAccomplishment: string | null;
-  participantsAmount: number | null;
+  eventType: string 
+  dateOfAccomplishment: string
+  participantsAmount: number 
 }
 
 export interface Member {
@@ -37,7 +37,7 @@ export enum ESocialNetworkType {
 }
 
 export interface SocialNetwork {
-  socialNetworkType: ESocialNetworkTyp | null;
+  socialNetworkType: ESocialNetworkType | null;
   url: string | null;
 }
  
