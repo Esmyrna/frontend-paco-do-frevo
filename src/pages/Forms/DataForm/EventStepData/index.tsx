@@ -40,6 +40,8 @@ export const EventStepData = () => {
                 type="text"
                 value={eventType}
                 onChange={(e) => setEventType(e.target.value)} />
+
+
             <Label fontSize="15px">Data do evento</Label>
             <Input
                 name="dateOfAccomplishment"

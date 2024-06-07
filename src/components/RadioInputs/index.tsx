@@ -2,7 +2,7 @@ import React from 'react';
 import { RadioInput } from "./style";
 
 interface RadioInputsProps {
-    value: boolean;
+    value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     checked: boolean;  
 }
@@ -11,7 +11,7 @@ const RadioInputs: React.FC<RadioInputsProps> = ({ value, onChange, checked }) =
     
     return (
         <>
-            <RadioInput
+                <RadioInput
                 onChange={onChange}
                 value={value}
                 type={'radio'}

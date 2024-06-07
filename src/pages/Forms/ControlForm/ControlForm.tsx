@@ -10,15 +10,16 @@ import FirstData from '../DataForm/FirstData'
 import axios from 'axios'
 import { useGlobalContext } from '../../../context'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import ConfettiExplosion from 'react-confetti-explosion';
 import AddressData from '../DataForm/AddressStepOneData'
 import InputRadioData from '../DataForm/InputsRadioData'
 import MemberStepData from '../DataForm/MemberStepData'
 import ContactsStepData from '../DataForm/ContactsStepData'
-import ConfettiExplosion from 'react-confetti-explosion';
+
 const ControlForm: React.FC = () => {
     const [step, setStep] = useState(1);
-    const { userData, setUserData } = useGlobalContext();
+    const { userData } = useGlobalContext();
     const [isExploding, setIsExploding] = useState(false);
     const navigate = useNavigate();
 
@@ -27,15 +28,9 @@ const ControlForm: React.FC = () => {
         try {
             const response = await axios.post('http://localhost:3000/associations', userData);
             console.log('Dados enviados com sucesso:', response.data);
-            setUserData(response.data)
-            console.log(userData)
-            setIsExploding(true);
         } catch (error) {
             console.error('Erro ao enviar dados:', error);
         }
-
-     setIsExploding(true)
-       
 
     };
 
@@ -65,14 +60,12 @@ const ControlForm: React.FC = () => {
                     <C.ContainerFormTitle>
                         <Steps step={step} />
                     </C.ContainerFormTitle>
-
                     <C.AllContainerForm>
                         {(step === 1) && <FirstData />}
                         {(step === 2) && <AddressData />}
                         {(step === 3) && <InputRadioData />}
                         {(step === 4) && <MemberStepData />}
                         {(step === 5) && <ContactsStepData />}
-
                     </C.AllContainerForm>
                     <C.ContainerFormButtons>
                         {step === 1 && <C.ButtonForHome onClick={Listing}>Conferir Listagem</C.ButtonForHome>}
@@ -80,16 +73,15 @@ const ControlForm: React.FC = () => {
                         {step < 5 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
                         {step === 5 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
                     </C.ContainerFormButtons>
+                    {isExploding && (
+                        <ConfettiExplosion
+                            force={0.8}
+                            duration={3000}
+                            particleCount={250}
+                            width={1600}
+                        />
+                    )}
                 </C.ContainerInputsForm>
-                {
-                 isExploding &&  
-                 <ConfettiExplosion
-                     force={0.8}
-                     duration={3000}
-                     particleCount={250}
-                     width={1600}
-                 />
-                }
             </C.Section>
             <Footer />
         </>

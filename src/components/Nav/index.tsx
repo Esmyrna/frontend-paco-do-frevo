@@ -18,11 +18,6 @@ const Nav = () => {
         navigate('/multistep');
     };
 
-    
-    const handleClickPageDash= () => {
-        navigate('/dashboard');
-    };
-
     return (
         <NavBar>
             <NavImage>
@@ -32,7 +27,7 @@ const Nav = () => {
                 <List>
                     <Item onClick={handleClickPageHome}>Home</Item>
                     <Item onClick={handleClickPageForm}>Cadastrar agremiação</Item>
-                    <Item onClick={handleClickPageDash}>Dashboard</Item>
+                    <Item>Dashboard</Item>
                 </List>
             </Options>
 
