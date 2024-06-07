@@ -1,13 +1,24 @@
 import { ChangeEvent } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styled from 'styled-components';
-const InputContainer = styled.div`
+
+interface InputContainerProps{
+    backgroundColor?: string;
+}
+
+const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   align-items: center;
   border: 1px solid #615b5b;
   border-radius: 5px;
   padding: 5px;
   width: 80%;
+
+  background-color: ${props => props.backgroundColor ?? 'transparent'};
+
+  @media (width < 700px) {
+    width: 80%;
+  }
 `;
 
 const InputField = styled.input`
@@ -15,13 +26,17 @@ const InputField = styled.input`
   outline: none;
   padding: 5px;
   flex: 1;
+
+  @media (width < 700px) {
+    width: 90%;
+  }
 `;
 
 const SearchIcon = styled(FaSearch)`
-  margin-left: 5px; 
+  margin-left: 5px;
 `;
 
-interface InputWithSearchIconProps {
+interface InputWithSearchIconProps extends InputContainerProps {
     placeholder: string;
     value: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -29,7 +44,7 @@ interface InputWithSearchIconProps {
 
 const InputFilterSearch: React.FC<InputWithSearchIconProps> = ({ placeholder, onChange, value, ...props }) => {
     return (
-        <InputContainer>
+        <InputContainer backgroundColor={props.backgroundColor}>
             <InputField onChange={onChange} value={value} placeholder={placeholder} {...props} />
             <SearchIcon />
         </InputContainer>

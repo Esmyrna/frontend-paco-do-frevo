@@ -70,3 +70,19 @@ export interface AssociationGeraData {
   canIssueOwnReceipts: boolean;
   associationHistoryNotes: string | null;
 }
+
+interface SimplifiedAssociationDTO {
+    id: string
+    name: string;
+    foundationDate: Date;
+    colors: string[];
+    associationType: string;
+    activeMembers: number;
+    isSharedWithAResidence: boolean;
+    hasOwnedHeadquarters: boolean;
+    isLegalEntity: boolean;
+    cnpj: string;
+    canIssueOwnReceipts: boolean;
+    associationHistoryNotes: string;
+    address: Address;
+}

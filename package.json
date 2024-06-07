@@ -13,8 +13,8 @@
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react-redux": "^7.1.33",
-    "axios": "^1.7.2",
-    "chart.js": "^4.4.3",
+    "axios": "^1.6.5",
+    "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",
+    "@types/node": "^20.12.12",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-navigation": "^3.4.0",
