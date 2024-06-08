@@ -142,7 +142,6 @@ export const ContainerInfosCard = styled.section`
 `;
 
 export const SignUp = styled.section`
-  padding: 0.5rem;
   display: flex;
   justify-content: flex-end;
   font-size: 15px;

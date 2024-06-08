@@ -26,7 +26,7 @@ const ControlForm: React.FC = () => {
     const onSubmit = async () => {
         setIsExploding(true);
         try {
-            const response = await axios.post('http://localhost:3000/associations', userData);
+            const response = await axios.post('https://pacodofrevoapi1-6ka9yo5l.b4a.run/', userData);
             console.log('Dados enviados com sucesso:', response.data);
         } catch (error) {
             console.error('Erro ao enviar dados:', error);

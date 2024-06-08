@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/step1');
+    navigate('/multistep');
   };
 
   return (
@@ -72,25 +72,23 @@ const HomePage: React.FC = () => {
             Conecte-se com a gente!
           </Title>
           <TextAbout>
-            O Paço do Frevo é reconhecido pelo Iphan como centro de referência
-            em ações, projetos, transmissão, salvaguarda e valorização de uma
-            das principais tradições culturais do Brasil, o Frevo. Patrimônio
-            imaterial pela Unesco e pelo Iphan, o Frevo é um convite à
-            celebração da vida, por meio da ativação de memórias, personalidades
-            e linguagens artísticas, que no Paço do Frevo encontram seu lugar
-            máximo de expressão, na manutenção de ações de difusão, pesquisa e
-            formação nas áreas da dança e da música, dos adereços e das
-            agremiações do Frevo.
+            No coração vibrante e histórico de Recife,
+            o Paço do Frevo é mais do que um espaço cultural;
+            é um guardião das tradições e da essência do frevo pernambucano.
+            Nosso projeto visa modernizar e otimizar a gestão e a preservação
+            dessa expressão cultural única por meio de tecnologia avançada.
+            Estamos desenvolvendo uma plataforma digital inovadora para coletar,
+            armazenar e analisar dados sobre as agremiações carnavalescas e a comunidade do frevo.
+            Essa ferramenta permitirá a preservação das histórias ricas e vibrantes de cada agremiação,
+            além de garantir a eficiência e a confiabilidade dos registros,
+            independentemente das condições climáticas ou sazonais.
             <br></br> <br></br>
-            O Paço do Frevo é reconhecido pelo Iphan como centro de referência
-            em ações, projetos, transmissão, salvaguarda e valorização de uma
-            das principais tradições culturais do Brasil, o Frevo. Patrimônio
-            imaterial pela Unesco e pelo Iphan, o Frevo é um convite à
-            celebração da vida, por meio da ativação de memórias, personalidades
-            e linguagens artísticas, que no Paço do Frevo encontram seu lugar
-            máximo de expressão, na manutenção de ações de difusão, pesquisa e
-            formação nas áreas da dança e da música, dos adereços e das
-            agremiações do Frevo.
+            No contexto da modernização de um órgão federal, buscamos eliminar o trabalho 
+            manual suscetível a falhas e assegurar que as tradições do frevo permaneçam 
+            vivas e acessíveis para as futuras gerações. A automação de processos trará uma nova era de eficiência,
+             protegendo a alma e a autenticidade dessa cultura tão singular.
+            Junte-se a nós nessa jornada de preservação e celebração do frevo, onde a história e a modernidade 
+            se encontram para manter viva uma das expressões culturais mais vibrantes do Brasil.
           </TextAbout>
 
           <SignUp>

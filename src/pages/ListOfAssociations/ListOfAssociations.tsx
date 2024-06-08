@@ -31,7 +31,7 @@ const ListOfAssociations = () => {
         totalPages: 0,
     });
 
-    const BASE_URL = "http://localhost:3000";
+    const BASE_URL = "https://pacodofrevoapi1-6ka9yo5l.b4a.run/";
 
     const fetchData = async (
         page: number,
