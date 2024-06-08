@@ -23,7 +23,7 @@ const CarouselImage: React.FC<CarouselProps> = ({ images }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((currentSlide + 1) % images.length);
-    }, 2000); // Troca a cada 3 segundos (3000ms)
+    }, 2000);  
 
     return () => clearInterval(interval);
   }, [currentSlide, images.length]);

@@ -30,3 +30,16 @@ export const GraphTitleWrapper = styled.div`
     align-items: center;
     gap: 5rem;
 `
+
+export const NoDataMessage = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    font-size: 1.2rem;
+    color: #999;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+`;

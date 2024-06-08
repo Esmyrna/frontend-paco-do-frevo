@@ -7,4 +7,12 @@ export const PercentualComponentWrapper = styled.div`
     padding: 2rem;
     background-color: #ffff;
     border-radius: 0.25rem;
-`
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+
+    @media (max-width: 400px) {
+        padding: 0.25rem;
+    }
+`;

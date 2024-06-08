@@ -2,8 +2,6 @@ import { Item, List, Logo, NavBar, NavImage, Options, RegisterButton, User } fro
 import PageSymbol from "../../assets/logo-paco.png"
 import { useNavigate } from 'react-router-dom';
 
-
-
 /**
  * Falta documentação
  * @returns 
@@ -13,11 +11,11 @@ const Nav = () => {
     const navigate = useNavigate();
 
     const handleClickPageHome = () => {
-      navigate('/');
+        navigate('/');
     };
-  
+
     const handleClickPageForm = () => {
-        navigate('/cadastrar-agremiacao/dados-gerais');
+        navigate('/multistep');
     };
 
     return (
@@ -34,11 +32,11 @@ const Nav = () => {
                 </List>
             </Options>
             {/* Também deve seguir o padrão de botão */}
-             <RegisterButton>
+            <RegisterButton>
                 {/* Não usar tamanho fixo no botão nem margin, o botão deve conter apenas padding */}
-                <User/>
-           
-             </RegisterButton>
+                <User />
+
+            </RegisterButton>
         </NavBar>
     )
 }

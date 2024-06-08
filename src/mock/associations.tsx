@@ -12,12 +12,8 @@ export const mockData = [
         quantity: 17
     },
     {
-        name: 'Clube de Bonecos',
+        name: 'C. de Bonecos',
         quantity: 15
-    },
-    {
-        name: 'Outros',
-        quantity: 8
     },
     {
         name: 'Total',

@@ -7,22 +7,41 @@ export const AssociationWrapper = styled.div`
     justify-content: center;
     padding: 0.5rem;
     align-items: center;
+    flex-wrap: nowrap;
+
+    @media (max-width: 768px) {
+        padding: 0.4rem;
+    }
+
+    @media (max-width: 400px) {
+        padding: 0.3rem;
+    }
 `
 
 export const AssociationQuantity = styled.div<AssociationStylesProps>`
     display: flex;
-    width: 60px;
-    height: 60px;
-    border: 4px solid;
+    width: ${({ isMobile }) => isMobile ? '4vw' : '4rem'};
+    height: ${({ isMobile }) => isMobile ? '4vw' : '4rem'};
+    border: ${({ isMobile }) => isMobile ? 'none' : '4px solid'};
     border-color: ${({ isGreen }) => isGreen ? '#27962D' : '#0065E0'};
     border-radius: 50%;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    @media (max-width: 400px) {
+        width: 4vw;
+        height: 4vw;
+    }
 `
 
 export const AssociationText = styled.span<AssociationStylesProps>`
     font-family: 'Righteous', sans-serif;
     color: ${({ isGreen }) => isGreen ? '#27962D' : '#0065E0'};
-    font-size: 18px;
+    font-size: ${({ isMobile }) => isMobile ? '12px' : '16px'};
     font-weight: 600;
 `

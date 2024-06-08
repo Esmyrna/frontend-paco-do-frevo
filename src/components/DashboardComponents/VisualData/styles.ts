@@ -12,14 +12,35 @@ export const VisualDataWrapper = styled.div`
 
 export const VisualDataSections = styled.div`
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 3rem;
     width: 100%;
+
+    @media (min-width: 800px) {
+        flex-direction: row;
+    }
 `
 
 export const LeftSection = styled.div`
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
+
+    @media (min-width: 800px) {
+        width: 47%;
+    }
+
+    gap: 0.5rem;
+`
+
+export const RightSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: 800px) {
+        width: 46%;
+    }
+
     gap: 0.5rem;
 `
