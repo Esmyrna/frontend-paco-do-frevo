@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DropdownWrapper } from './styles';
 
 interface Option {
   value: string;
@@ -19,14 +20,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onSelect }) => {
   };
 
   return (
-    <select style={{height: '18px'}} value={selectedOption} onChange={(e) => handleSelectOption(e.target.value)}>
+    <DropdownWrapper value={selectedOption} onChange={(e) => handleSelectOption(e.target.value)}>
       <option value="">Selecione uma opção</option>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}
         </option>
       ))}
-    </select>
+    </DropdownWrapper>
   );
 };
 
