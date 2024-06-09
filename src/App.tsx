@@ -1,16 +1,14 @@
-import { FormProvider } from './context';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import {  GlobalProvider } from './context';
 import RouterPage from './Routes/RouterPage';
+ 
 
-const queryClient = new QueryClient();
+ 
 
 function AppRoute() {
   return (
-    <FormProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterPage />
-      </QueryClientProvider>
-    </FormProvider>
+    <GlobalProvider>
+          <RouterPage />
+    </GlobalProvider>
   );
 }
 

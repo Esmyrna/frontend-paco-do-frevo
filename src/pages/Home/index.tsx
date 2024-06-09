@@ -1,9 +1,5 @@
 import React from "react";
 import Nav from "../../components/Nav";
-
-import frevo1 from "../../assets/frevo1.jpeg";
-import frevo2 from "../../assets/frevo2.jpeg";
-import frevo3 from "../../assets/frevo3.jpeg";
 import cartola from "../../assets/Cartola.png";
 import Video from "../../assets/VideoPaço.mp4";
 import sombrinha from "../../assets/Sombrinha.png";
@@ -12,11 +8,13 @@ import { Title } from "../../components/Title/style";
 
 import {
   About,
+  AboutBackground,
   Card,
   CardsContainer,
   CardText,
   ContainerInfosCard,
   Img,
+  ImgBulding,
   Section,
   SignUp,
   TextAbout,
@@ -25,18 +23,22 @@ import {
   VideoSlogan,
 } from "./style";
 import BaseColors from "../../styleguide/BaseColors";
-import CarouselImage from '../../components/Carousel';
+import paco from '../../assets/paco.jpeg'
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import CarouselImage from "../../components/Carousel";
 
 const HomePage: React.FC = () => {
-  const images = [frevo1, frevo2, frevo3];
+  const images = [
+    'src/assets/frevo1.jpeg',
+    'src/assets/frevo2.jpeg',
+    'src/assets/frevo3.jpeg',
+  ];
 
   const navigate = useNavigate();
-
   const handleClick = () => {
-    navigate('/step1');
+    navigate('/multistep');
   };
 
   return (
@@ -47,17 +49,17 @@ const HomePage: React.FC = () => {
           <source src={Video} type="video/mp4" />
         </VideoContainer>
 
-        <VideoSlogan backgroundColor="#000" width={"50%"}>
+        <VideoSlogan backgroundColor="#red" width={"50%"}>
           <VideoSlogan
-            backgroundColor={BaseColors.darkWineRed}
-            width={"50%"}
+            backgroundColor={'#000'}
+            width={"60%"}
             isSecondary={true}
           >
             <Title Size="24px" textAlign="center" color="#fff">
               Venha fazer parte dessa história
             </Title>
 
-            <Button onClick={handleClick} backgroundColor="red">
+            <Button onClick={handleClick} backgroundColor="#00377b">
               Cadastre sua agremiação
             </Button>
           </VideoSlogan>
@@ -66,45 +68,48 @@ const HomePage: React.FC = () => {
 
       <TextAndCarouselContainer>
         <About>
-          <Title Size="24px" textAlign="start" color={BaseColors.vividRed}>
+          <Title Size="24px" textAlign="start" color={'#00377b'}>
             Conecte-se com a gente!
           </Title>
-
-          <Title Size="24px" textAlign="start" color={BaseColors.vividRed}>
-            Sobre:
-          </Title>
-
           <TextAbout>
-            O Paço do Frevo é reconhecido pelo Iphan como centro de referência
-            em ações, projetos, transmissão, salvaguarda e valorização de uma
-            das principais tradições culturais do Brasil, o Frevo. Patrimônio
-            imaterial pela Unesco e pelo Iphan, o Frevo é um convite à
-            celebração da vida, por meio da ativação de memórias, personalidades
-            e linguagens artísticas, que no Paço do Frevo encontram seu lugar
-            máximo de expressão, na manutenção de ações de difusão, pesquisa e
-            formação nas áreas da dança e da música, dos adereços e das
-            agremiações do Frevo.
+            No coração vibrante e histórico de Recife,
+            o Paço do Frevo é mais do que um espaço cultural;
+            é um guardião das tradições e da essência do frevo pernambucano.
+            Nosso projeto visa modernizar e otimizar a gestão e a preservação
+            dessa expressão cultural única por meio de tecnologia avançada.
+            Estamos desenvolvendo uma plataforma digital inovadora para coletar,
+            armazenar e analisar dados sobre as agremiações carnavalescas e a comunidade do frevo.
+            Essa ferramenta permitirá a preservação das histórias ricas e vibrantes de cada agremiação,
+            além de garantir a eficiência e a confiabilidade dos registros,
+            independentemente das condições climáticas ou sazonais.
+            <br></br> <br></br>
+            No contexto da modernização de um órgão federal, buscamos eliminar o trabalho 
+            manual suscetível a falhas e assegurar que as tradições do frevo permaneçam 
+            vivas e acessíveis para as futuras gerações. A automação de processos trará uma nova era de eficiência,
+             protegendo a alma e a autenticidade dessa cultura tão singular.
+            Junte-se a nós nessa jornada de preservação e celebração do frevo, onde a história e a modernidade 
+            se encontram para manter viva uma das expressões culturais mais vibrantes do Brasil.
           </TextAbout>
 
           <SignUp>
             <Button
               onClick={handleClick}
-              backgroundColor={BaseColors.vividRed}>
-              Cadastre sua agremiação
+              backgroundColor={'#00377b'}>
+              Cadastre aqui
             </Button>
           </SignUp>
         </About>
 
-        <About width="45%">
-          <CarouselImage images={images} />
-        </About>
+        <AboutBackground >
+          <ImgBulding src={paco} />
+        </AboutBackground>
       </TextAndCarouselContainer>
 
       <CardsContainer>
         <Card
-          boxShadow={`0px 15px 30px 45px ${BaseColors.vividGreen}`}
-          backgroundColor={BaseColors.vividGreen}
-          border={`7px solid ${BaseColors.vividGreen}`}
+          boxShadow={`15px 0px 0px 8px ${BaseColors.darkBlue}`}
+          backgroundColor={'#fff'}
+          border={`2px solid ${'#00377b'}`}
         >
           <ContainerInfosCard>
             <Img width="120px" src={cartola} />
@@ -112,7 +117,7 @@ const HomePage: React.FC = () => {
               O que o nosso sistema faz?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"1rem"}>
+            <CardText fontWeight={"400"} fontSize={"15px"}>
               Ao cadastrar sua agremiação, você não apenas insere dados, mas
               adiciona sua história ao tecido da cultura brasileira. Nosso
               objetivo é mapear e conectar aqueles que mantêm viva a chama do
@@ -125,9 +130,9 @@ const HomePage: React.FC = () => {
         </Card>
 
         <Card
-          boxShadow={`0px 15px 30px 45px ${BaseColors.darkBlue}`}
-          backgroundColor={BaseColors.darkBlue}
-          border={`7px solid ${BaseColors.darkBlue}`}
+          boxShadow={`15px 0px 0px 8px ${BaseColors.vividRed}`}
+          backgroundColor={'#fff'}
+          border={`2px solid ${BaseColors.vividRed}`}
         >
           <ContainerInfosCard>
             <Img width="150px" src={mascara} />
@@ -136,7 +141,7 @@ const HomePage: React.FC = () => {
               Qual é a sua importância?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"1rem"}>
+            <CardText fontWeight={"400"} fontSize={"15px"}>
               O cadastro das agremiações de frevo no Paço do Frevo é essencial
               para a preservação e promoção dessa rica expressão cultural. Além
               de contribuir para a preservação da tradição e conectar uma rede
@@ -147,9 +152,9 @@ const HomePage: React.FC = () => {
         </Card>
 
         <Card
-          boxShadow={`0px 15px 30px 45px ${BaseColors.vividRed}`}
-          backgroundColor={BaseColors.vividRed}
-          border={`7px solid ${BaseColors.vividRed}`}
+          boxShadow={`15px 0px 0px 8px ${BaseColors.vividGreen}`}
+          backgroundColor={'#fff'}
+          border={`2px solid ${BaseColors.vividGreen}`}
         >
           <ContainerInfosCard>
             <Img width="100px" src={sombrinha} />
@@ -158,7 +163,7 @@ const HomePage: React.FC = () => {
               Quem é o Paço do Frevo?
             </CardText>
 
-            <CardText fontWeight={"400"} fontSize={"1rem"}>
+            <CardText fontWeight={"400"} fontSize={"15px"}>
               O Paço do Frevo é mais do que um espaço cultural, é um templo
               dedicado à celebração e preservação de uma das expressões
               artísticas mais marcantes do Brasil: o frevo. Localizado no
@@ -169,8 +174,9 @@ const HomePage: React.FC = () => {
         </Card>
       </CardsContainer>
 
-      <Section marginTop={"70px"} flexDirection="row">
-        {/* Conteúdo aqui */}
+      <Section marginTop={"20px"} flexDirection="column">
+        <Title Size="34px" textAlign="start" color={'#00377b'}>Onde a Tradição Dança e a Cultura Vibra!</Title>
+        <CarouselImage images={images} />
       </Section>
       <Footer />
     </>

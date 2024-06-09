@@ -2,19 +2,19 @@ import { ChangeEvent } from 'react';
 import { InputText } from './style';
 
 interface InputTextProps {
-  value: string | null;
+  value: string
   onChange?: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+  name: string
 }
 
-const InputBigText: React.FC<InputTextProps> = ({ value, onChange }) => {
-  // Converter null para string vazia '' se value for null
-  const sanitizedValue = value === null ? '' : value;
+const InputBigText: React.FC<InputTextProps> = ({ onChange, value, name }) => {
 
   return (
     <>
       <InputText
-        value={sanitizedValue}
         onChange={onChange}
+        value={value}
+        name={name}
       />
     </>
   );

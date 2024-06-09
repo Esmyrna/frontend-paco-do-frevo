@@ -2,6 +2,7 @@ import React from "react"
 import { RecentFrevoEntitiesProps } from "./types"
 import { NewEntity } from "./NewEntity"
 import { NewEntitiesWrapper, RecentFrevoEntitesTitle, RecentFrevoEntitiesWrapper, TitleName } from "./styles"
+import { NoData } from "../NoData"
 
 /**
  * Componente de lista das últimas entidades cadrastradas
@@ -23,15 +24,7 @@ export const RecentFrevoEntities: React.FC<RecentFrevoEntitiesProps> = ({ dataOt
                     ))}
                 </NewEntitiesWrapper>
             ) : (
-                <span>Não há dados a serem exibidos</span>
-                // <NewEntitiesWrapper>
-                //     <NewEntity name="teste" type="1"/>
-                //     <NewEntity name="teste" type="1"/>
-                //     <NewEntity name="teste" type="1"/>
-                //     <NewEntity name="teste" type="1"/>
-                //     <NewEntity name="teste" type="1"/>
-                //     <NewEntity name="teste" type="1"/>
-                // </NewEntitiesWrapper>
+                <NoData message="Ainda não há dados para serem exibidos" />
             )}
         </RecentFrevoEntitiesWrapper>
     )

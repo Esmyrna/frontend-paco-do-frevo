@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import BaseColors from "../../styleguide/BaseColors";
 
 /** ????????????
@@ -15,6 +15,9 @@ export const Section = styled.section<{
   width: 100%;
   margin-top: ${(props) => props.marginTop};
   margin-bottom: 5vh;
+
+  @media (width < 720px) {
+  }
 `;
 
 export const VideoContainer = styled.video`
@@ -40,27 +43,39 @@ export const VideoSlogan = styled.section<{
   border-radius: 12px;
   flex-direction: column;
   z-index: 0;
-  height: 50vh;
+  height: 30vh;
   gap: 10%;
 
   @media (width <= 1000px) {
-    height: ${(props) => props.isSecondary ? '15vh' : '20vh'};
-    width: ${(props) => props.isSecondary ? '60vw' : '70vw'};
+    height: ${(props) => (props.isSecondary ? "15vh" : "20vh")};
+    width: ${(props) => (props.isSecondary ? "60vw" : "70vw")};
   }
 `;
 
 export const About = styled.section<{ width?: string }>`
-  width: ${(props) => props.width ?? "30vw"};
+  width: ${(props) => props.width ?? "60%"};
   text-align: center;
-  margin: 0.2rem;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
 
   @media (width <= 1000px) {
     align-items: center;
     width: 80vw;
   }
+`;
+
+export const BackgroundImageFrevo = styled.div`
+  background-color: #00377b;
+  width: 20%;
+  height: 40vh;
+`;
+export const AboutBackground = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 35%;
 `;
 
 /**
@@ -73,25 +88,13 @@ properties:
 */
 export const TextAbout = styled.p`
   text-align: justify;
-  font-family: "Righteous", sans-serif;
+  font-family: "Sofia Sans Condensed", sans-serif;
   font-size: 1.2rem;
-  max-width: 80%;
+  max-width: 100%;
 
   @media (width <= 1000px) {
     font-size: 0.9rem;
     max-width: 90%;
-  }
-`;
-
-export const blinkAnimation = keyframes`
-  0% {
-    box-shadow: 0 0 10px #E20821;
-  }
-  50% {
-    box-shadow: 0 0 20px #00377B;
-  }
-  100% {
-    box-shadow: 0 0 10px #27962D;
   }
 `;
 
@@ -108,7 +111,6 @@ export const Card = styled.section<{
   border-radius: 12px;
   padding: 1rem;
   box-shadow: ${(props) => props.boxShadow};
-  animation: ${blinkAnimation} 2s infinite alternate; //* 2s de duração, infinito e alternado
 
   @media (width < 900px) {
     width: 30vw;
@@ -133,23 +135,29 @@ export const ContainerInfosCard = styled.section`
       scale: 0.7;
     }
 
-    :nth-child(3){
+    :nth-child(3) {
       font-size: 0.9rem;
     }
   }
 `;
 
 export const SignUp = styled.section`
-  width: 31%;
   display: flex;
   justify-content: flex-end;
+  font-size: 15px;
 `;
 
 export const Img = styled.img``;
-
+export const ImgBulding = styled.img`
+  width: 90%;
+  height: 100%;
+  border-radius: 30px;
+  box-shadow: 0px 0px 30px 0px #000;
+`;
 export const CardText = styled.p<{ fontSize: string; fontWeight: string }>`
-  color: #fff;
-  font-family: sans-serif;
+  color: #000;
+  font-family: "Sofia Sans Condensed", sans-serif;
+
   text-align: center;
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
@@ -171,7 +179,8 @@ export const TextAndCarouselContainer = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  height: 60%;
 
   margin-bottom: 5vh;
 
@@ -194,4 +203,14 @@ export const CardsContainer = styled.section`
     flex-direction: column;
     gap: 2rem;
   }
+`;
+
+export const ImageFrevo = styled.div`
+  width: 20vw;
+  background-image: url("src/assets/Fundo.png");
+  background-size: 40rem;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 90px;
+  right: 170px;
 `;

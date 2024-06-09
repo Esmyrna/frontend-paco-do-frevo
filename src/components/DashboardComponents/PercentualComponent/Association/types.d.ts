@@ -1,10 +1,10 @@
 
-interface AssociationStylesProps {
+export interface AssociationStylesProps {
     isGreen?: boolean;
     isMobile?: boolean
 }
 
-interface AssociationProps {
+export interface AssociationProps {
     associationName: string;
     associationQuantity: number;
     isGreen?: boolean;

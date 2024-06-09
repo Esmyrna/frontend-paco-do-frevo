@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Association } from "./Association";
-import { PercentualComponentWrapper } from "./styles";
+import { IconWrapper, PercentualComponentWrapper } from "./styles";
 import { DataAssociationsProps, PercentualComponentProps } from "./types";
+import { LoadingIcon } from "../../icons/LoadingIcon";
 
 /**
- * Função que exibe a quantidade de agramiações cadastradas
+ * Função que exibe a quantidade de agremiações cadastradas
  * @param responseAssociations: array de agremiações cadastradas
  * @returns um elemento JSX
  */
-export const PercentualComponent = ({responseAssociations}: PercentualComponentProps) => {
+export const PercentualComponent = ({ responseAssociations }: PercentualComponentProps) => {
     const [dataAssociations, setDataAssociations] = useState<DataAssociationsProps[]>([
         { name: 'Clube', quantity: 0 },
         { name: 'Troça', quantity: 0 },
@@ -28,7 +29,7 @@ export const PercentualComponent = ({responseAssociations}: PercentualComponentP
             { name: 'Total', quantity: 0 },
         ];
 
-        result?.map((item) => {
+        result?.forEach((item) => {
             if (item?.associationType === 'Clube') {
                 newDataAssociations[0].quantity += 1;
             } else if (item?.associationType === 'Troça') {
@@ -48,13 +49,19 @@ export const PercentualComponent = ({responseAssociations}: PercentualComponentP
 
     useEffect(() => {
         dataFormat(responseAssociations);
-    }, [responseAssociations])
+    }, [responseAssociations]);
 
     return (
         <PercentualComponentWrapper>
-            {dataAssociations?.map((item, index) => (
-                <Association key={index} associationName={item?.name} associationQuantity={item?.quantity} isGreen={item?.name === 'Total'} />
-            ))}
+            {responseAssociations?.length > 0 ? (
+                dataAssociations.map((item, index) => (
+                    <Association key={index} associationName={item?.name} associationQuantity={item?.quantity} isGreen={item?.name === 'Total'} />
+                ))
+            ) : (
+                <IconWrapper>
+                    <LoadingIcon />
+                </IconWrapper>
+            )}
         </PercentualComponentWrapper>
     );
 };

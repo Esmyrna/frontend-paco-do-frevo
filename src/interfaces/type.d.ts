@@ -16,9 +16,9 @@ export interface Address {
 }
 
 export interface Events {
-  eventType: string | null;
-  dateOfAccomplishment: string | null;
-  participantsAmount: number | null;
+  eventType: string 
+  dateOfAccomplishment: string
+  participantsAmount: number 
 }
 
 export interface Member {
@@ -37,7 +37,7 @@ export enum ESocialNetworkType {
 }
 
 export interface SocialNetwork {
-  socialNetworkType: ESocialNetworkTyp | null;
+  socialNetworkType: ESocialNetworkType | null;
   url: string | null;
 }
  
@@ -69,4 +69,20 @@ export interface AssociationGeraData {
   cnpj: string | null;
   canIssueOwnReceipts: boolean;
   associationHistoryNotes: string | null;
+}
+
+interface SimplifiedAssociationDTO {
+    id: string
+    name: string;
+    foundationDate: Date;
+    colors: string[];
+    associationType: string;
+    activeMembers: number;
+    isSharedWithAResidence: boolean;
+    hasOwnedHeadquarters: boolean;
+    isLegalEntity: boolean;
+    cnpj: string;
+    canIssueOwnReceipts: boolean;
+    associationHistoryNotes: string;
+    address: Address;
 }

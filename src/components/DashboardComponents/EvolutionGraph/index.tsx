@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { EvolutionGraphTitle, EvolutionGraphWrapper } from './styles';
 import { DecadeCount, EvolutionGraphProps } from './types';
-import { IAssociation } from '../../../api/requestObjects/IPagingParams';
+import { IconWrapper } from '../PercentualComponent/styles';
+import { LoadingIcon } from '../../icons/LoadingIcon';
+import { Entity } from '../../../api/AssociationApi/types';
 
 export const EvolutionGraph: React.FC<EvolutionGraphProps> = ({ responseAssociations }) => {
   const [dataEvolutionGraph, setDataEvolutionGraph] = useState<DecadeCount[]>([
@@ -23,7 +25,7 @@ export const EvolutionGraph: React.FC<EvolutionGraphProps> = ({ responseAssociat
   const formatYear = () => {
     const updatedData = [...dataEvolutionGraph];
 
-    responseAssociations?.forEach((item: IAssociation) => {
+    responseAssociations?.forEach((item: Entity) => {
       const year = item?.foundationDate?.slice(0, 4); 
 
       if (Number(year) < 1927) {
@@ -62,18 +64,24 @@ export const EvolutionGraph: React.FC<EvolutionGraphProps> = ({ responseAssociat
   return (
     <EvolutionGraphWrapper>
       <EvolutionGraphTitle>Evolução das agremiações de frevo ao longo dos anos</EvolutionGraphTitle>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={dataEvolutionGraph}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="Cadastro" stroke="#27962D" fill="#27962D" />
-        </LineChart>
-      </ResponsiveContainer>
+        {responseAssociations?.length === 0 ? (
+          <IconWrapper>
+            <LoadingIcon />
+          </IconWrapper>
+        ) : (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={dataEvolutionGraph}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="Cadastro" stroke="#27962D" fill="#27962D" />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
     </EvolutionGraphWrapper>
   );
 };

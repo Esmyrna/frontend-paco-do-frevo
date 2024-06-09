@@ -16,3 +16,10 @@ export const PercentualComponentWrapper = styled.div`
         padding: 0.25rem;
     }
 `;
+
+export const IconWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+`

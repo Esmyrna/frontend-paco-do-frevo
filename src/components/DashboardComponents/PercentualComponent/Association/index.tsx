@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AssociationQuantity, AssociationText, AssociationWrapper } from "./styles";
+import { AssociationProps } from "./types";
 
 export const Association: React.FC<AssociationProps> = ({
     associationName,

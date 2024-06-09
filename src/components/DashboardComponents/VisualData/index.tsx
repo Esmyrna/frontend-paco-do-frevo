@@ -17,14 +17,11 @@ export const VisualData = () => {
     const [errorAssociations, setErrorAssociations] = useState<any>(null);
     useEffect(() => {
         const fetchAssociations = async () => {
-            const { response, error } = await getAllAssociations({ page: 1, pageSize: 100 });
+            const { response, error, loading } = await getAllAssociations({ page: 1, pageSize: 100 });
             setResponseAssociations(response?.data?.result);
             setErrorAssociations(error);
             if (error) {
                 console.error('Erro:', error);
-            } else if (response) {
-                console.log('Resposta:', response.data);
-                // dataFormat(response.data.result);
             }
         };
 

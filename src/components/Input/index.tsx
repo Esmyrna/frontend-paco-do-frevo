@@ -7,9 +7,10 @@ interface InputProps {
   type: string;
   value?: string | number | boolean | (string | number | boolean)[] | undefined | null;  
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  name: string;
 }
 
-const Input: React.FC<InputProps> = ({ placeholder, width, type, value, onChange }) => {
+const Input: React.FC<InputProps> = ({ placeholder, width, type, value, onChange, name }) => {
   const inputType = type === 'checkbox' ? (value as boolean) : type === 'number' ? (value as number) : value;
   
   return (
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({ placeholder, width, type, value, onChange
         width={width}
         placeholder={placeholder}
         onChange={onChange}
+        name={name}
       />
     </>
   );

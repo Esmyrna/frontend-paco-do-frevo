@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosPromise, AxiosResponse } from "axios"
 import { Association } from "../../interfaces/type"
 import { useMutation, useQueryClient } from "react-query";
-import IPagingParams, { IResponse } from "../requestObjects/IPagingParams";
+import { IPagingParams, IResponse } from "./types";
 
 const API_URL = 'https://pacodofrevoapi1-6ka9yo5l.b4a.run/associations'
 
@@ -39,6 +39,7 @@ export async function getPagedAssociations(pagingParams: IPagingParams) {
 export const getAllAssociations = async (pagingParams: IPagingParams): Promise<IResponse> => {
   let response: AxiosResponse<any, any> | null = null;
   let error: AxiosError | null = null;
+  let loading: boolean = true;
 
   try {
     response = await axios.get(`${API_URL}/paged?page=${pagingParams.page}&pageSize=${pagingParams.pageSize}`);
@@ -49,6 +50,7 @@ export const getAllAssociations = async (pagingParams: IPagingParams): Promise<I
       error = new axios.AxiosError('Unexpected error', err as any);
     }
   }
+  loading = false;
 
-  return {response, error};
+  return {response, error, loading};
 }

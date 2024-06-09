@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import Dropdown from '../../Dropdown';
 import { EvolutionByYearWrapper, GraphTitleWrapper, NoDataMessage } from './styles';
 import { EvolutionGraphTitle } from '../EvolutionGraph/styles';
-import { IAssociation } from '../../../api/requestObjects/IPagingParams';
 import { DecadaDados, EvolutionByYearGraphProps } from './types';
+import { Entity } from '../../../api/AssociationApi/types';
 
 /**
  * Gráfico de evolução dos dados ao longo das décadas
@@ -31,7 +31,7 @@ export const EvolutionByYearGraph: React.FC<EvolutionByYearGraphProps> = ({ resp
     const processDecadeData = () => {
         const decadaMap: { [key: string]: DecadaDados['registros'] } = {};
 
-        responseAssociations?.forEach((item: IAssociation) => {
+        responseAssociations?.forEach((item: Entity) => {
             const year = item?.foundationDate?.slice(0, 4);
             const type = item?.associationType?.toLowerCase();
             const decade = `${Math.floor(Number(year) / 10) * 10}s`;
@@ -48,7 +48,6 @@ export const EvolutionByYearGraph: React.FC<EvolutionByYearGraphProps> = ({ resp
             registros: decadaMap[decade]
         }));
 
-        console.log('dados de décadas', decadaArray);
         setDados(decadaArray);
     };
 
