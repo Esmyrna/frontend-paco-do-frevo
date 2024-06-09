@@ -39,7 +39,7 @@ export async function getPagedAssociations(pagingParams: IPagingParams) {
 export const getAllAssociations = async (pagingParams: IPagingParams): Promise<IResponse> => {
   let response: AxiosResponse<any, any> | null = null;
   let error: AxiosError | null = null;
-  let loading: boolean = true;
+  // let loading: boolean = true;
 
   try {
     response = await axios.get(`${API_URL}/paged?page=${pagingParams.page}&pageSize=${pagingParams.pageSize}`);
@@ -50,7 +50,7 @@ export const getAllAssociations = async (pagingParams: IPagingParams): Promise<I
       error = new axios.AxiosError('Unexpected error', err as any);
     }
   }
-  loading = false;
+  // loading = false;
 
-  return {response, error, loading};
+  return {response, error};
 }

@@ -64,11 +64,11 @@ export const EvolutionGraph: React.FC<EvolutionGraphProps> = ({ responseAssociat
   return (
     <EvolutionGraphWrapper>
       <EvolutionGraphTitle>Evolução das agremiações de frevo ao longo dos anos</EvolutionGraphTitle>
-        {responseAssociations?.length === 0 ? (
+        {/* {responseAssociations?.length === 0 ? (
           <IconWrapper>
             <LoadingIcon />
           </IconWrapper>
-        ) : (
+        ) : ( */}
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={dataEvolutionGraph}
@@ -81,7 +81,7 @@ export const EvolutionGraph: React.FC<EvolutionGraphProps> = ({ responseAssociat
               <Line type="monotone" dataKey="Cadastro" stroke="#27962D" fill="#27962D" />
             </LineChart>
           </ResponsiveContainer>
-        )}
+        {/* )} */}
     </EvolutionGraphWrapper>
   );
 };

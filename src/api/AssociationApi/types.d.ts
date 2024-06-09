@@ -34,6 +34,6 @@ export interface Entity {
 export interface IResponse{
     response: AxiosResponse<any, any> | null
     error: AxiosError | null
-    loading: boolean
+    // loading: boolean
 }
   

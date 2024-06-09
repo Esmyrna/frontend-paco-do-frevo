@@ -53,15 +53,15 @@ export const PercentualComponent = ({ responseAssociations }: PercentualComponen
 
     return (
         <PercentualComponentWrapper>
-            {responseAssociations?.length > 0 ? (
-                dataAssociations.map((item, index) => (
+            {/* {responseAssociations?.length > 0 ? ( */}
+                {dataAssociations.map((item, index) => (
                     <Association key={index} associationName={item?.name} associationQuantity={item?.quantity} isGreen={item?.name === 'Total'} />
-                ))
-            ) : (
+                ))}
+            {/* ) : (
                 <IconWrapper>
                     <LoadingIcon />
                 </IconWrapper>
-            )}
+            )} */}
         </PercentualComponentWrapper>
     );
 };
