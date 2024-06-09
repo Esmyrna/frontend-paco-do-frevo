@@ -18,15 +18,17 @@ export const VisualData = () => {
     useEffect(() => {
         const fetchAssociations = async () => {
             const { response, error } = await getAllAssociations({ page: 1, pageSize: 100 });
-            setResponseAssociations(response?.data?.result);
-            setErrorAssociations(error);
+            if (response) {
+                setResponseAssociations(response?.data?.result);
+            }
             if (error) {
+                setErrorAssociations(error);
                 console.error('Erro:', error);
             }
         };
-
         fetchAssociations();
     }, []);
+    
 
     /** Estado para armazenar os dados do gráfico de outras entidades */
     const [dataOtherEntities, setDataOtherEntities] = useState<DataPoint[]>([]);

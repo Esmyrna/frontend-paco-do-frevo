@@ -37,20 +37,15 @@ export async function getPagedAssociations(pagingParams: IPagingParams) {
 }
 
 export const getAllAssociations = async (pagingParams: IPagingParams): Promise<IResponse> => {
-  let response: AxiosResponse<any, any> | null = null;
-  let error: AxiosError | null = null;
-  // let loading: boolean = true;
-
   try {
-    response = await axios.get(`${API_URL}/paged?page=${pagingParams.page}&pageSize=${pagingParams.pageSize}`);
+    const response = await axios.get(`${API_URL}/paged?page=${pagingParams.page}&pageSize=${pagingParams.pageSize}`);
+    return { response, error: null };
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      error = err;
+      return { response: null, error: err };
     } else {
-      error = new axios.AxiosError('Unexpected error', err as any);
+      const error = new axios.AxiosError('Unexpected error', err as any);
+      return { response: null, error };
     }
   }
-  // loading = false;
-
-  return {response, error};
 }
