@@ -6,7 +6,8 @@ import ListOfAssociations from "../pages/ListOfAssociations/ListOfAssociations";
 import FirstStep from "../pages/Forms/ControlForm/ControlForm";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient();import { Dashboard } from "../pages/Dashboard"
+
 
 function RouterPage() {
   return (
@@ -16,6 +17,7 @@ function RouterPage() {
           <Route path='/' element={<HomePage />} />
           <Route path="/multistep" element={<FirstStep />} />
           <Route path="/listing" element={<ListOfAssociations />} />
+          <Route path="dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

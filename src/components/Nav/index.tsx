@@ -27,7 +27,7 @@ const Nav = () => {
                 <List>
                     <Item onClick={handleClickPageHome}>Home</Item>
                     <Item onClick={handleClickPageForm}>Cadastrar agremiação</Item>
-                    <Item>Dashboard</Item>
+                    <Item onClick={() =>navigate('/dashboard')}>Dashboard</Item>
                 </List>
             </Options>
 
