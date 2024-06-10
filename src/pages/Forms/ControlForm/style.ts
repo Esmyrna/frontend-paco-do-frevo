@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import frevoVivo from "../../../assets/FREVO-VIVO.png";
 
 export const Section = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ export const FormContainer = styled.div`
   background-color: #00377b;
   width: 35%;
   height: 100vh;
-  background-image: url("src/assets/frevo-vivo.png");
+  background-image: url(${frevoVivo});
   background-size: 100% 100%;
   background-repeat: no-repeat;
 
@@ -171,5 +172,21 @@ export const ButtonForBack = styled.button`
   &:hover {
     background-color: #00377b;
     color: #fff;
+  }
+`;
+
+export const TitleForSucess = styled.h2`
+  color: #32cd32;
+  font-size: 18px;
+  font-family: "Sofia Sans Condensed", sans-serif;
+`;
+
+export const ContainerForButtonSignUp = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (width < 720px) {
+    display: none;
   }
 `;

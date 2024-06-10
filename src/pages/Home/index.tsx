@@ -28,12 +28,15 @@ import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import CarouselImage from "../../components/Carousel";
+import frevo1 from '../../assets/frevo1.jpeg'
+import frevo2 from '../../assets/frevo2.jpeg'
+import frevo3 from '../../assets/frevo3.jpeg'
 
 const HomePage: React.FC = () => {
   const images = [
-    'src/assets/frevo1.jpeg',
-    'src/assets/frevo2.jpeg',
-    'src/assets/frevo3.jpeg',
+    frevo1,
+    frevo2,
+    frevo3,
   ];
 
   const navigate = useNavigate();
