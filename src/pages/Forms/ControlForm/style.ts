@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import frevoVivo from "../../../assets/FREVO-VIVO.png";
 
 export const Section = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ export const FormContainer = styled.div`
   background-color: #00377b;
   width: 35%;
   height: 100vh;
-  background-image: url("src/assets/frevo-vivo.png");
+  background-image: url(${frevoVivo});
   background-size: 100% 100%;
   background-repeat: no-repeat;
 
