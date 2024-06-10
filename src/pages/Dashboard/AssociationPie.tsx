@@ -5,7 +5,7 @@ import { Chart, Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement }
 import { EAssociationType } from '../../interfaces/enum';
 import { ArcElement } from 'chart.js';
 Chart.register(Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcElement);
- 
+
 interface Association {
     name: string;
     foundationDate: string;
@@ -73,17 +73,17 @@ const AssociationPie: React.FC = () => {
 
     const countAssociationsByState = () => {
         const counts: Record<string, number> = {};
-    
+
         associations.forEach((association) => {
             const state = association.address.state;
             counts[state] = (counts[state] || 0) + 1;
         });
-    
+
         return counts;
     };
-    
+
     const associationsByState = countAssociationsByState();
-    
+
     const data = {
         labels: Object.keys(associationsByState),
         datasets: [
@@ -91,17 +91,17 @@ const AssociationPie: React.FC = () => {
                 label: 'Número de Associações por Estado',
                 data: Object.values(associationsByState),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    
+                    'rgba(235, 4, 4, 0.918)',
+                    'rgba(18, 42, 131, 0.915)',
+                    'rgba(18, 42, 131, 0.915)',
+                    'rgba(235, 4, 4, 0.918)',
+
                 ],
             },
         ],
     };
-    
-    
+
+
 
     const config = {
         responsive: true,

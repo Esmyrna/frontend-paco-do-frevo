@@ -18,7 +18,7 @@ export const GraphChart = styled.div`
 
   @media (width < 720px) {
     flex-direction: column;
-    width: 90%;
+    width: 100%;
     justify-content: center;
     align-items: center;
   }
@@ -35,6 +35,12 @@ export const ContainerGraphStackBarChart = styled.div`
   margin: 1rem;
   padding: 2rem;
   flex-direction: column;
+  @media (width < 720px) {
+    flex-direction: column;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 export const ContainerGraphChart = styled.div`
   background-color: #fff;
@@ -44,6 +50,13 @@ export const ContainerGraphChart = styled.div`
   border-radius: 15px;
   height: 100%;
   padding: 2rem;
+
+  @media (width < 720px) {
+    flex-direction: column;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const ContainerGraphPie = styled.div`
@@ -56,6 +69,16 @@ export const ContainerGraphPie = styled.div`
   margin: 1rem;
   height: 100%;
   flex-direction: column;
+
+  @media (width < 720px) {
+    flex-direction: column;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
 export const GraphChartTwo = styled.div`

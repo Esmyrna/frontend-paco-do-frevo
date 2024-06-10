@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { EAssociationType } from '../../interfaces/enum';
- 
+
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -80,13 +80,13 @@ const AssociationChart: React.FC = () => {
         [EAssociationType.carnivalBlock]: 0,
         [EAssociationType.puppetClub]: 0,
     };
-    
+
     associations.forEach((association) => {
         if (associationTypeCounts[association.associationType] !== undefined) {
-            associationTypeCounts[association.associationType] += 1; 
+            associationTypeCounts[association.associationType] += 1;
         }
     });
-    
+
     const data = {
         labels: Object.keys(associationTypeCounts),
         datasets: [
@@ -94,10 +94,10 @@ const AssociationChart: React.FC = () => {
                 label: 'Número de Associações',
                 data: Object.values(associationTypeCounts),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(18, 42, 131, 0.915)',
+                    'rgba(247, 247, 6, 0.7)',
+                    'rgba(235, 4, 4, 0.918)',
+                    'rgba(27, 183, 3, 0.905)',
                 ],
             },
         ],

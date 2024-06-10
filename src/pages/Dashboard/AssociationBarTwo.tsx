@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart, Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { EAssociationType } from '../../interfaces/enum';
- 
+
 
 Chart.register(Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -86,12 +86,12 @@ const AssociationBarChart: React.FC = () => {
                 label: 'Quantidade de Associações',
                 data: [sharedResidenceCounts.shared, sharedResidenceCounts.notShared],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(247, 247, 6, 0.7)',
+                    'rgba(27, 183, 3, 0.905))',
                 ],
                 borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 99, 132, 1)',
+                    'rgba(247, 247, 6, 0.7)',
+                    'rgba(27, 183, 3, 0.905)',
                 ],
                 borderWidth: 1,
             },

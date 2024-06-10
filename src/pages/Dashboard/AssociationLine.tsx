@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart, Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
 import { EAssociationType } from '../../interfaces/enum';
- 
+
 
 Chart.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -76,8 +76,8 @@ const AssociationLineChart: React.FC = () => {
             {
                 label: 'Data de Fundação',
                 data: associations.map(association => new Date(association.foundationDate).getFullYear()),
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(18, 42, 131, 0.915)',
+                borderColor: 'rgba(18, 42, 131, 0.915)',
                 borderWidth: 1,
                 fill: false,
             },

@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart, Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement, RadarController } from 'chart.js';
 import { EAssociationType } from '../../interfaces/enum';
- 
+
 
 Chart.register(Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement, RadarController);
 
@@ -85,12 +85,12 @@ const AssociationStackedBarChart: React.FC = () => {
             {
                 label: 'Possui Sede Própria',
                 data: [ownedHeadquartersCounts.owned],
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                backgroundColor: 'rgba(235, 4, 4, 0.918)',
             },
             {
                 label: 'Não Possui Sede Própria',
                 data: [ownedHeadquartersCounts.notOwned],
-                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                backgroundColor: 'rgba(18, 42, 131, 0.915)',
             },
         ],
     };
