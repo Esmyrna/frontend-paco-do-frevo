@@ -174,3 +174,19 @@ export const ButtonForBack = styled.button`
     color: #fff;
   }
 `;
+
+export const TitleForSucess = styled.h2`
+  color: #32cd32;
+  font-size: 18px;
+  font-family: "Sofia Sans Condensed", sans-serif;
+`;
+
+export const ContainerForButtonSignUp = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (width < 720px) {
+    display: none;
+  }
+`;

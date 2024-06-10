@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { EAssociationType } from '../../interfaces/enum';
+ 
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -58,10 +59,9 @@ interface Association {
 
 const AssociationChart: React.FC = () => {
     const [associations, setAssociations] = useState<Association[]>([]);
-    const BASE_URL = "http://localhost:3000";
-
+  
     const fetchData = async (): Promise<Association> => {
-        const response = await axios.get(`${BASE_URL}/associations/paged`);
+        const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/associations/paged`);
         console.log('dados', response.data.result)
         setAssociations(response.data.result)
         return response.data.result;

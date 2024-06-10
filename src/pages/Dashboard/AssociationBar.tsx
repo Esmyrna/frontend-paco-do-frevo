@@ -57,10 +57,10 @@ interface Association {
 
 const AssociationRadar: React.FC = () => {
     const [associations, setAssociations] = useState<Association[]>([]);
-    const BASE_URL = "http://localhost:3000";
+
 
     const fetchData = async (): Promise<Association[]> => {
-        const response = await axios.get(`${BASE_URL}/associations/paged`);
+        const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/associations/paged`);
         console.log('dados', response.data.result);
         setAssociations(response.data.result);
         return response.data.result;
@@ -102,7 +102,7 @@ const AssociationRadar: React.FC = () => {
         scale: {
             ticks: {
                 beginAtZero: false,
-                stepSize: 1,  
+                stepSize: 1,
             },
             pointLabels: {
                 fontSize: 14,

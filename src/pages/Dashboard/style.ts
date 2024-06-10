@@ -15,6 +15,13 @@ export const GraphChart = styled.div`
   border-radius: 10px;
   flex-direction: row;
   height: 100%;
+
+  @media (width < 720px) {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const ContainerGraphStackBarChart = styled.div`
@@ -55,6 +62,13 @@ export const GraphChartTwo = styled.div`
   width: 100%;
   display: flex;
   height: 100%;
+
+  @media (width < 720px) {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const ContainerGraphChartTwo = styled.div`

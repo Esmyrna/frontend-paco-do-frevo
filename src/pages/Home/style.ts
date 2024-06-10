@@ -47,8 +47,7 @@ export const VideoSlogan = styled.section<{
   gap: 10%;
 
   @media (width <= 1000px) {
-    height: ${(props) => (props.isSecondary ? "15vh" : "20vh")};
-    width: ${(props) => (props.isSecondary ? "60vw" : "70vw")};
+    display: none;
   }
 `;
 

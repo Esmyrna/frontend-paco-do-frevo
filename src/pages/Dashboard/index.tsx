@@ -19,7 +19,6 @@ const Dashboard = () => {
                         <TitleGraph>Quantidade de associação por membro</TitleGraph>
                         <AssociationChart />
                     </ContainerGraphChart>
-
                     <ContainerGraphStackBarChart>
                         <TitleGraph>Quantidade de associação com sede própria</TitleGraph>
                         <AssociationStackedBarChart />
