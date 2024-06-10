@@ -58,9 +58,9 @@ interface Association {
 
 const AssociationStackedBarChart: React.FC = () => {
     const [associations, setAssociations] = useState<Association[]>([]);
-
+    const BASE_URL = "https://pacodofrevoapi1-6ka9yo5l.b4a.run"
     const fetchData = async (): Promise<Association[]> => {
-        const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/associations/paged`);
+        const response = await axios.get(`${BASE_URL}/associations/paged`);
         console.log('dados', response.data.result)
         setAssociations(response.data.result)
         return response.data.result;

@@ -26,8 +26,9 @@ const ControlForm: React.FC = () => {
 
     const onSubmit = async () => {
         setIsExploding(true);
+        const BASE_URL = "https://pacodofrevoapi1-6ka9yo5l.b4a.run"
         try {
-            const response = await axios.post(`${import.meta.env.REACT_APP_API_URL}`, userData);
+            const response = await axios.post(`${BASE_URL}`, userData);
             console.log('Dados enviados com sucesso:', response.data);
 
         } catch (error) {

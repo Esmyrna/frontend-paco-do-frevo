@@ -18,7 +18,7 @@ export const GraphChart = styled.div`
 
   @media (width < 720px) {
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     justify-content: center;
     align-items: center;
   }
@@ -80,6 +80,10 @@ export const ContainerGraphChartTwo = styled.div`
   padding: 1rem;
   margin: 1rem;
   flex-direction: column;
+
+  @media (width < 720px) {
+    display: none;
+  }
 `;
 
 export const TitleGraph = styled.h3`

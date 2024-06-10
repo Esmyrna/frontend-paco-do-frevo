@@ -57,10 +57,10 @@ interface Association {
 
 const AssociationPie: React.FC = () => {
     const [associations, setAssociations] = useState<Association[]>([]);
-  
+    const BASE_URL = "https://pacodofrevoapi1-6ka9yo5l.b4a.run"
     const fetchData = async (): Promise<void> => {
         try {
-            const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/associations/paged`);
+            const response = await axios.get(`${BASE_URL}/associations/paged`);
             setAssociations(response.data.result);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
