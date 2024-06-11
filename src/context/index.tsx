@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Address, Contact, Events, Member, SocialNetwork } from '../interfaces/type';
-import { EAssociationType } from '../interfaces/enum';
+import { BrazilStatesType, EAssociationType } from '../interfaces/enum';
  
 
 export interface UserData {
@@ -45,7 +45,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     name: '',
     foundationDate: '',
     colors: [],
-    associationType: EAssociationType.club, // Define um valor padrão válido do enum
+    associationType: EAssociationType.club,  
     activeMembers: 0,
     isSharedWithAResidence: false,
     hasOwnedHeadquarters: false,
@@ -59,7 +59,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       complement: '',
       district: '',
       city: '',
-      state: '',
+      state: BrazilStatesType.PE,
       country: '',
       zipCode: '',
     },

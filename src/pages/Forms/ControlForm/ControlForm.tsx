@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import Footer from '../../../components/Footer'
 import Nav from '../../../components/Nav'
 import Steps from '../../../components/Steps/Steps'
@@ -10,11 +8,12 @@ import axios from 'axios'
 import { useGlobalContext } from '../../../context'
 import { useNavigate } from 'react-router-dom';
 import ConfettiExplosion from 'react-confetti-explosion';
-import AddressData from '../DataForm/AddressStepOneData'
-import InputRadioData from '../DataForm/InputsRadioData'
-import MemberStepData from '../DataForm/MemberStepData'
+import { ContactsAndMidiaData } from '../DataForm/ContactsAndMidiaData'
 
 import { ContainerForButtonSignUp, TitleForSucess } from './style'
+import BaseColors from '../../../styleguide/BaseColors'
+import EventsAndMembersData from '../DataForm/EventsAndMembersData'
+import AddressAndOthersInfosData from '../DataForm/AddressAndOthersInfosData'
 
 
 const ControlForm: React.FC = () => {
@@ -22,7 +21,7 @@ const ControlForm: React.FC = () => {
     const { userData } = useGlobalContext();
     const [isExploding, setIsExploding] = useState(false);
     const navigate = useNavigate();
-    const [sucess, setSucess] = useState(false);
+    const [sucess, setSucess] = useState<boolean | null>(null);
 
     const onSubmit = async () => {
 
@@ -35,8 +34,9 @@ const ControlForm: React.FC = () => {
 
         } catch (error) {
             console.error('Erro ao enviar dados:', error);
+            setSucess(false)
         }
-      
+
     };
 
     const Listing = () => {
@@ -75,9 +75,9 @@ const ControlForm: React.FC = () => {
                     </C.ContainerFormTitle>
                     <C.AllContainerForm>
                         {(step === 1) && <FirstData />}
-                        {(step === 2) && <AddressData />}
-                        {(step === 3) && <InputRadioData />}
-                        {(step === 4) && <MemberStepData />}
+                        {(step === 2) && <AddressAndOthersInfosData />}
+                        {(step === 3) && <EventsAndMembersData />}
+                        {(step === 4) && <ContactsAndMidiaData />}
 
                     </C.AllContainerForm>
 
@@ -87,7 +87,8 @@ const ControlForm: React.FC = () => {
                         {step < 4 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
                         {step === 4 && (
                             <ContainerForButtonSignUp>
-                                {sucess && <TitleForSucess>Dados cadastrados com sucesso! ✅</TitleForSucess>}
+                                {sucess && <TitleForSucess color={BaseColors.vividGreen}>Dados cadastrados com sucesso! ✅</TitleForSucess>}
+                                {sucess === false && <TitleForSucess color={BaseColors.vividRed}>Erro ao cadastrar agremiação❗</TitleForSucess>}
                             </ContainerForButtonSignUp>
                         )}
                         {step === 4 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
