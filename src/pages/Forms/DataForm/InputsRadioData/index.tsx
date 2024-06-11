@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { RadioInput } from '../../../../components/RadioInputs/style';
 import { Label } from '../../../../components/Input/style';
-import {  useGlobalContext } from '../../../../context';
+import { useGlobalContext } from '../../../../context';
 import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
 import { ContainerInputsRadio, MemberAddEvent } from '../MemberStepData/style';
 import Input from '../../../../components/Input';
 import { ButtonAddEvent } from '../EventStepData/style';
 import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
+import Select from '../../../../components/Select';
+import { Occupation } from '../../../../interfaces/enum';
 
 
 const InputRadioData: React.FC = () => {
@@ -16,11 +18,11 @@ const InputRadioData: React.FC = () => {
     const [role, setRole] = useState('');
     const [actuationTimeInMonths, setActuationTimeInMonths] = useState(0);
     const [isFrevoTheMainRevenueIncome, setIsFrevoTheMainRevenueIncome] = useState(false);
- 
+
     const handleRadioChangeMember = (value: boolean) => {
         setIsFrevoTheMainRevenueIncome(value);
     };
- 
+
 
     const [eventType, setEventType] = useState('');
     const [dateOfAccomplishment, setDateOfAccomplishment] = useState('');
@@ -64,14 +66,14 @@ const InputRadioData: React.FC = () => {
         setIsFrevoTheMainRevenueIncome(false);
     };
 
-    
+
 
     return (
         <>
             <ContainerAllInputs>
                 <ContainerFormLeft>
                     <ContainerFields>
-                    <ContainerForLabel>
+                        <ContainerForLabel>
                             <Label fontSize="25px">Membros</Label>
                         </ContainerForLabel>
                         <ContainerForLabel>
@@ -93,11 +95,14 @@ const InputRadioData: React.FC = () => {
                         <ContainerForLabel>
                             <Label fontSize="15px">Papel</Label>
                         </ContainerForLabel>
-                        <Input
-                            type="text"
-                            name="role"
+                        <Select
                             value={role}
-                            onChange={(e) => setRole(e.target.value)} />
+                            onChange={(e) => setRole(e.target.value)}>
+                                    <option value="">Selecione um papel</option>
+                                    {Object.values(Occupation).map((roleOption, index) => (
+                                        <option key={index} value={roleOption}>{roleOption}</option>
+                                    ))}
+                        </Select>
                         <ContainerForLabel>
                             <Label fontSize="15px">Tempo de atuação em meses</Label>
                         </ContainerForLabel>

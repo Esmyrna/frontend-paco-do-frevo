@@ -23,7 +23,7 @@ export const ContactsStepData: React.FC = () => {
             email,
             phoneNumbers: [
                 {
-                    countryCode: '+55',
+                    countryCode: '55',
                     areaCode,
                     number,
                 },

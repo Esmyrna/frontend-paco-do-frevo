@@ -1,3 +1,5 @@
+import { BrazilStatesType } from "./enum";
+
 export interface PhoneNumber {
   countryCode: string;
   areaCode: string;
@@ -10,7 +12,7 @@ export interface Address {
   complement: string | null;
   district: string | null;
   city: string | null;
-  state: string | null;
+  state: BrazilStatesType;
   country: string | null;
   zipCode: string | null;
 }
@@ -27,13 +29,6 @@ export interface Member {
   role: string | null;
   actuationTimeInMonths: number | null;
   isFrevoTheMainRevenueIncome: boolean;
-}
-export enum ESocialNetworkType {
-  facebook = "Facebook",
-  instagram = "Instagram",
-  twitter = "Twitter",
-  tiktok = "TikTok",
-  linkedin = "Linkedin",
 }
 
 export interface SocialNetwork {

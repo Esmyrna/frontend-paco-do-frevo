@@ -17,12 +17,12 @@ const Steps: React.FC<StepsProps> = ({ step }) => {
                 </C.Step>
                 <C.HorizontalLine></C.HorizontalLine>
                 <C.Step>
-                    <FaRegAddressCard size={25} color={step >=3 && step <=4 ? '#2e80e3' : 'gray'} />
+                    <FaRegAddressCard size={25} color={step === 3 ? '#2e80e3' : 'gray'} />
                     <C.StepTitle>Eventos e Membros</C.StepTitle>
                 </C.Step>
                 <C.HorizontalLine></C.HorizontalLine>
                 <C.Step>
-                    <FaNetworkWired size={25} color={ step === 5 ? '#2e80e3' : 'gray'} />
+                    <FaNetworkWired size={25} color={step >= 4 ? '#2e80e3' : 'gray'} />
                     <C.StepTitle>Contatos</C.StepTitle>
                 </C.Step>
             </C.Steps>

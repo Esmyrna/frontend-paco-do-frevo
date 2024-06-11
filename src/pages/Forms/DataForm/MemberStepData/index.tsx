@@ -29,7 +29,7 @@ export const MemberStepData: React.FC = () => {
             email,
             phoneNumbers: [
                 {
-                    countryCode: '+55',
+                    countryCode: '55',
                     areaCode,
                     number,
                 },
@@ -60,6 +60,7 @@ export const MemberStepData: React.FC = () => {
         }));
         setSocialNetworkType(ESocialNetworkType.instagram);
         setUrl('');
+        console.log(userData)
     };
 
     useEffect(() => {

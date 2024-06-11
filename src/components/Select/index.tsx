@@ -4,7 +4,7 @@ import { SelectInput } from './style';
 interface SelectInputProps {
   placeholder?: string;
    children?: React.ReactNode;
-   value: string
+   value?: string 
    onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
