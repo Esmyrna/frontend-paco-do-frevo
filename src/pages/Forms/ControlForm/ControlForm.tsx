@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import Footer from '../../../components/Footer'
 import Nav from '../../../components/Nav'
 import Steps from '../../../components/Steps/Steps'
