@@ -13,7 +13,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 import AddressData from '../DataForm/AddressStepOneData'
 import InputRadioData from '../DataForm/InputsRadioData'
 import MemberStepData from '../DataForm/MemberStepData'
-import ContactsStepData from '../DataForm/ContactsStepData'
+
 import { ContainerForButtonSignUp, TitleForSucess } from './style'
 
 
@@ -25,16 +25,18 @@ const ControlForm: React.FC = () => {
     const [sucess, setSucess] = useState(false);
 
     const onSubmit = async () => {
-        setIsExploding(true);
+
         const BASE_URL = "https://pacodofrevoapi1-6ka9yo5l.b4a.run"
         try {
-            const response = await axios.post(`${BASE_URL}`, userData);
+            const response = await axios.post(`${BASE_URL}/associations`, userData);
             console.log('Dados enviados com sucesso:', response.data);
+            setIsExploding(true);
+            setSucess(true)
 
         } catch (error) {
             console.error('Erro ao enviar dados:', error);
         }
-        setSucess(true)
+      
     };
 
     const Listing = () => {
@@ -76,19 +78,19 @@ const ControlForm: React.FC = () => {
                         {(step === 2) && <AddressData />}
                         {(step === 3) && <InputRadioData />}
                         {(step === 4) && <MemberStepData />}
-                        {(step === 5) && <ContactsStepData />}
+
                     </C.AllContainerForm>
 
                     <C.ContainerFormButtons>
                         {step === 1 && <C.ButtonForHome onClick={Listing}>Conferir Listagem</C.ButtonForHome>}
                         {step > 1 && <C.ButtonForBack onClick={onBack}>Voltar</C.ButtonForBack>}
-                        {step < 5 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
-                        {step === 5 && (
+                        {step < 4 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
+                        {step === 4 && (
                             <ContainerForButtonSignUp>
-                                {sucess && <TitleForSucess>Dados cadastrados com sucesso</TitleForSucess>}
+                                {sucess && <TitleForSucess>Dados cadastrados com sucesso! ✅</TitleForSucess>}
                             </ContainerForButtonSignUp>
-                            )}
-                        {step === 5 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
+                        )}
+                        {step === 4 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
                     </C.ContainerFormButtons>
                 </C.ContainerInputsForm>
             </C.Section>

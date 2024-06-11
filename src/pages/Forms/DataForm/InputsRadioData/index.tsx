@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { RadioInput } from '../../../../components/RadioInputs/style';
 import { Label } from '../../../../components/Input/style';
-import { UserData, useGlobalContext } from '../../../../context';
-import InputBigText from '../../../../components/TextArea';
+import {  useGlobalContext } from '../../../../context';
 import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
-import { ContainerInputsRadio } from '../MemberStepData/style';
+import { ContainerInputsRadio, MemberAddEvent } from '../MemberStepData/style';
 import Input from '../../../../components/Input';
 import { ButtonAddEvent } from '../EventStepData/style';
 import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
@@ -12,24 +11,16 @@ import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
 
 const InputRadioData: React.FC = () => {
     const { userData, setUserData } = useGlobalContext();
-
-    const handleRadioChange = (name: string, value: boolean) => {
-        setUserData((prevUserData: UserData) => {
-            return {
-                ...prevUserData,
-                [name]: value
-            };
-        });
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [role, setRole] = useState('');
+    const [actuationTimeInMonths, setActuationTimeInMonths] = useState(0);
+    const [isFrevoTheMainRevenueIncome, setIsFrevoTheMainRevenueIncome] = useState(false);
+ 
+    const handleRadioChangeMember = (value: boolean) => {
+        setIsFrevoTheMainRevenueIncome(value);
     };
-
-    const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setUserData(prevUserData => ({
-            ...prevUserData,
-            [name]: value
-        }));
-    };
-
+ 
 
     const [eventType, setEventType] = useState('');
     const [dateOfAccomplishment, setDateOfAccomplishment] = useState('');
@@ -51,21 +42,82 @@ const InputRadioData: React.FC = () => {
         setDateOfAccomplishment('');
         setParticipantsAmount(0);
     };
+
+    const handleAddMember = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log('Adding member:', { name, surname, role, actuationTimeInMonths, isFrevoTheMainRevenueIncome });
+        const newMember = {
+            name,
+            surname,
+            role,
+            actuationTimeInMonths,
+            isFrevoTheMainRevenueIncome,
+        };
+        setUserData({
+            ...userData,
+            members: [...userData.members, newMember],
+        });
+        setName('');
+        setSurname('');
+        setRole('');
+        setActuationTimeInMonths(0);
+        setIsFrevoTheMainRevenueIncome(false);
+    };
+
+    
+
     return (
         <>
             <ContainerAllInputs>
                 <ContainerFormLeft>
                     <ContainerFields>
+                    <ContainerForLabel>
+                            <Label fontSize="25px">Membros</Label>
+                        </ContainerForLabel>
                         <ContainerForLabel>
-                            <Label fontSize="15px">Possui sede própria?</Label>
+                            <Label fontSize="15px">Nome do membro</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Sobrenome do membro</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="surname"
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Papel</Label>
+                        </ContainerForLabel>
+                        <Input
+                            type="text"
+                            name="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)} />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Tempo de atuação em meses</Label>
+                        </ContainerForLabel>
+                        <Input
+                            name="participantsAmount"
+                            type="text"
+                            value={actuationTimeInMonths}
+                            onChange={(e) => setActuationTimeInMonths(Number(e.target.value))}
+                        />
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Frevo é a principal fonte de receita?</Label>
                         </ContainerForLabel>
                         <ContainerInputsRadio>
+
                             <Label fontSize="15px">
                                 <RadioInput
                                     type="radio"
                                     value="true"
-                                    checked={userData.hasOwnedHeadquarters === true}
-                                    onChange={() => handleRadioChange('hasOwnedHeadquarters', true)}
+                                    checked={isFrevoTheMainRevenueIncome === true}
+                                    onChange={() => handleRadioChangeMember(true)}
                                 />
                                 Sim
                             </Label>
@@ -74,92 +126,13 @@ const InputRadioData: React.FC = () => {
                                 <RadioInput
                                     type="radio"
                                     value="false"
-                                    checked={userData.hasOwnedHeadquarters === false}
-                                    onChange={() => handleRadioChange('hasOwnedHeadquarters', false)}
+                                    checked={isFrevoTheMainRevenueIncome === false}
+                                    onChange={() => handleRadioChangeMember(false)}
                                 />
                                 Não
                             </Label>
                         </ContainerInputsRadio>
-                        <ContainerForLabel>
-                            <Label fontSize="15px">Possui residência compartilhada?</Label>
-                        </ContainerForLabel>
-                        <ContainerInputsRadio>
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="true"
-                                    checked={userData.isSharedWithAResidence === true}
-                                    onChange={() => handleRadioChange('isSharedWithAResidence', true)}
-                                />
-                                Sim
-                            </Label>
-
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="false"
-                                    checked={userData.isSharedWithAResidence === false}
-                                    onChange={() => handleRadioChange('isSharedWithAResidence', false)}
-                                />
-                                Não
-                            </Label>
-                        </ContainerInputsRadio>
-                        <ContainerForLabel>
-                            <Label fontSize="15px">Pode emitir nota fiscal?</Label>
-                        </ContainerForLabel>
-                        <ContainerInputsRadio>
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="true"
-                                    checked={userData.canIssueOwnReceipts === true}
-                                    onChange={() => handleRadioChange('canIssueOwnReceipts', true)}
-                                />
-                                Sim
-                            </Label>
-
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="false"
-                                    checked={userData.canIssueOwnReceipts === false}
-                                    onChange={() => handleRadioChange('canIssueOwnReceipts', false)}
-                                />
-                                Não
-                            </Label>
-                        </ContainerInputsRadio>
-
-                        <ContainerForLabel>
-                            <Label fontSize="15px">É uma entidade legal?</Label>
-                        </ContainerForLabel>
-                        <ContainerInputsRadio>
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="true"
-                                    checked={userData.isLegalEntity === true}
-                                    onChange={() => handleRadioChange('isLegalEntity', true)}
-                                />
-                                Sim
-                            </Label>
-
-                            <Label fontSize="15px">
-                                <RadioInput
-                                    type="radio"
-                                    value="false"
-                                    checked={userData.isLegalEntity === false}
-                                    onChange={() => handleRadioChange('isLegalEntity', false)}
-                                />
-                                Não
-                            </Label>
-
-                        </ContainerInputsRadio>
-                        <ContainerForLabel>
-                            <Label fontSize="15px">História da agremiação</Label>
-                        </ContainerForLabel>
-                        <InputBigText name="associationHistoryNotes"
-                            value={userData.associationHistoryNotes}
-                            onChange={handleTextAreaChange} />
+                        <MemberAddEvent onClick={handleAddMember}>Adicionar Membro</MemberAddEvent>
                     </ContainerFields>
                 </ContainerFormLeft>
                 <ContainerFormRight>

@@ -26,12 +26,13 @@ export const CardForForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60%;
+  height: 10%;
   background-position: 100% 100%;
   padding: 1rem;
   background-image: url("src/assets/detalhe-site.png");
-  background-size: 40%;
+  background-size: 25%;
   background-repeat: no-repeat;
   border-radius: 10px;
   background-color: #e9e9e9;
+  margin-top: 20px;
 `;
