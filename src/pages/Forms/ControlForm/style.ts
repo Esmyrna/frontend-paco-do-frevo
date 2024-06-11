@@ -175,8 +175,8 @@ export const ButtonForBack = styled.button`
   }
 `;
 
-export const TitleForSucess = styled.h2`
-  color: #32cd32;
+export const TitleForSucess = styled.h2<{color: string}>`
+  color: ${props => props.color};
   font-size: 18px;
   font-family: "Sofia Sans Condensed", sans-serif;
 `;

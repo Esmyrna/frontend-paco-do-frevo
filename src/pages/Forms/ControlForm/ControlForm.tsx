@@ -15,6 +15,7 @@ import InputRadioData from '../DataForm/InputsRadioData'
 import MemberStepData from '../DataForm/MemberStepData'
 
 import { ContainerForButtonSignUp, TitleForSucess } from './style'
+import BaseColors from '../../../styleguide/BaseColors'
 
 
 const ControlForm: React.FC = () => {
@@ -22,7 +23,7 @@ const ControlForm: React.FC = () => {
     const { userData } = useGlobalContext();
     const [isExploding, setIsExploding] = useState(false);
     const navigate = useNavigate();
-    const [sucess, setSucess] = useState(false);
+    const [sucess, setSucess] = useState<boolean | null>(null);
 
     const onSubmit = async () => {
 
@@ -35,8 +36,9 @@ const ControlForm: React.FC = () => {
 
         } catch (error) {
             console.error('Erro ao enviar dados:', error);
+            setSucess(false)
         }
-      
+
     };
 
     const Listing = () => {
@@ -87,7 +89,8 @@ const ControlForm: React.FC = () => {
                         {step < 4 && <C.ButtonForList onClick={onNextPage}>Próxima Etapa</C.ButtonForList>}
                         {step === 4 && (
                             <ContainerForButtonSignUp>
-                                {sucess && <TitleForSucess>Dados cadastrados com sucesso! ✅</TitleForSucess>}
+                                {sucess && <TitleForSucess color={BaseColors.vividGreen}>Dados cadastrados com sucesso! ✅</TitleForSucess>}
+                                {sucess === false && <TitleForSucess color={BaseColors.vividRed}>Erro ao cadastrar agremiação❗</TitleForSucess>}
                             </ContainerForButtonSignUp>
                         )}
                         {step === 4 && <C.ButtonForList onClick={onSubmit}>Cadastrar agremiação</C.ButtonForList>}
