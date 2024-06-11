@@ -10,12 +10,12 @@ import axios from 'axios'
 import { useGlobalContext } from '../../../context'
 import { useNavigate } from 'react-router-dom';
 import ConfettiExplosion from 'react-confetti-explosion';
-import AddressData from '../DataForm/AddressStepOneData'
-import InputRadioData from '../DataForm/InputsRadioData'
-import MemberStepData from '../DataForm/MemberStepData'
+import { ContactsAndMidiaData } from '../DataForm/ContactsAndMidiaData'
 
 import { ContainerForButtonSignUp, TitleForSucess } from './style'
 import BaseColors from '../../../styleguide/BaseColors'
+import EventsAndMembersData from '../DataForm/EventsAndMembersData'
+import AddressAndOthersInfosData from '../DataForm/AddressAndOthersInfosData'
 
 
 const ControlForm: React.FC = () => {
@@ -77,9 +77,9 @@ const ControlForm: React.FC = () => {
                     </C.ContainerFormTitle>
                     <C.AllContainerForm>
                         {(step === 1) && <FirstData />}
-                        {(step === 2) && <AddressData />}
-                        {(step === 3) && <InputRadioData />}
-                        {(step === 4) && <MemberStepData />}
+                        {(step === 2) && <AddressAndOthersInfosData />}
+                        {(step === 3) && <EventsAndMembersData />}
+                        {(step === 4) && <ContactsAndMidiaData />}
 
                     </C.AllContainerForm>
 

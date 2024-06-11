@@ -5,13 +5,13 @@ import { UserData, useGlobalContext } from '../../../../context';
 import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
 import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
 import { RadioInput } from '../../../../components/RadioInputs/style';
-import { ContainerInputsRadio } from '../MemberStepData/style';
+import { ContainerInputsRadio } from '../ContactsAndMidiaData/style';
 import InputBigText from '../../../../components/TextArea';
 import Select from '../../../../components/Select';
 import { brazilStates } from '../../../../interfaces/brazilStates';
 import { BrazilStatesType } from '../../../../interfaces/enum';
 
-const AddressData: React.FC = () => {
+const AddressAndOthersInfosData: React.FC = () => {
   const { userData, setUserData } = useGlobalContext();
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -230,4 +230,4 @@ const AddressData: React.FC = () => {
   );
 };
 
-export default AddressData;
+export default AddressAndOthersInfosData;

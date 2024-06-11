@@ -3,7 +3,7 @@ import { RadioInput } from '../../../../components/RadioInputs/style';
 import { Label } from '../../../../components/Input/style';
 import { useGlobalContext } from '../../../../context';
 import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
-import { ContainerInputsRadio, MemberAddEvent } from '../MemberStepData/style';
+import { ContainerInputsRadio, MemberAddEvent } from '../ContactsAndMidiaData/style';
 import Input from '../../../../components/Input';
 import { ButtonAddEvent } from '../EventStepData/style';
 import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
@@ -11,7 +11,7 @@ import Select from '../../../../components/Select';
 import { Occupation } from '../../../../interfaces/enum';
 
 
-const InputRadioData: React.FC = () => {
+const EventsAndMembersData: React.FC = () => {
     const { userData, setUserData } = useGlobalContext();
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -98,10 +98,10 @@ const InputRadioData: React.FC = () => {
                         <Select
                             value={role}
                             onChange={(e) => setRole(e.target.value)}>
-                                    <option value="">Selecione um papel</option>
-                                    {Object.values(Occupation).map((roleOption, index) => (
-                                        <option key={index} value={roleOption}>{roleOption}</option>
-                                    ))}
+                            <option value="">Selecione um papel</option>
+                            {Object.values(Occupation).map((roleOption, index) => (
+                                <option key={index} value={roleOption}>{roleOption}</option>
+                            ))}
                         </Select>
                         <ContainerForLabel>
                             <Label fontSize="15px">Tempo de atuação em meses</Label>
@@ -176,4 +176,4 @@ const InputRadioData: React.FC = () => {
     );
 }
 
-export default InputRadioData;
+export default EventsAndMembersData;

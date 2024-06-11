@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from '../../../../components/Input/style';
 import Input from '../../../../components/Input';
-import { CardForForm, ContactsAddEvent } from './style';
+
 import { useGlobalContext } from '../../../../context';
+import { useEffect, useState } from 'react';
+
 import { ContainerFields, ContainerFormLeft, ContainerFormRight } from '../../ControlForm/style';
 import { ContainerAllInputs, ContainerForLabel } from '../FirstData/style';
- 
+import Select from '../../../../components/Select';
+import { MidiaAddEvent } from '../MidiaStepData/style';
+import { ESocialNetworkType } from '../../../../interfaces/enum';
+import { SocialNetwork } from '../../../../interfaces/type';
+import { CardForForm, ContactsAddEvent } from './style';
 import { TextAbout } from '../../../Home/style';
 
-export const ContactsStepData: React.FC = () => {
+export const ContactsAndMidiaData: React.FC = () => {
     const { userData, setUserData } = useGlobalContext();
     const [addressTo, setAddressTo] = useState('');
     const [email, setEmail] = useState('');
@@ -39,6 +45,32 @@ export const ContactsStepData: React.FC = () => {
         setNumber('');
     };
 
+
+    const [socialNetworkType, setSocialNetworkType] = useState<ESocialNetworkType>(
+        ESocialNetworkType.instagram
+    );
+    const [url, setUrl] = useState('');
+
+    const addSocialNetwork = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const newSocialNetwork: SocialNetwork = { socialNetworkType, url };
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            socialNetworks: prevUserData.socialNetworks.length === 0 ? [newSocialNetwork] : [...prevUserData.socialNetworks, newSocialNetwork],
+        }));
+        setSocialNetworkType(ESocialNetworkType.instagram);
+        setUrl('');
+        console.log(userData)
+    };
+
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+
+
+
+
+
     return (
         <>
             <ContainerAllInputs>
@@ -67,19 +99,38 @@ export const ContactsStepData: React.FC = () => {
                     </ContainerFields>
                 </ContainerFormLeft>
                 <ContainerFormRight>
-                    <CardForForm> <TextAbout>Obrigado por cadastrar sua agremiação carnavalesca no Paço do Frevo! <br></br>
-                        Sua contribuição é fundamental para preservarmos e promovermos <br></br>a rica cultura do frevo.
-                        Os dados fornecidos serão utilizados para <br></br>criar um banco de informações sobre as agremiações,
-                        ajudando-nos <br></br> a entender melhor a diversidade e a história por trás dessa tradição
-                        <br></br> tão especial.
-                        Com isso, poderemos oferecer ainda mais oportunidades <br></br> de divulgação, colaboração e reconhecimento
-                        para as agremiações <br></br> carnavalescas. Juntos, continuaremos a celebrar e a perpetuar <br></br> o legado do frevo
-                        para as futuras gerações. Obrigado  <br></br>por fazer parte dessa jornada conosco!</TextAbout></CardForForm>
+                    <ContainerFields>
+                        <ContainerForLabel>
+                            <Label fontSize="25px">Redes Sociais</Label>
+                        </ContainerForLabel>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">Tipo de rede social</Label>
+                        </ContainerForLabel>
+                        <Select
+                            value={socialNetworkType}
+                            onChange={(e) => setSocialNetworkType(e.target.value as ESocialNetworkType)}
+                        >
+                            <option value="">Selecione...</option>
+                            {Object.values(ESocialNetworkType).map((network) => (
+                                <option key={network} value={network}>
+                                    {network}
+                                </option>
+                            ))}
+                        </Select>
+                        <ContainerForLabel>
+                            <Label fontSize="15px">URL</Label>
+                        </ContainerForLabel>
+                        <Input name="url" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+                        <MidiaAddEvent onClick={addSocialNetwork}>Enviar</MidiaAddEvent>
+                        <CardForForm> <TextAbout>Obrigado por cadastrar sua agremiação carnavalesca no Paço do Frevo! <br></br>
+                        </TextAbout></CardForForm>
+
+                    </ContainerFields>
                 </ContainerFormRight>
             </ContainerAllInputs>
 
         </>
-    );
+    )
 }
 
-export default ContactsStepData;
+export default ContactsAndMidiaData
