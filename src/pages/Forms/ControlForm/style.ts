@@ -6,6 +6,11 @@ export const Section = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: row;
+
+  @media (width < 720px) {
+ 
+    height: 160vh;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -92,6 +97,8 @@ export const ContainerInputsForm = styled.div`
   @media (width < 720px) {
     display: flex;
     flex-direction: column;
+   
+    height: 100%;
   }
 `;
 
@@ -115,6 +122,7 @@ export const ContainerFormButtons = styled.div`
     height: 100%;
     padding-left: 3%;
     align-items: center;
+ 
   }
 `;
 
